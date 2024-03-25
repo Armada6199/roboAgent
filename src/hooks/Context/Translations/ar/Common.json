@@ -1,0 +1,20 @@
+{
+    "lang":"ar",
+    "header_section":{
+        "signin_btn":"تسجيل دخول"
+    },
+    "login_page": {
+        "header_title": "بوابة إدارة الشكاوى",
+        "not_registered_label": "لا يوجد ليدك حساب ؟",
+        "create_user_acc_label": "انشاء حساب لمستخدم",
+        "create_admin_acc_label": "انشاء حساب لمسؤول",
+        "login_btn": "تسجيل دخول"
+
+    },
+    "signup_page":{
+        "user_reg_header_title": "استمارة تسجيل المستخدم",
+        "admin_reg_header_title": "استمارة تسجيل المسؤول",
+        "register_btn": "إنشاء حساب"
+    }
+
+}

@@ -1,0 +1,21 @@
+{
+    "lang":"en",
+    "header_section":{
+        "signin_btn":"Sign In"
+    },
+    "login_page": {
+        "header_title": "Complaints Management Portal",
+        "not_registered_label": "Not Registered ?",
+        "create_user_acc_label": "Create Customer Account",
+        "create_admin_acc_label": "Create Admin Account",
+        "login_btn": "Login"
+    },
+    "signup_page":{
+        "user_reg_header_title": "User Registration Form",
+        "admin_reg_header_title": "Admin Registration Form",
+        "register_btn": "Register"
+       
+    }
+    
+    
+}
