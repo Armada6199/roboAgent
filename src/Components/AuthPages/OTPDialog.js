@@ -9,7 +9,7 @@ import {
   Box,
   Button,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import FormStyle from "src/styles/styles";
 function OTPDialog({ setOpen2, open2, sendEmail }) {
@@ -20,28 +20,23 @@ function OTPDialog({ setOpen2, open2, sendEmail }) {
     setError,
   } = useForm();
   const [counter, setCounter] = useState(60);
+  const Ref = useRef(null);
+
   const checkOtp = (data) => {
     if (data.otp !== "0000") {
       setError("otp", { message: "OTP is not valid " });
     }
   };
-  const startCounter = () => {
-    const interval = setInterval(() => {
-      setCounter((prev) => {
-        if (prev) return prev - 1;
-      });
+  const clearTimer = (e) => {
+    if (Ref.current) clearInterval(Ref.current);
+    const id = setInterval(() => {
+      setCounter(60);
     }, 1000);
-    return interval;
+    Ref.current = id;
   };
-
   useEffect(() => {
-    const interval = startCounter();
-    return () => clearTimeout(interval);
+    clearTimer(60);
   }, []);
-  // useEffect(()=>{
-  //   const interval = startCounter();
-  //   return () => clearTimeout(interval);
-  // },[resend])
   return (
     <Dialog
       fullWidth={true}
@@ -87,7 +82,7 @@ function OTPDialog({ setOpen2, open2, sendEmail }) {
             <Button
               onClick={() => {
                 sendEmail();
-                setCounter(60);
+                clearTimer();
               }}
               style={{ color: "#2e7d32", mx: 4 }}
             >
