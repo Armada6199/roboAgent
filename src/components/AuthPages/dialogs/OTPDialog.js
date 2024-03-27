@@ -12,7 +12,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import FormStyle from "src/styles/styles";
-function OTPDialog({ setOpen2, open2, sendEmail }) {
+function OTPDialog({ setOpen2, open2, sendEmail, setIsNewPasswordOpen }) {
   const {
     register: otpRegister,
     handleSubmit: otpHandleSubmit,
@@ -25,24 +25,22 @@ function OTPDialog({ setOpen2, open2, sendEmail }) {
   const checkOtp = (data) => {
     if (data.otp !== "0000") {
       setError("otp", { message: "OTP is not valid " });
+    } else {
+      setIsNewPasswordOpen(true);
     }
   };
-  const clearTimer = (e) => {
-    if (Ref.current) clearInterval(Ref.current);
-    const id = setInterval(() => {
-      setCounter(60);
-    }, 1000);
-    Ref.current = id;
-  };
   useEffect(() => {
-    clearTimer(60);
-  }, []);
+    const timer =
+      counter > 0 && setInterval(() => setCounter((prev) => prev - 1), 1000);
+    return () => clearInterval(timer);
+  }, [counter]);
   return (
     <Dialog
       fullWidth={true}
       open={open2}
       onClose={() => {
         setOpen2(false);
+        setCounter(60);
       }}
       sx={{
         textAlign: "center",
@@ -82,7 +80,7 @@ function OTPDialog({ setOpen2, open2, sendEmail }) {
             <Button
               onClick={() => {
                 sendEmail();
-                clearTimer();
+                setCounter(60);
               }}
               style={{ color: "#2e7d32", mx: 4 }}
             >
