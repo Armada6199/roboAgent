@@ -1,6 +1,5 @@
 import { Box, styled } from "@mui/material";
 
-
 // style
 const FormStyle = styled("form")(({ theme }) => ({
   // root style
@@ -19,7 +18,6 @@ const FormStyle = styled("form")(({ theme }) => ({
     "&.Mui-focused fieldset": {
       borderColor: theme.palette.success.main,
     },
-
   },
   // error
   "& .Mui-error.MuiOutlinedInput-root": {
@@ -62,7 +60,6 @@ const FormStyle = styled("form")(({ theme }) => ({
     },
   },
 }));
-
 
 // styles
 const TopPaneStyle = styled(Box)(({ theme }) => ({

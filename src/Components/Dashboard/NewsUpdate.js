@@ -6,11 +6,11 @@ import DashCardHeader from "./DashCardHeader";
 
 // icon & images
 import { GrFormNext } from "react-icons/gr";
-import coverImg_1 from "/assets/Core/Images/newsList/cover_1.jpg";
-import coverImg_2 from "src/Core/Images/newsList/cover_2.jpg";
-import coverImg_3 from "src/Core/Images/newsList/cover_3.jpg";
-import coverImg_4 from "src/Core/Images/newsList/cover_4.jpg";
-import coverImg_5 from "src/Core/Images/newsList/cover_5.jpg";
+import coverImg_1 from "../../assets/Images/newsList/cover_1.jpg";
+import coverImg_2 from "src/assets/Images/newsList/cover_2.jpg";
+import coverImg_3 from "src/assets/Images/newsList/cover_3.jpg";
+import coverImg_4 from "src/assets/Images/newsList/cover_4.jpg";
+import coverImg_5 from "src/assets/Images/newsList/cover_5.jpg";
 import NewsUpdateItem from "./NewsUpdateItem";
 
 // News List

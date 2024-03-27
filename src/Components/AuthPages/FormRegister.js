@@ -6,12 +6,10 @@ import { useForm } from "react-hook-form";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import AxiosHit from "src/utils/API/AxiosHit";
 import { useUpdateAlert } from "src/hooks/Context/AlertContext";
-import { useUpdateLoginInfo } from "src/hooks/Context/LoginInfoContext";
-import FormStyle from "src/Styles/Styles";
-import { HandelRegularHit } from "src/Utils/API/HitHandiling";
-
+import FormStyle from "src/styles/styles";
+import AxiosHit from "src/utils/api/AxiosHit";
+import { HandelRegularHit } from "src/utils/HitHandiling";
 const FormRegister = () => {
   const [passwordsInfo, setPasswordsInfo] = useState({
     togglePassword: false,

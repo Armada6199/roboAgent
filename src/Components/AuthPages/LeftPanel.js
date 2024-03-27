@@ -29,7 +29,7 @@ const LeftPaneStyle = styled(Box)(({ theme }) => ({
   },
 }));
 
-const LeftPanel = ({ title, img, imgAlt, children },) => {
+const LeftPanel = ({ title, img, imgAlt, children }) => {
   return (
     <LeftPaneStyle>
       <Typography variant="h3">{title}</Typography>

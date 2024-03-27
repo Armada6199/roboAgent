@@ -6,17 +6,16 @@ import {
   InputAdornment,
   Link,
 } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
 import { TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import { useUpdateAlert } from "src/hooks/Context/AlertContext";
-import AxiosHit from "src/utils/API/AxiosHit";
-import { HandelRegularHit } from "src/Utils/API/HitHandiling";
 import { useUpdateLoginInfo } from "src/hooks/Context/LoginInfoContext";
-import FormStyle from "src/Styles/Styles";
+import FormStyle from "src/styles/styles";
+import AxiosHit from "src/utils/api/AxiosHit";
+import { HandelRegularHit } from "src/utils/HitHandiling";
 
 const FormLogin = () => {
   const [showPassword, setShowPassord] = useState(false);

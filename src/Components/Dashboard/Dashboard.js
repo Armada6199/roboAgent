@@ -1,15 +1,15 @@
 import { Grid, Typography } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import { Helmet } from "react-helmet";
-import ChartCurrentSubject from "src/Components/Dashboard/ChartCurrentSubject";
-import ChartSiteVisits from "src/Components/Dashboard/ChartSiteVisits";
-import ConversionRate from "src/Components/Dashboard/ConversionRate";
-import CurrentVisits from "src/Components/Dashboard/CurrentVisits";
-import InfoCards from "src/Components/Dashboard/InfoCards";
-import NewsUpdate from "src/Components/Dashboard/NewsUpdate";
-import OrderTimeline from "src/Components/Dashboard/OrderTimeline";
-import SocialTraffic from "src/Components/Dashboard/SocialTraffic";
-import Tasks from "src/Components/Dashboard/Tasks";
+import ChartCurrentSubject from "src/components/Dashboard/ChartCurrentSubject";
+import ChartSiteVisits from "src/components/Dashboard/ChartSiteVisits";
+import ConversionRate from "src/components/Dashboard/ConversionRate";
+import CurrentVisits from "src/components/Dashboard/CurrentVisits";
+import InfoCards from "src/components/Dashboard/InfoCards";
+import NewsUpdate from "src/components/Dashboard/NewsUpdate";
+import OrderTimeline from "src/components/Dashboard/OrderTimeline";
+import SocialTraffic from "src/components/Dashboard/SocialTraffic";
+import Tasks from "src/components/Dashboard/Tasks";
 
 // grid container style
 const GridContainerStyle = styled(Grid)(({ theme }) => ({

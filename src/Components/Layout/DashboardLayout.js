@@ -3,11 +3,11 @@ import { makeStyles } from "@material-ui/styles";
 import React, { useState } from "react";
 import { useLoginInfo } from "src/hooks/Context/LoginInfoContext";
 import { Outlet } from "react-router";
-import ShowAlert from "src/Components/ShowAlert";
+import ShowAlert from "src/components/ShowAlert";
 import MainHeader from "./MainHeader";
 import SideDrawer from "./SideDrawer";
 
-const useStyles = makeStyles((theme) => ({
+const usestyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
     display: "grid",
@@ -26,7 +26,7 @@ const DashboardLayout = (props) => {
   const LoginInfo = useLoginInfo();
   const { window } = props;
   const [toggleMenu, setToggleMenu] = useState(false);
-  const classes = useStyles();
+  const classes = usestyles();
 
   // toggle drawer
   const handleToggleDrawer = () => setToggleMenu(!toggleMenu);

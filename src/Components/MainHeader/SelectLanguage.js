@@ -13,8 +13,8 @@ import {
 } from "src/hooks/Context/LoginInfoContext";
 
 // images
-import AR_Flag from "src/Core/Images/ic_flag_ar.svg";
-import EN_Flag from "src/Core/Images/ic_flag_en.svg";
+import AR_Flag from "src/assets/Images/ic_flag_ar.svg";
+import EN_Flag from "src/assets/Images/ic_flag_en.svg";
 // import DE_Flag from "~/Core/Images/ic_flag_de.svg";
 // import FR_Flag from "~/Core/Images/ic_flag_fr.svg";
 

@@ -4,12 +4,12 @@ import { Box } from "@mui/system";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
-import FormLogin from "src/Components/AuthPages/FormLogin";
-import LeftPanel from "src/Components/AuthPages/LeftPanel";
+import FormLogin from "src/components/AuthPages/FormLogin";
+import LeftPanel from "src/components/AuthPages/LeftPanel";
 
 // img
-import LoginPhoto from "src/Core/Images/image_processing20210907-13511-1juj33d.gif";
-import { ContainerBoxStyle } from "src/Styles/Styles";
+import LoginPhoto from "src/assets/Images/image_processing20210907-13511-1juj33d.gif";
+import { ContainerBoxStyle } from "src/styles/styles";
 
 // styles
 

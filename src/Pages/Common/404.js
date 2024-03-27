@@ -2,7 +2,7 @@ import { Typography, Button } from "@material-ui/core";
 import { Box } from "@mui/system";
 import { styled } from "@material-ui/styles";
 import { Link as RouterLink } from "react-router-dom";
-import image from "src/Core/Images/404.svg";
+import image from "src/assets/Images/404.svg";
 import { Helmet } from "react-helmet";
 
 // style

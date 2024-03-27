@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { styled, ListItem, ListItemIcon, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
-const useStyles = makeStyles((theme) => ({
+const usestyles = makeStyles((theme) => ({
   activeClass: {
     color: `${theme.palette.green.darker} !important`,
     backgroundColor: theme.palette.green.lighter,
@@ -38,7 +38,7 @@ const CustomLinkStyle = styled(NavLink)(({ theme }) => ({
 }));
 
 const CustomListItem = (props) => {
-  const classes = useStyles();
+  const classes = usestyles();
 
   return (
     <ListItemStyle button onClick={props.onClick}>

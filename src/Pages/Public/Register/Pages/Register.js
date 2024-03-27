@@ -2,12 +2,12 @@ import { Container, Link, Typography } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import { Box } from "@mui/system";
 import { Helmet } from "react-helmet";
-import FormRegister from "src/Components/AuthPages/FormRegister";
-import LeftPanel from "src/Components/AuthPages/LeftPanel";
+import FormRegister from "src/components/AuthPages/FormRegister";
+import LeftPanel from "src/components/AuthPages/LeftPanel";
 
 // img
-import RegisterPhoto from "src/Core/Images/auth/register.png";
-import { TopPaneStyle } from "src/Styles/Styles";
+import RegisterPhoto from "src/assets/Images/auth/register.png";
+import { TopPaneStyle } from "src/styles/styles";
 
 // styles
 const ContainerBoxStyle = styled(Box)(({ theme }) => ({

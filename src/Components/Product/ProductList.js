@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
-import { products } from "src/utils/API/productApi";
+import { products } from "src/utils/api/productApi";
 import ProductListItem from "./ProductListItem";
 
 // grid style

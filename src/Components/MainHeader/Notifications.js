@@ -18,7 +18,7 @@ import { IoMailOpenSharp } from "react-icons/io5";
 import { FiBox } from "react-icons/fi";
 
 // styles
-const useStyles = makeStyles((theme) => ({
+const usestyles = makeStyles((theme) => ({
   grayMain: {
     color: theme.palette.gray.main,
   },
@@ -173,7 +173,7 @@ const unSeenNotifications = notificationList.filter(
 const totalUnseenNotifications = unSeenNotifications.length;
 
 const Notifications = (props) => {
-  const classes = useStyles();
+  const classes = usestyles();
 
   return (
     <>

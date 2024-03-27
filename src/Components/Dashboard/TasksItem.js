@@ -4,7 +4,10 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 
 const TasksItem = ({ id, status, label, mission, checkOptions }) => {
   const [checked, setChecked] = useState(status);
-  const handleChange = (e) => { setChecked(e.target.checked); checkOptions(id, e.target.checked) };
+  const handleChange = (e) => {
+    setChecked(e.target.checked);
+    checkOptions(id, e.target.checked);
+  };
 
   // style
   const FormControlLabelStyle = styled(FormControlLabel)(({ theme }) => ({
@@ -27,11 +30,17 @@ const TasksItem = ({ id, status, label, mission, checkOptions }) => {
   }));
 
   return (
-    <FormControlLabelStyle 
+    <FormControlLabelStyle
       key={id}
-      control={<Checkbox checked={checked} onChange={handleChange} id={id} name="selectedOptions" />}
+      control={
+        <Checkbox
+          checked={checked}
+          onChange={handleChange}
+          id={id}
+          name="selectedOptions"
+        />
+      }
       label={label}
-
     />
   );
 };

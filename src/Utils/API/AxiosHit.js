@@ -1,5 +1,5 @@
 import axios from "axios";
-import { HitHandle } from "../../Utils/HitHandiling";
+import { HitHandle } from "../HitHandiling";
 
 axios.defaults.baseURL = "http://10.150.8.187:9000/api/";
 if (localStorage.getItem("authorization")) {

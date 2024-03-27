@@ -19,11 +19,11 @@ import {
   RiServerFill,
   RiShoppingBag3Fill,
 } from "react-icons/ri";
-import userAvatar from "src/Core/Images/GreenQiwa.jpg";
-import getMoreAvatar from "src/Core/Images/pom-bot.gif";
+import userAvatar from "src/assets/Images/GreenQiwa.jpg";
+import getMoreAvatar from "src/assets/Images/pom-bot.gif";
 
-import CustomListItem from "src/Components/Drawer/CustomListItem";
-import { drawerWidth } from "src/Components/Layout/DashboardLayout";
+import CustomListItem from "src/components/Drawer/CustomListItem";
+import { drawerWidth } from "src/components/Layout/DashboardLayout";
 const NavDrawerStyle = styled("nav")(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {
     width: drawerWidth,

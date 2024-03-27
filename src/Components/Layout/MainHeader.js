@@ -9,9 +9,9 @@ import { RiMenu3Line } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
 
 // components
-import LanguageSelector from "src/Components/MainHeader/SelectLanguage";
-import Notifications from "src/Components/MainHeader/Notifications";
-import UserMenu from "src/Components/MainHeader/UserMenu";
+import LanguageSelector from "src/components/MainHeader/SelectLanguage";
+import Notifications from "src/components/MainHeader/Notifications";
+import UserMenu from "src/components/MainHeader/UserMenu";
 import { useLoginInfo } from "src/hooks/Context/LoginInfoContext";
 import DarkModeSelector from "../MainHeader/DarkModeSelector";
 

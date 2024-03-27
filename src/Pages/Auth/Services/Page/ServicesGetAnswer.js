@@ -6,11 +6,11 @@ import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import AxiosHit from "src/utils/API/AxiosHit";
-import TasksItem from "src/Components/Dashboard/TasksItem";
+import AxiosHit from "src/utils/api/AxiosHit";
+import TasksItem from "src/components/Dashboard/TasksItem";
 import { useLangInfo } from "src/hooks/Context/LoginInfoContext";
-import FormStyle, { TopPaneStyle } from "src/Styles/Styles";
-import { numbersOnly } from "src/Core/Utils/DefualtValidators";
+import FormStyle, { TopPaneStyle } from "src/styles/styles";
+import { numbersOnly } from "src/utils/DefualtValidators";
 
 const FormGroupStyle = styled(FormGroup)(({ theme }) => ({
   padding: theme.spacing(1),

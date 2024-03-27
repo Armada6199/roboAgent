@@ -2,9 +2,9 @@ import { Container } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 
 // components
-import BlogHeader from "src/Components/Blog/BlogHeader";
-import BlogFilters from "src/Components/Blog/BlogFilters";
-import Blogs from "src/Components/Blog/Blogs";
+import BlogHeader from "src/components/Blog/BlogHeader";
+import BlogFilters from "src/components/Blog/BlogFilters";
+import Blogs from "src/components/Blog/Blogs";
 import { Helmet } from "react-helmet";
 
 // style

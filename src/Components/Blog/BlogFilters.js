@@ -6,7 +6,7 @@ import { Box } from "@mui/system";
 import { FiSearch } from "react-icons/fi";
 
 // blogs
-import { blogList } from "src/utils/API/blogApi";
+import { blogList } from "src/utils/api/blogApi";
 
 // style
 const BoxStyle = styled(Box)(({ theme }) => ({

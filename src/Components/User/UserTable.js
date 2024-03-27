@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { userData } from "src/utils/API/userApi";
+import { userData } from "src/utils/api/userApi";
 import {
   TableContainer,
   Table,
@@ -14,7 +14,7 @@ import { styled } from "@material-ui/styles";
 import TableToolbar from "./TableToolbar";
 import UserTableHead from "./UserTableHead";
 import UserMore from "./UserMore";
-import AxiosHit from "src/utils/API/AxiosHit";
+import AxiosHit from "src/utils/api/AxiosHit";
 import { Box } from "@mui/material";
 
 // style

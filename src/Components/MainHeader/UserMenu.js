@@ -12,12 +12,12 @@ import {
 import { makeStyles, styled, withStyles } from "@material-ui/styles";
 
 // icons & images
-import userAvatar from "src/Core/Images/GreenQiwa.jpg";
+import userAvatar from "src/assets/Images/GreenQiwa.jpg";
 import { RiHome4Fill, RiUserFill, RiSettings3Fill } from "react-icons/ri";
 import { useLoginInfo } from "src/hooks/Context/LoginInfoContext";
 
 // styles
-const useStyles = makeStyles((theme) => ({
+const usestyles = makeStyles((theme) => ({
   grayMain: {
     color: theme.palette.gray.main,
   },
@@ -109,7 +109,7 @@ const links = [
 ];
 
 const UserMenu = (props) => {
-  const classes = useStyles();
+  const classes = usestyles();
   const LoginInfo = useLoginInfo();
   console.log("LoginInfo", LoginInfo);
   return (

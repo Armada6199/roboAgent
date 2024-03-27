@@ -4,7 +4,7 @@ import { Box } from "@mui/system";
 import BlogSocialInfo from "./BlogSocialInfo";
 
 // blog
-import { blogList } from "src/utils/API/blogApi";
+import { blogList } from "src/utils/api/blogApi";
 
 // styles
 const GridContainerStyle = styled(Grid)(({ theme }) => ({
