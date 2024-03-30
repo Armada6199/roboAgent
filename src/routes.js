@@ -23,7 +23,7 @@ const Routes = () => {
       children: [
         {
           path: "",
-          element: false ? (
+          element: loginInfo.login ? (
             <Navigate to="/dash/dashboard" />
           ) : (
             <Navigate to="/auth/login" />
@@ -35,7 +35,11 @@ const Routes = () => {
     // auth
     {
       path: "auth",
-      element: false ? <Navigate to="/dash/dashboard" /> : <DashboardLayout />,
+      element: loginInfo.login ? (
+        <Navigate to="/dash/dashboard" />
+      ) : (
+        <DashboardLayout />
+      ),
       children: [
         { path: "login", element: <Login /> },
         { path: "*", element: <ErrorPage /> },
@@ -45,7 +49,11 @@ const Routes = () => {
     // dash
     {
       path: "dash",
-      element: false ? <DashboardLayout /> : <Navigate to="/auth/login" />,
+      element: loginInfo.login ? (
+        <DashboardLayout />
+      ) : (
+        <Navigate to="/auth/login" />
+      ),
       children: [
         { path: "Dashboard", element: <Dashboard /> },
         { path: "user", element: <User /> },

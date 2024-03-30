@@ -26,6 +26,8 @@ function OTPDialog({ setOpen2, open2, sendEmail, setIsNewPasswordOpen }) {
     if (data.otp !== "0000") {
       setError("otp", { message: "OTP is not valid " });
     } else {
+      setOpen2(false);
+
       setIsNewPasswordOpen(true);
     }
   };
@@ -75,7 +77,9 @@ function OTPDialog({ setOpen2, open2, sendEmail, setIsNewPasswordOpen }) {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Typography>Haven't recieved the OTP ?</Typography>
+          <Typography variant="subtitle1">
+            Haven't recieved the OTP ?
+          </Typography>
           {!counter ? (
             <Button
               onClick={() => {
@@ -87,7 +91,12 @@ function OTPDialog({ setOpen2, open2, sendEmail, setIsNewPasswordOpen }) {
               Resend
             </Button>
           ) : (
-            <Typography fontSize={14} marginLeft={1}>
+            <Typography
+              variant="body2"
+              fontSize={14}
+              fontWeight={"bold"}
+              marginLeft={1}
+            >
               {counter}
             </Typography>
           )}

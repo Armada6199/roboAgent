@@ -7,11 +7,13 @@ import {
   Link,
 } from "@material-ui/core";
 import {
+  Alert,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Snackbar,
   TextField,
   Typography,
 } from "@mui/material";
@@ -31,6 +33,8 @@ const FormLogin = () => {
   const [remember, setRemember] = useState(true);
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+
   const [isNewPasswordOpen, setIsNewPasswordOpen] = useState(false);
   const loginUpdate = useUpdateLoginInfo();
 
@@ -81,6 +85,13 @@ const FormLogin = () => {
     setOpen2(true);
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setIsSnackbarOpen(false);
+  };
   return (
     <>
       <Dialog
@@ -130,7 +141,7 @@ const FormLogin = () => {
         </DialogActions>
       </Dialog>
       {open2 && (
-        <OTPDialog
+        <OTPDialogd
           sendEmail={sendEmail}
           setIsNewPasswordOpen={setIsNewPasswordOpen}
           setOpen2={setOpen2}
@@ -141,6 +152,7 @@ const FormLogin = () => {
         <NewPassDialog
           isNewPasswordOpen={isNewPasswordOpen}
           setIsNewPasswordOpen={setIsNewPasswordOpen}
+          setIsSnackbarOpen={setIsSnackbarOpen}
         />
       )}
       <FormStyle component="form" onSubmit={handleSubmit(onSubmit)}>
@@ -215,6 +227,21 @@ const FormLogin = () => {
         <Button type="submit" variant="contained" disableElevation>
           Login
         </Button>
+        <Snackbar
+          open={isSnackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
+            Your Password has been changed successfully
+          </Alert>
+        </Snackbar>
       </FormStyle>
     </>
   );

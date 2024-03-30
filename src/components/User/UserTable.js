@@ -102,7 +102,7 @@ const UserTable = () => {
   useState(async () => {
     let users = await getUsers();
     console.log("users ===> ", users);
-    users.map((u) => delete u.users);
+    users?.map((u) => delete u.users);
     setTabelHeaders(Object.keys(users[0]));
     setUsersInfo(users);
     console.log("users ===> ", Object.keys(users[0]));
