@@ -1,7 +1,7 @@
-import { createTheme } from "@material-ui/core";
+import { createTheme } from "@mui/material/styles";
 
 // custom theme
-const theme = createTheme({
+const lightTheme = createTheme({
   palette: {
     primary: {
       main: "#556cd6",
@@ -91,4 +91,4 @@ const darkTheme = createTheme({
     },
   },
 });
-export { theme, darkTheme };
+export { lightTheme, darkTheme };

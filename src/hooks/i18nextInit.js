@@ -1,5 +1,5 @@
-import Common_ar from "./ar/Common.json";
-import Common_en from "./en/Common.json";
+import Common_ar from "src/dictonaries/ar/common.json";
+import Common_en from "src/dictonaries/en/common.json";
 import i18next from "i18next";
 
 const lang = localStorage.getItem("lang") || "English";

@@ -1,9 +1,6 @@
-import { Container, Link, Typography } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
-import { Box } from "@mui/system";
+import { Container, Typography } from "@material-ui/core";
+import { Box, styled } from "@mui/system";
 import { Helmet } from "react-helmet";
-import { useTranslation } from "react-i18next";
-import { Link as RouterLink } from "react-router-dom";
 import FormLogin from "src/components/AuthPages/FormLogin";
 import LeftPanel from "src/components/AuthPages/LeftPanel";
 
@@ -19,14 +16,14 @@ const RightPanelStyle = styled(Box)(({ theme }) => ({
 
   "& .account_switch": {
     textAlign: "right",
-    paddingRight: theme.spacing(3),
-    marginBottom: theme.spacing(8),
+    paddingRight: theme.spacing,
+    marginBottom: theme.spacing,
     "& .MuiLink-underlineNone	": {
       color: theme.palette.green.darker,
       fontWeight: 500,
     },
     [theme.breakpoints.down("sm")]: {
-      paddingRight: theme.spacing(1.5),
+      paddingRight: theme.spacing,
     },
   },
 

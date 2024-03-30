@@ -136,18 +136,14 @@ export function LoginInfoProvider({ children }) {
   });
 
   return (
-    <DarkModeContext.Provider value={darkModeData}>
-      <UpdateDarkModeContext.Provider value={dispatchMode}>
-        <LangInfoContext.Provider value={langData}>
-          <UpdateLangInfoContext.Provider value={dispatchLang}>
-            <LoginInfoContext.Provider value={loginData}>
-              <UpdateLoginInfoContext.Provider value={dispatch}>
-                {children}
-              </UpdateLoginInfoContext.Provider>
-            </LoginInfoContext.Provider>
-          </UpdateLangInfoContext.Provider>
-        </LangInfoContext.Provider>
-      </UpdateDarkModeContext.Provider>
-    </DarkModeContext.Provider>
+    <LangInfoContext.Provider value={langData}>
+      <UpdateLangInfoContext.Provider value={dispatchLang}>
+        <LoginInfoContext.Provider value={loginData}>
+          <UpdateLoginInfoContext.Provider value={dispatch}>
+            {children}
+          </UpdateLoginInfoContext.Provider>
+        </LoginInfoContext.Provider>
+      </UpdateLangInfoContext.Provider>
+    </LangInfoContext.Provider>
   );
 }

@@ -1,10 +1,4 @@
-import {
-  IconButton,
-  styled,
-  Menu,
-  MenuItem,
-  ListItemText,
-} from "@material-ui/core";
+import { IconButton, Menu, MenuItem, ListItemText } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import {
   useUpdateLangInfo,
@@ -15,47 +9,47 @@ import {
 // images
 import AR_Flag from "src/assets/Images/ic_flag_ar.svg";
 import EN_Flag from "src/assets/Images/ic_flag_en.svg";
+import { styled } from "@mui/system";
 // import DE_Flag from "~/Core/Images/ic_flag_de.svg";
 // import FR_Flag from "~/Core/Images/ic_flag_fr.svg";
 
 // Menu styles
-const StyledMenu = withStyles((theme) => ({
+const StyledMenu = styled(Menu)(({ theme }) => ({
   paper: {
     minWidth: 175,
     boxShadow: `0 2px 10px -5px ${theme.palette.green.darker}`,
   },
-}))((props) => (
-  <Menu
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "right",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "right",
-    }}
-    {...props}
-  />
-));
+}));
 
-const StyledMenuItem = withStyles((theme) => ({
-  root: {
-    "&:active": {
-      backgroundColor: theme.palette.green.light,
-    },
-    "& .MuiListItemText-primary": {
-      marginLeft: theme.spacing(2.5),
-      fontSize: theme.spacing(2.25),
-    },
+// Usage
+<StyledMenu
+  elevation={0}
+  getContentAnchorEl={null}
+  anchorOrigin={{
+    vertical: "bottom",
+    horizontal: "right",
+  }}
+  transformOrigin={{
+    vertical: "top",
+    horizontal: "right",
+  }}
+  // ...other props
+/>;
+
+const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
+  "&:active": {
+    backgroundColor: theme.palette.green.light,
   },
-}))(MenuItem);
+  "& .MuiListItemText-primary": {
+    marginLeft: theme.spacing,
+    fontSize: theme.spacing,
+  },
+}));
 
 const IconButtonStyle = styled(IconButton)(({ theme }) => ({
   padding: "12px 9px",
   "& img": {
-    width: theme.spacing(3),
+    width: theme.spacing,
   },
 }));
 
