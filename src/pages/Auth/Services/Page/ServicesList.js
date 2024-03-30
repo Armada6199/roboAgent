@@ -1,7 +1,7 @@
 import { Grid } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import { Services } from "../Schema/ServicesSchema";
-import ServicesListItem from "./utils/ServicesListItem";
+import ServicesListItem from "./Utils/ServicesListItem";
 // grid style
 const GridStyle = styled(Grid)(({ theme }) => ({
   marginTop: theme.spacing(3),
