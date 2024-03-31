@@ -1,7 +1,7 @@
 import { Box, styled, Toolbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import React, { useState } from "react";
-import { useLoginInfo } from "src/hooks/Context/LoginInfoContext";
+import React, { useContext, useState } from "react";
+import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 import { Outlet } from "react-router";
 import ShowAlert from "src/components/ShowAlert";
 import MainHeader from "./MainHeader";
@@ -23,7 +23,7 @@ const MainStyle = styled("main")(({ theme }) => ({
 
 const DashboardLayout = (props) => {
   // window width
-  const LoginInfo = useLoginInfo();
+  const { loginData } = useContext(LoginContext);
   const { window } = props;
   const [toggleMenu, setToggleMenu] = useState(false);
   const classes = usestyles();
@@ -43,7 +43,7 @@ const DashboardLayout = (props) => {
         <MainHeader onClick={handleToggleDrawer} />
 
         {/* Drawer */}
-        {LoginInfo.login ? (
+        {loginData.isLoggedIn ? (
           <>
             <SideDrawer
               container={container}

@@ -1,8 +1,8 @@
 import { Card, Link, Typography } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import { Box } from "@mui/system";
+import i18next from "i18next";
 import { Link as RouteLink } from "react-router-dom";
-import { useLangInfo } from "src/hooks/Context/LoginInfoContext";
 
 // card style
 const CardStyle = styled(Card)(({ theme }) => ({
@@ -31,7 +31,6 @@ const ServicesListItem = (props) => {
   //   right: theme.spacing(2),
   //   textTransform: "uppercase",
   // }));
-  const LangInfo = useLangInfo().langInfo;
   const navigateToService = () => {
     <>
       {localStorage.setItem("Service", props.service)}{" "}
@@ -80,7 +79,9 @@ const ServicesListItem = (props) => {
             style={{ fontWeight: "bold", fontSize: "20px" }}
             noWrap
           >
-            {LangInfo === "English" ? serviceInfo.enName : serviceInfo.arName}
+            {i18next.language === "English"
+              ? serviceInfo.enName
+              : serviceInfo.arName}
           </Typography>
 
           {/* Price & Color box */}

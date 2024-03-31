@@ -1,149 +1,52 @@
-import React, { useContext, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
-import useLocalStorage, { clearStorage } from "../../utils/useLocalStorag";
+import axios from "axios"; //
+import React, { useEffect, useReducer } from "react";
+import cookie from "react-cookies";
+import { initialState, loginReducer } from "../reducers/loginReducer";
+export const LoginContext = React.createContext();
+function LoginProvider(props) {
+  const [loginData, loginDispatch] = useReducer(loginReducer, initialState);
+  // function can(capability) {
+  //   return loginData.user.capabilities?.includes(capability) && loginData.token;
+  // }
 
-const LoginInfoContext = React.createContext();
-const UpdateLoginInfoContext = React.createContext();
-
-const LangInfoContext = React.createContext();
-const UpdateLangInfoContext = React.createContext();
-
-const DarkModeContext = React.createContext();
-const UpdateDarkModeContext = React.createContext();
-
-export function useLangInfo() {
-  return useContext(LangInfoContext);
-}
-
-export function useUpdateLangInfo() {
-  return useContext(UpdateLangInfoContext);
-}
-
-export function useDarkMode() {
-  return useContext(DarkModeContext);
-}
-
-export function useUpdateDarkMode() {
-  return useContext(UpdateDarkModeContext);
-}
-export const ACTIONS = {
-  SIGN_IN: "sign-in",
-  SIGN_OUT: "sign-out",
-  CHNG_LANG: "Change-Language",
-  CHNG_MODE: "Change-Mode",
-};
-
-export function useLoginInfo() {
-  return useContext(LoginInfoContext);
-}
-
-export function useUpdateLoginInfo() {
-  return useContext(UpdateLoginInfoContext);
-}
-export function LoginInfoProvider({ children }) {
-  const lang = !localStorage.getItem("lang")
-    ? "English"
-    : localStorage.getItem("lang");
-  const darkMode = !localStorage.getItem("DarkMode")
-    ? false
-    : localStorage.getItem("DarkMode");
-  const userInfo = !localStorage.getItem("userInfo")
-    ? ""
-    : localStorage.getItem("userInfo");
-  const authorization = !localStorage.getItem("authorization")
-    ? ""
-    : localStorage.getItem("authorization");
-  const [darkModeStorage, setDarkModeStorage] = useLocalStorage(
-    "DarkMode",
-    darkMode
-  );
-  const [langStorage, setLangStorage] = useLocalStorage("lang", lang);
-  const [userStorage, setUserStorage] = useLocalStorage("userInfo", userInfo);
-  const [authStorage, setAuthStorage] = useLocalStorage(
-    "authorization",
-    authorization
-  );
-  const navigate = useNavigate();
-
-  function newLangMode(langInfo) {
-    if (!!langInfo) {
-      setLangStorage(langInfo);
-    }
-
-    return { langInfo: langInfo };
-  }
-  //dsfjakjf
-  function newDarkMode(darkMode) {
-    console.log("newDarkMode ==> ", darkMode);
-    setDarkModeStorage(darkMode);
-    return { darkMode: darkMode };
+  function logout() {
+    console.log("loged out ");
+    setLoginState(false, null, {});
   }
 
-  function newLogin(userInfo, authorization) {
-    setUserStorage(userInfo);
-    setAuthStorage(authorization);
-    navigate("/");
-
-    return {
-      userInfo: userInfo,
-      authorization: authorization,
-      login: true,
-      date: Date.now(),
-    };
+  function setLoginState(loggedIn, token, user, error) {
+    cookie.save("auth", token);
+    dispatch({ type: "CHANGE_LOGIN_STATUS", payload: loggedIn });
+    dispatch({ type: "CHANGE_TOKEN", payload: token });
+    dispatch({ type: "CHANGE_USER", payload: user });
+    // dispatch({ type: 'CHANGE_ERROR', payload: error });
   }
 
-  function reducer(loginData, action) {
-    switch (action.type) {
-      case ACTIONS.SIGN_IN:
-        return newLogin(action.payload.userInfo, action.payload.authorization);
-      case ACTIONS.SIGN_OUT:
-        clearStorage();
-        return "";
-      default:
-        return loginData;
-    }
-  }
-  function reducerLang(langData, action) {
-    console.log("reducerLang langData, ", langData);
-    console.log("reducerLang action, ", action);
-    switch (action.type) {
-      case ACTIONS.CHNG_LANG:
-        return newLangMode(action.payload.langInfo);
-      default:
-        return langData;
-    }
-  }
-  function reducerMode(modeData, action) {
-    console.log("reducerLang modeData, ", modeData);
-    console.log("reducerLang action, ", action);
-    switch (action.type) {
-      case ACTIONS.CHNG_MODE:
-        return newDarkMode(action.payload.darkMode);
-      default:
-        return modeData;
-    }
-  }
-  const [loginData, dispatch] = useReducer(reducer, {
-    userInfo: userStorage,
-    authorization: authStorage,
-    login: !!userStorage && !!authStorage,
-  });
-  const [langData, dispatchLang] = useReducer(reducerLang, {
-    langStorage: langStorage,
-  });
-  const [darkModeData, dispatchMode] = useReducer(reducerMode, {
-    darkModeStorage: darkModeStorage,
-  });
+  useEffect(() => {
+    const qs = new URLSearchParams(window.location.search);
+    const cookieToken = cookie.load("auth");
+    const token = qs.get("token") || cookieToken || null;
+    // validateToken(token);
+  }, []);
+  // useEffect(() => {
+  //   localStorage.setItem("log");
+  // }, [loginData.isLoggedIn]);
 
   return (
-    <LangInfoContext.Provider value={langData}>
-      <UpdateLangInfoContext.Provider value={dispatchLang}>
-        <LoginInfoContext.Provider value={loginData}>
-          <UpdateLoginInfoContext.Provider value={dispatch}>
-            {children}
-          </UpdateLoginInfoContext.Provider>
-        </LoginInfoContext.Provider>
-      </UpdateLangInfoContext.Provider>
-    </LangInfoContext.Provider>
+    <LoginContext.Provider
+      value={{
+        // can,
+        logout,
+        loginDispatch,
+        // signup,
+        // updateData,
+        loginData,
+        loginDispatch,
+      }}
+    >
+      {props.children}
+    </LoginContext.Provider>
   );
 }
+
+export default LoginProvider;

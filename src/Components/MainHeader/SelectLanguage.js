@@ -1,15 +1,11 @@
-import { IconButton, Menu, MenuItem, ListItemText } from "@material-ui/core";
-import { withStyles } from "@material-ui/styles";
-import {
-  useUpdateLangInfo,
-  useLangInfo,
-  ACTIONS,
-} from "src/hooks/Context/LoginInfoContext";
+import { IconButton, ListItemText, Menu, MenuItem } from "@material-ui/core";
 
 // images
+import { styled } from "@mui/system";
+import { changeLanguage } from "i18next";
+import { useTranslation } from "react-i18next";
 import AR_Flag from "src/assets/Images/ic_flag_ar.svg";
 import EN_Flag from "src/assets/Images/ic_flag_en.svg";
-import { styled } from "@mui/system";
 // import DE_Flag from "~/Core/Images/ic_flag_de.svg";
 // import FR_Flag from "~/Core/Images/ic_flag_fr.svg";
 
@@ -62,9 +58,7 @@ const languages = [
 ];
 
 const LanguageSelector = (props) => {
-  const langUpdate = useUpdateLangInfo();
-  const LangInfo = useLangInfo().langInfo;
-  console.log("LangInfo ===> ", LangInfo);
+  const { i18n } = useTranslation();
   return (
     <>
       <IconButtonStyle
@@ -72,11 +66,11 @@ const LanguageSelector = (props) => {
         aria-haspopup="true"
         onClick={props.onOpen}
       >
-        {!!LangInfo ? (
+        {!!i18n.language ? (
           <>
             {
               languages.filter((l) => {
-                return l.alt === LangInfo;
+                return l.alt === i18n.language;
               })[0].src
             }
           </>
@@ -99,10 +93,7 @@ const LanguageSelector = (props) => {
             onClick={(e) => {
               console.log("click");
               console.log(el.alt);
-              langUpdate({
-                type: ACTIONS.CHNG_LANG,
-                payload: { langInfo: el.alt },
-              });
+              changeLanguage(e);
               props.onClose(e);
             }}
           >

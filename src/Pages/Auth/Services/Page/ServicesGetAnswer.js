@@ -3,14 +3,14 @@ import { styled } from "@material-ui/styles";
 import { Services } from "../Schema/ServicesSchema";
 
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import i18next from "i18next";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import AxiosHit from "src/utils/api/AxiosHit";
 import TasksItem from "src/components/Dashboard/TasksItem";
-import { useLangInfo } from "src/hooks/Context/LoginInfoContext";
 import FormStyle, { TopPaneStyle } from "src/styles/styles";
 import { numbersOnly } from "src/utils/DefualtValidators";
+import AxiosHit from "src/utils/api/AxiosHit";
 
 const FormGroupStyle = styled(FormGroup)(({ theme }) => ({
   padding: theme.spacing(1),
@@ -19,7 +19,6 @@ const FormGroupStyle = styled(FormGroup)(({ theme }) => ({
 
 const ServicesGetAnswer = () => {
   const [t] = useTranslation("common");
-  const langInfo = useLangInfo().langInfo;
   const currService = Services[localStorage.getItem("Service")];
   const [answer, setAnswer] = useState();
   const [loading, setLoading] = useState();
@@ -90,7 +89,9 @@ const ServicesGetAnswer = () => {
           padding={1}
         >
           <Typography margin={2} variant="h3" style={{ fontWeight: "bold" }}>
-            {langInfo === "English" ? currService.enName : currService.arName}
+            {i18next.language === "English"
+              ? currService.enName
+              : currService.arName}
           </Typography>
         </TopPaneStyle>
       </Box>
@@ -174,7 +175,9 @@ const ServicesGetAnswer = () => {
                 id={el.id}
                 status={!el.active}
                 label={
-                  langInfo === "English" ? el.label.enLabel : el.label.arLabel
+                  i18next.language === "English"
+                    ? el.label.enLabel
+                    : el.label.arLabel
                 }
                 mission={false}
                 checkOptions={handelCheckValue}

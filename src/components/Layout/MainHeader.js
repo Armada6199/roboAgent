@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, useContext, useState } from "react";
 
 import { AppBar, Box, IconButton, styled, Toolbar } from "@material-ui/core";
 
@@ -12,8 +12,9 @@ import { BiSearch } from "react-icons/bi";
 import LanguageSelector from "src/components/MainHeader/SelectLanguage";
 import Notifications from "src/components/MainHeader/Notifications";
 import UserMenu from "src/components/MainHeader/UserMenu";
-import { useLoginInfo } from "src/hooks/Context/LoginInfoContext";
 import DarkModeSelector from "../MainHeader/DarkModeSelector";
+import { LoginContext } from "src/hooks/Context/LoginInfoContext";
+import Loader from "../Loader";
 
 const AppBarStyle = styled(AppBar)(({ theme }) => ({
   boxShadow: "none",
@@ -65,81 +66,86 @@ const MainHeader = (props) => {
   // User Menu
   const handleOpenUserMenu = (e) => setShowUserMenu(e.currentTarget);
   const handleCloseUserMenu = () => setShowUserMenu(null);
-  const LoginInfo = useLoginInfo();
+  const { loginData } = useContext(LoginContext);
 
-  if (!!LoginInfo.userInfo.email) {
+  if (!!loginData.userInfo.email) {
     return (
-      <AppBarStyle position="fixed">
-        <ToolbarStyle>
-          {/* Left side's items */}
-          <ContainerStyle>
-            <ToggleButtonStyle
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={props.onClick}
-            >
-              <RiMenu3Line />
-            </ToggleButtonStyle>
+      <Suspense fallback={<Loader />}>
+        <AppBarStyle position="fixed">
+          <ToolbarStyle>
+            {/* Left side's items */}
+            <ContainerStyle>
+              <ToggleButtonStyle
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={props.onClick}
+              >
+                <RiMenu3Line />
+              </ToggleButtonStyle>
 
-            <IconButton aria-label="search">
-              <BiSearch fontSize="small" />
-            </IconButton>
-          </ContainerStyle>
+              <IconButton aria-label="search">
+                <BiSearch fontSize="small" />
+              </IconButton>
+            </ContainerStyle>
 
-          {/* Right side's items */}
-          <ContainerStyle>
-            {/* Language selector */}
-            <LanguageSelector
-              anchorEl={showLang}
-              onOpen={handleOpenLang}
-              onClose={handleCloseLang}
-            />
-            {/* Notification */}
+            {/* Right side's items */}
+            <ContainerStyle>
+              {/* Language selector */}
+              <LanguageSelector
+                anchorEl={showLang}
+                onOpen={handleOpenLang}
+                onClose={handleCloseLang}
+              />
+              {/* Notification */}
 
-            <Notifications
-              anchorEl={showNotification}
-              onOpen={handleOpenNotification}
-              onClose={handleCloseNotification}
-            />
-            {/* User Avatar */}
-            <UserMenu
-              anchorEl={showUserMenu}
-              onOpen={handleOpenUserMenu}
-              onClose={handleCloseUserMenu}
-            />
-          </ContainerStyle>
-        </ToolbarStyle>
-      </AppBarStyle>
+              <Notifications
+                anchorEl={showNotification}
+                onOpen={handleOpenNotification}
+                onClose={handleCloseNotification}
+              />
+              {/* User Avatar */}
+              <UserMenu
+                anchorEl={showUserMenu}
+                onOpen={handleOpenUserMenu}
+                onClose={handleCloseUserMenu}
+              />
+            </ContainerStyle>
+          </ToolbarStyle>
+        </AppBarStyle>
+      </Suspense>
     );
   } else {
     return (
-      <AppBarStyle position="fixed">
-        <ToolbarStyle>
-          {/* Left side's items */}
-          <ContainerStyle>
-            <ToggleButtonStyle
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={props.onClick}
-            >
-              <RiMenu3Line />
-            </ToggleButtonStyle>
-          </ContainerStyle>
+      <Suspense fallback={<Loader />}>
+        <AppBarStyle position="fixed">
+          <ToolbarStyle>
+            {/* Left side's items */}
+            <ContainerStyle>
+              <ToggleButtonStyle
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={props.onClick}
+              >
+                <RiMenu3Line />
+              </ToggleButtonStyle>
+            </ContainerStyle>
 
-          {/* Right side's items */}
-          <ContainerStyle>
-            {/* Language selector */}
-            <DarkModeSelector />
-            <LanguageSelector
-              anchorEl={showLang}
-              onOpen={handleOpenLang}
-              onClose={handleCloseLang}
-            />
-          </ContainerStyle>
-        </ToolbarStyle>
-      </AppBarStyle>
+            {/* Right side's items */}
+            <ContainerStyle>
+              {/* Language selector */}
+              <DarkModeSelector />
+
+              <LanguageSelector
+                anchorEl={showLang}
+                onOpen={handleOpenLang}
+                onClose={handleCloseLang}
+              />
+            </ContainerStyle>
+          </ToolbarStyle>
+        </AppBarStyle>
+      </Suspense>
     );
   }
 };

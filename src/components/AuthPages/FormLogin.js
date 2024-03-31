@@ -18,25 +18,24 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import { useUpdateAlert } from "src/hooks/Context/AlertContext";
-import { useUpdateLoginInfo } from "src/hooks/Context/LoginInfoContext";
 import FormStyle from "src/styles/styles";
-import AxiosHit from "src/utils/api/AxiosHit";
 import { HandelRegularHit } from "src/utils/HitHandiling";
-import OTPDialog from "./dialogs/OTPDialog";
+import AxiosHit from "src/utils/api/AxiosHit";
 import NewPassDialog from "./dialogs/NewPassDialog";
+import OTPDialog from "./dialogs/OTPDialog";
+import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 const FormLogin = () => {
   const [showPassword, setShowPassord] = useState(false);
   const [remember, setRemember] = useState(true);
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
-
+  const { loginDispatch } = useContext(LoginContext);
   const [isNewPasswordOpen, setIsNewPasswordOpen] = useState(false);
-  const loginUpdate = useUpdateLoginInfo();
 
   const handleTogglePassword = () => setShowPassord(!showPassword);
   const handleToggleRemember = () => setRemember(!remember);
@@ -72,9 +71,7 @@ const FormLogin = () => {
         password: values.password,
       },
     });
-    console.log("hitResult ===> ", hitResult);
-
-    HandelRegularHit({ hitResult, setAlertInfo, loginUpdate, values });
+    HandelRegularHit({ hitResult, setAlertInfo, loginDispatch, values });
   };
 
   // for reset
@@ -141,7 +138,7 @@ const FormLogin = () => {
         </DialogActions>
       </Dialog>
       {open2 && (
-        <OTPDialogd
+        <OTPDialog
           sendEmail={sendEmail}
           setIsNewPasswordOpen={setIsNewPasswordOpen}
           setOpen2={setOpen2}

@@ -14,7 +14,8 @@ import { makeStyles, styled, withStyles } from "@material-ui/styles";
 // icons & images
 import userAvatar from "src/assets/Images/GreenQiwa.jpg";
 import { RiHome4Fill, RiUserFill, RiSettings3Fill } from "react-icons/ri";
-import { useLoginInfo } from "src/hooks/Context/LoginInfoContext";
+import { LoginContext } from "src/hooks/Context/LoginInfoContext";
+import { useContext } from "react";
 
 // styles
 const usestyles = makeStyles((theme) => ({
@@ -110,8 +111,8 @@ const links = [
 
 const UserMenu = (props) => {
   const classes = usestyles();
-  const LoginInfo = useLoginInfo();
-  console.log("LoginInfo", LoginInfo);
+  const { loginData } = useContext(LoginContext);
+  console.log("LoginInfo", loginData);
   return (
     <>
       <AvatarButtonStyle
@@ -134,16 +135,16 @@ const UserMenu = (props) => {
         {/* Header */}
         <BoxStyle>
           <Typography variant="h6" component="h3">
-            {!!LoginInfo.userInfo.userName
-              ? LoginInfo.userInfo.userName
-              : "" + LoginInfo.userInfo.email.split("@")[0]}
+            {!!loginData.userInfo.userName
+              ? loginData.userInfo.userName
+              : "" + loginData.userInfo.email.split("@")[0]}
           </Typography>
           <Typography
             variant="body2"
             component="p"
             className={classes.grayMain}
           >
-            {LoginInfo.userInfo.email}
+            {loginData.userInfo.email}
           </Typography>
         </BoxStyle>
 

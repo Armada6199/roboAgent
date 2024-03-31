@@ -10,11 +10,13 @@ import Blog from "./components/Blog/Blog";
 import Dashboard from "./components/Dashboard/Dashboard";
 import User from "./components/User/User";
 import Register from "./pages/Public/Register/Pages/Register";
-import { useLoginInfo } from "./hooks/Context/LoginInfoContext";
 import { useRoutes } from "react-router-dom/dist";
+import { useContext } from "react";
+import { LoginContext } from "./hooks/Context/LoginInfoContext";
 
 const Routes = () => {
-  const loginInfo = useLoginInfo();
+  const { loginData } = useContext(LoginContext);
+  console.log(loginData.isLoggedIn);
   const pageRouts = [
     {
       // default
@@ -23,7 +25,7 @@ const Routes = () => {
       children: [
         {
           path: "",
-          element: loginInfo.login ? (
+          element: loginData.isLoggedIn ? (
             <Navigate to="/dash/dashboard" />
           ) : (
             <Navigate to="/auth/login" />
@@ -35,7 +37,7 @@ const Routes = () => {
     // auth
     {
       path: "auth",
-      element: loginInfo.login ? (
+      element: loginData.isLoggedIn ? (
         <Navigate to="/dash/dashboard" />
       ) : (
         <DashboardLayout />
@@ -49,7 +51,7 @@ const Routes = () => {
     // dash
     {
       path: "dash",
-      element: loginInfo.login ? (
+      element: loginData.isLoggedIn ? (
         <DashboardLayout />
       ) : (
         <Navigate to="/auth/login" />

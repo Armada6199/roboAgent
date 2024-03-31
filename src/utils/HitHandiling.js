@@ -1,5 +1,3 @@
-import { ACTIONS } from "../hooks/Context/LoginInfoContext";
-
 export function HitHandle(result) {
   console.log("result ===> ", result);
   const code = result.data.result;
@@ -49,21 +47,21 @@ export function HitHandle(result) {
 export function HandelRegularHit({
   hitResult,
   setAlertInfo,
-  loginUpdate,
+  loginDispatch,
   values,
 }) {
   console.log("hitResult", hitResult);
-  if (!!loginUpdate) {
+  if (!!loginDispatch) {
     if (!hitResult.success) {
       if (values) values.password = ""; //for sign in and sign up pages
 
       if (hitResult.clearStorage) {
-        loginUpdate("", ACTIONS.SIGN_OUT);
+        loginDispatch("", ACTIONS.SIGN_OUT);
       }
     } else {
       if (!!hitResult.data.user && !!hitResult.authorization)
-        loginUpdate({
-          type: ACTIONS.SIGN_IN,
+        loginDispatch({
+          type: "ON_LOGIN",
           payload: {
             userInfo: hitResult.data.user,
             authorization: hitResult.authorization,

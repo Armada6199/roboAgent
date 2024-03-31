@@ -9,7 +9,6 @@ import {
   styled,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { useLoginInfo } from "src/hooks/Context/LoginInfoContext";
 
 // icons & images
 import { FaUserFriends, FaUserPlus } from "react-icons/fa";
@@ -24,6 +23,8 @@ import getMoreAvatar from "src/assets/Images/pom-bot.gif";
 
 import CustomListItem from "src/components/Drawer/CustomListItem";
 import { drawerWidth } from "src/components/Layout/DashboardLayout";
+import { useContext } from "react";
+import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 const NavDrawerStyle = styled("nav")(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {
     width: drawerWidth,
@@ -132,9 +133,9 @@ const afterLogin = [
 ];
 
 const SideDrawer = (props) => {
-  const LoginInfo = useLoginInfo();
-  console.log("LoginInfo side ---< ", LoginInfo);
-  const links = LoginInfo.login ? afterLogin : beforeLogin;
+  const { loginData } = useContext(LoginContext);
+  console.log("loginData side ---< ", loginData);
+  const links = loginData.isLoggedIn ? afterLogin : beforeLogin;
 
   const drawerContent = (
     <>
@@ -150,10 +151,10 @@ const SideDrawer = (props) => {
         <Avatar src={userAvatar} alt="User Image" />
 
         <Typography variant="subtitle1" component="h3">
-          {LoginInfo.login
-            ? !!LoginInfo.userInfo.userName
-              ? LoginInfo.userInfo.userName
-              : "" + LoginInfo.userInfo.email?.split("@")[0]
+          {loginData.isLoggedIn
+            ? !!loginData.userInfo.userName
+              ? loginData.userInfo.userName
+              : "" + loginData.userInfo.email?.split("@")[0]
             : "Guest"}
         </Typography>
       </UserCardStyle>
@@ -175,10 +176,10 @@ const SideDrawer = (props) => {
       <GetMoreStyle>
         <img src={getMoreAvatar} alt="avatar" />
         Welcome{" "}
-        {LoginInfo.login
-          ? !!LoginInfo.userInfo.userName
-            ? LoginInfo.userInfo.firstName
-            : "" + LoginInfo.userInfo.email?.split("@")[0]
+        {loginData.isLoggedIn
+          ? !!loginData.userInfo.userName
+            ? loginData.userInfo.firstName
+            : "" + loginData.userInfo.email?.split("@")[0]
           : "Guest"}
       </GetMoreStyle>
     </>
