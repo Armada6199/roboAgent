@@ -22,7 +22,7 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   borderBottom: "1px solid #eee",
 
   "& .MuiIconButton-root": {
-    padding: theme.spacing(0.75),
+    padding: theme.spacing(1),
   },
 }));
 

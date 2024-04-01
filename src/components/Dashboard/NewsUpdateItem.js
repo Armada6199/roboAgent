@@ -7,7 +7,7 @@ const BoxContainerStyle = styled(Box)(({ theme }) => ({
 
   "& .MuiAvatar-root": {
     borderRadius: theme.spacing(1),
-    marginTop: theme.spacing(0.75),
+    marginTop: theme.spacing(1),
   },
   "& h3": {
     fontWeight: 500,

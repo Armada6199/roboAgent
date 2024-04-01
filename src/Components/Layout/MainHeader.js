@@ -37,7 +37,7 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
 
 const ContainerStyle = styled(Box)(({ theme }) => ({
   display: "grid",
-  gap: theme.spacing(0.5),
+  gap: theme.spacing(1),
   gridAutoFlow: "column",
 }));
 
@@ -70,82 +70,81 @@ const MainHeader = (props) => {
   const { loginData } = useContext(LoginContext);
   if (!!loginData.userInfo.email) {
     return (
-      <Suspense fallback={<Loader />}>
-        <AppBarStyle position="fixed">
-          <ToolbarStyle>
-            {/* Left side's items */}
-            <ContainerStyle>
-              <ToggleButtonStyle
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={props.onClick}
-              >
-                <RiMenu3Line />
-              </ToggleButtonStyle>
+      <AppBarStyle position="fixed">
+        <ToolbarStyle>
+          {/* Left side's items */}
+          <ContainerStyle>
+            <ToggleButtonStyle
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={props.onClick}
+            >
+              <RiMenu3Line />
+            </ToggleButtonStyle>
 
-              <IconButton aria-label="search">
-                <BiSearch fontSize="small" />
-              </IconButton>
-            </ContainerStyle>
+            <IconButton aria-label="search">
+              <BiSearch fontSize="small" />
+            </IconButton>
+          </ContainerStyle>
 
-            {/* Right side's items */}
-            <ContainerStyle>
-              {/* Language selector */}
+          {/* Right side's items */}
+          <ContainerStyle>
+            {/* Language selector */}
+            <Suspense fallback={<Loader />}>
               <LanguageSelector
                 anchorEl={showLang}
                 onOpen={handleOpenLang}
                 onClose={handleCloseLang}
               />
-              {/* Notification */}
+            </Suspense>
+            {/* Notification */}
 
-              <Notifications
-                anchorEl={showNotification}
-                onOpen={handleOpenNotification}
-                onClose={handleCloseNotification}
-              />
-              {/* User Avatar */}
-              <UserMenu
-                anchorEl={showUserMenu}
-                onOpen={handleOpenUserMenu}
-                onClose={handleCloseUserMenu}
-              />
-            </ContainerStyle>
-          </ToolbarStyle>
-        </AppBarStyle>
-      </Suspense>
+            <Notifications
+              anchorEl={showNotification}
+              onOpen={handleOpenNotification}
+              onClose={handleCloseNotification}
+            />
+            {/* User Avatar */}
+            <UserMenu
+              anchorEl={showUserMenu}
+              onOpen={handleOpenUserMenu}
+              onClose={handleCloseUserMenu}
+            />
+          </ContainerStyle>
+        </ToolbarStyle>
+      </AppBarStyle>
     );
   } else {
     return (
-      <Suspense fallback={<Loader />}>
-        <AppBarStyle position="fixed">
-          <ToolbarStyle>
-            {/* Left side's items */}
-            <ContainerStyle>
-              <ToggleButtonStyle
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={props.onClick}
-              >
-                <RiMenu3Line />
-              </ToggleButtonStyle>
-            </ContainerStyle>
+      <AppBarStyle position="fixed">
+        <ToolbarStyle>
+          {/* Left side's items */}
+          <ContainerStyle>
+            <ToggleButtonStyle
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={props.onClick}
+            >
+              <RiMenu3Line />
+            </ToggleButtonStyle>
+          </ContainerStyle>
 
-            {/* Right side's items */}
-            <ContainerStyle>
-              {/* Language selector */}
-              <DarkModeSelector />
-
+          {/* Right side's items */}
+          <ContainerStyle>
+            {/* Language selector */}
+            <DarkModeSelector />
+            <Suspense fallback={<Loader />}>
               <LanguageSelector
                 anchorEl={showLang}
                 onOpen={handleOpenLang}
                 onClose={handleCloseLang}
               />
-            </ContainerStyle>
-          </ToolbarStyle>
-        </AppBarStyle>
-      </Suspense>
+            </Suspense>
+          </ContainerStyle>
+        </ToolbarStyle>
+      </AppBarStyle>
     );
   }
 };

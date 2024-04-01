@@ -16,7 +16,7 @@ const GridContainerStyle = styled(Grid)(({ theme }) => ({
 const GridItemStyle = styled(Grid)(({ theme }) => ({
   "& .boxContainer": {
     //   border: "1px solid #eee",
-    borderRadius: theme.spacing(1.5),
+    borderRadius: theme.spacing(2),
     minHeight: 350,
     margin: 0,
     padding: theme.spacing(3),
@@ -64,7 +64,7 @@ const GridItemStyle = styled(Grid)(({ theme }) => ({
 
 const NewBoxStyle = styled(Box)(({ theme }) => ({
   border: `1px solid ${theme.palette.gray.light}`,
-  borderRadius: theme.spacing(1.5),
+  borderRadius: theme.spacing(1),
   minHeight: 350,
   margin: 0,
   position: "relative",

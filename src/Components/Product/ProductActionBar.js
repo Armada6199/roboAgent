@@ -15,7 +15,7 @@ const ButtonStyle = styled(Button)(({ theme }) => ({
   fontWeight: 500,
   textTransform: "capitalize",
   padding: `4px 12px`,
-  borderRadius: theme.spacing(1.25),
+  borderRadius: theme.spacing(2),
 
   "& .text": {
     fontWeight: 500,
@@ -38,7 +38,7 @@ const TextFieldStyle = styled(TextField)(({ theme }) => ({
 
   "& .MuiOutlinedInput-notchedOutline": {
     border: `0`,
-    borderRadius: theme.spacing(0),
+    borderRadius: theme.spacing(1),
   },
 
   // menu item

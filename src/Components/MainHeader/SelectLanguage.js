@@ -2,7 +2,7 @@ import { IconButton, ListItemText, Menu, MenuItem } from "@material-ui/core";
 import { styled } from "@mui/material";
 
 // images
-import { changeLanguage } from "i18next";
+import i18next, { changeLanguage } from "i18next";
 import { useTranslation } from "react-i18next";
 import AR_Flag from "src/assets/Images/ic_flag_ar.svg";
 import EN_Flag from "src/assets/Images/ic_flag_en.svg";
@@ -37,15 +37,15 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
     backgroundColor: theme.palette.green.light,
   },
   "& .MuiListItemText-primary": {
-    marginLeft: theme.spacing(),
-    fontSize: theme.spacing(),
+    marginLeft: theme.spacing(1),
+    fontSize: theme.spacing(1),
   },
 }));
 
 const IconButtonStyle = styled(IconButton)(({ theme }) => ({
   padding: "12px 9px",
   "& img": {
-    width: theme.spacing(),
+    width: theme.spacing(1),
   },
 }));
 
@@ -58,7 +58,6 @@ const languages = [
 ];
 
 const LanguageSelector = (props) => {
-  const { i18n } = useTranslation();
   return (
     <>
       <IconButtonStyle
@@ -66,11 +65,11 @@ const LanguageSelector = (props) => {
         aria-haspopup="true"
         onClick={props.onOpen}
       >
-        {!!i18n.language ? (
+        {!!i18next.language ? (
           <>
             {
               languages.filter((l) => {
-                return l.alt === i18n.language;
+                return l.alt === i18next.language;
               })[0].src
             }
           </>

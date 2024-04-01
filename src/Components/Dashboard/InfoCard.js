@@ -5,7 +5,7 @@ const InfoCard = ({ colorId, icon, amount, title }) => {
   const CardStyle = styled(Box)(({ theme }) => ({
     paddingTop: theme.spacing(6),
     paddingBottom: theme.spacing(6),
-    borderRadius: theme.spacing(1.5),
+    borderRadius: theme.spacing(2),
     textAlign: "center",
     display: "flex",
     flexDirection: "column",
@@ -21,8 +21,8 @@ const InfoCard = ({ colorId, icon, amount, title }) => {
         ? theme.palette.maroon.light
         : "salmon",
     [theme.breakpoints.down("sm")]: {
-      paddingTop: theme.spacing(2.5),
-      paddingBottom: theme.spacing(2.5),
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(3),
     },
   }));
 
@@ -57,8 +57,8 @@ const InfoCard = ({ colorId, icon, amount, title }) => {
 
   const AmountStyle = styled(Typography)(({ theme }) => ({
     marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(0.5),
-    fontSize: theme.spacing(3.5),
+    marginBottom: theme.spacing(1),
+    fontSize: theme.spacing(4),
     color:
       colorId === "green"
         ? theme.palette.green.main

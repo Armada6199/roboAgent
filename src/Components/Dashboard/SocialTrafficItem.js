@@ -5,7 +5,7 @@ const SocialTrafficItem = ({ icon, amount, title }) => {
     border: `1px solid ${theme.palette.gray.light}`,
     borderRadius: 8,
     minHeight: 150,
-    padding: theme.spacing,
+    padding: theme.spacing(1),
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",

@@ -5,7 +5,7 @@ const CardHeaderStyle = styled(CardHeader)(({ theme }) => ({
   padding: "24px 24px 0 24px",
 
   "& .MuiCardHeader-title": {
-    fontSize: theme.spacing(2.5),
+    fontSize: theme.spacing(3),
     fontWeight: 600,
   },
   "& .MuiCardHeader-subheader": {

@@ -6,7 +6,6 @@ import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import i18next from "i18next";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import TasksItem from "src/components/Dashboard/TasksItem";
 import FormStyle, { TopPaneStyle } from "src/styles/styles";
 import { numbersOnly } from "src/utils/DefualtValidators";
@@ -18,7 +17,7 @@ const FormGroupStyle = styled(FormGroup)(({ theme }) => ({
 }));
 
 const ServicesGetAnswer = () => {
-  const [t] = useTranslation("common");
+  // const [t] = useTranslation("common");
   const currService = Services[localStorage.getItem("Service")];
   const [answer, setAnswer] = useState();
   const [loading, setLoading] = useState();

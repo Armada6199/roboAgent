@@ -32,7 +32,7 @@ const items = [
 ];
 
 const ContainerStyle = styled(Box)(({ theme }) => ({
-  marginTop: theme.spacing(7.5),
+  marginTop: theme.spacing(8),
   display: "grid",
   gap: theme.spacing(3),
   gridTemplateColumns: "repeat( auto-fit, minmax(200px, 1fr) )",

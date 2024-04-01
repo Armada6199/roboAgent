@@ -67,7 +67,7 @@ function OTPDialog({ setOpen2, open2, sendEmail, setIsNewPasswordOpen }) {
           />
         </FormStyle>
         {otpErrors?.otp?.message && (
-          <Typography color={"red"} marginTop={2}>
+          <Typography color={"#FF0000"} marginTop={2}>
             {otpErrors?.otp?.message}
           </Typography>
         )}

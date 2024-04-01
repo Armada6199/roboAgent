@@ -19,7 +19,7 @@ const DrawerPaper = styled("div")(({ theme }) => ({
 const MainStyle = styled("main")(({ theme }) => ({
   flexGrow: 1,
   minHeight: "100vh",
-  padding: theme.spacing(2.5),
+  padding: theme.spacing(3),
 }));
 
 const DashboardLayout = (props) => {

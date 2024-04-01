@@ -8,6 +8,9 @@ i18next.init({
   interpolation: { escapeValue: false }, // React already does escaping
   lng: lang, // language to use
   debug: true,
+  react: {
+    useSuspense: false, //   <---- this will do the magic
+  },
   resources: {
     English: {
       common: Common_en, // 'common' is our custom namespace

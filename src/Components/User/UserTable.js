@@ -26,7 +26,7 @@ const TableStyle = styled(Table)(({ theme }) => ({
   // status style
   "& .statusText": {
     padding: "2px 4px",
-    borderRadius: theme.spacing(0.75),
+    borderRadius: theme.spacing(1),
     color: theme.palette.common.white,
   },
   "& .activeText": {
@@ -92,10 +92,11 @@ const UserTable = () => {
   const getUsers = async () => {
     let hitResult = await AxiosHit({
       method: "get",
-      url: "users/getallusers",
+      url: "/users/getallusers",
     });
-    console.log("hitResult.data.users ===> ", hitResult.data.users);
-    return hitResult.data.users;
+    console.log("called");
+    console.log("hitResult.data.users ===> ", hitResult?.data?.users);
+    return hitResult?.data?.users;
     // HandelRegularHit({ hitResult, setAlertInfo, loginUpdate, values })
   };
   //console.log(selectedItems);
@@ -103,13 +104,15 @@ const UserTable = () => {
     let users = await getUsers();
     console.log("users ===> ", users);
     users?.map((u) => delete u.users);
-    setTabelHeaders(Object.keys(users[0]));
-    setUsersInfo(users);
-    console.log("users ===> ", Object.keys(users[0]));
-    console.log("users ===> ", users);
-    console.log("users ===> ", typeof users);
-    console.log("users userData===> ", userData);
-    console.log("users userData===> ", typeof userData);
+    if (users) {
+      setTabelHeaders(Object.keys(users[0]));
+      setUsersInfo(users);
+    }
+    // console.log("users ===> ", Object.keys(users[0]));
+    // console.log("users ===> ", users);
+    // console.log("users ===> ", typeof users);
+    // console.log("users userData===> ", userData);
+    // console.log("users userData===> ", typeof userData);
 
     setLoading(false);
   });

@@ -98,10 +98,10 @@ const LinkStyle = styled(Link)(({ theme }) => ({
   textAlign: "center",
   padding: theme.spacing(1),
   color: theme.palette.common.black,
-  fontSize: theme.spacing(2.25),
+  fontSize: theme.spacing(3),
   fontWeight: 500,
   border: "1px solid #333",
-  borderRadius: theme.spacing(0.75),
+  borderRadius: theme.spacing(1),
   transition: "background 0.25s ease-in",
   "&:hover": {
     backgroundColor: theme.palette.gray.lighter,
@@ -120,8 +120,8 @@ const MenuItemStyle = styled(MenuItem)(({ theme }) => ({
     color: theme.palette.common.black,
     textDecoration: "none",
     "& svg": {
-      marginRight: theme.spacing(1.5),
-      fontSize: theme.spacing(2.5),
+      marginRight: theme.spacing(2),
+      fontSize: theme.spacing(3),
     },
   },
 }));

@@ -45,7 +45,7 @@ const lightTheme = createTheme({
       },
     },
   },
-  spacing: [0, 4, 8, 16, 32, 64],
+  spacing: [0, 4, 5, 8, 13, 16, 32, 64],
 });
 const darkTheme = createTheme({
   palette: {
@@ -91,6 +91,6 @@ const darkTheme = createTheme({
       },
     },
   },
-  spacing: [0, 4, 8, 16, 32, 64],
+  spacing: [0, 4, 5, 8, 13, 16, 32, 64],
 });
 export { lightTheme, darkTheme };

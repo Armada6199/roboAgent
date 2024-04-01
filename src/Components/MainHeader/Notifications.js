@@ -49,7 +49,7 @@ const BadgeStyle = styled(Badge)(({ theme }) => ({
     backgroundColor: theme.palette.red.main,
     color: theme.palette.common.white,
     top: "-3px",
-    fontSize: theme.spacing(1.75),
+    fontSize: theme.spacing(2),
   },
 }));
 
@@ -64,7 +64,7 @@ const LinkStyle = styled(Link)(({ theme }) => ({
   color: theme.palette.green.dark,
   fontSize: theme.spacing(2),
   fontWeight: 500,
-  borderRadius: theme.spacing(0.75),
+  borderRadius: theme.spacing(1),
   transition: "background 0.25s ease-in",
   "&:hover": {
     backgroundColor: theme.palette.green.light,
@@ -99,10 +99,10 @@ const MenuItemIconButtonStyle = styled(IconButton)(({ theme }) => ({
 const MenuItemTimeStampStyle = styled(Typography)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  fontSize: theme.spacing(1.85),
+  fontSize: theme.spacing(2),
   color: theme.palette.gray.main,
   margin: 0,
-  marginTop: theme.spacing(0.5),
+  marginTop: theme.spacing(1),
   "& span": {
     marginLeft: theme.spacing(1),
   },

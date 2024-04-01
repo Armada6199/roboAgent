@@ -28,7 +28,7 @@ const ButtonStyle = styled(Button)(({ theme }) => ({
     backgroundColor: theme.palette.red.main,
     color: theme.palette.common.white,
     top: "-3px",
-    fontSize: theme.spacing(1.75),
+    fontSize: theme.spacing(2),
   },
 }));
 

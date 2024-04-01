@@ -44,10 +44,10 @@ const UserCardStyle = styled(Link)(({ theme }) => ({
   backgroundColor: theme.palette.gray.light,
   margin: "12px",
   padding: "14px 12px",
-  borderRadius: theme.spacing(1.5),
+  borderRadius: theme.spacing(2),
   textDecoration: "n/one",
   "& .MuiTypography-root": {
-    marginLeft: theme.spacing(1.5),
+    marginLeft: theme.spacing(2),
   },
 }));
 
@@ -59,7 +59,7 @@ const GetMoreStyle = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.gray.lighter,
   margin: "40px 12px 16px",
   padding: "60px 12px 14px 12px",
-  borderRadius: theme.spacing(1.5),
+  borderRadius: theme.spacing(2),
   textAlign: "center",
   position: "relative",
 
@@ -67,7 +67,8 @@ const GetMoreStyle = styled(Box)(({ theme }) => ({
     position: "absolute",
     top: 0,
     left: "50%",
-    width: theme.spacing(12.5),
+    width: theme.spacing(13),
+    width: 120,
     transform: "translate(-40%, -40%)",
     transition: "all 0.3s ease-in",
   },

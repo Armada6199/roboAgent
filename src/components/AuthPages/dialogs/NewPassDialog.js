@@ -105,7 +105,7 @@ function OTPDialog({
           />
         </FormStyle>
         {errors?.password?.message && (
-          <Typography variant="body2" color={"red"} marginTop={2}>
+          <Typography variant="body2" color={"#FF0000"} marginTop={2}>
             {errors?.password?.message}
           </Typography>
         )}
@@ -135,13 +135,13 @@ function OTPDialog({
           />
         </FormStyle>
         {errors?.otp?.message && (
-          <Typography variant="body2" color={"red"} marginTop={2}>
+          <Typography variant="body2" color={"#FF0000"} marginTop={2}>
             {errors?.otp?.message}
           </Typography>
         )}
         {watch("confirmPassword") !== watch("password") &&
         getValues("confirmPassword") ? (
-          <Typography color={"red"} marginTop={2} variant="body2">
+          <Typography color={"#FF0000"} marginTop={2} variant="body2">
             Passwords do not match
           </Typography>
         ) : null}
