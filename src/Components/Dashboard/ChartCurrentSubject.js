@@ -4,7 +4,7 @@ import DashCardHeader from "./DashCardHeader";
 import ReactApexChart from "react-apexcharts";
 
 const DivStyle = styled(Box)(({ theme }) => ({
-  paddingTop: theme.spacing,
+  paddingTop: theme.spacing(1),
   "& .apexcharts-legend": {
     borderTop: `1px solid ${theme.palette.gray.light}`,
     padding: `20px 4px 4px 4px`,

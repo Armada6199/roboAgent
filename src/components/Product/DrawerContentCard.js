@@ -1,6 +1,5 @@
 import { Typography } from "@material-ui/core";
-import { styled } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, styled } from "@mui/material";
 
 // section Header
 const SectionHeaderStyle = styled(Typography)(({ theme }) => ({
