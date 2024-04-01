@@ -1,4 +1,3 @@
-import axios from "axios"; //
 import React, { useEffect, useReducer } from "react";
 import cookie from "react-cookies";
 import { initialState, loginReducer } from "../reducers/loginReducer";
@@ -8,7 +7,9 @@ function LoginProvider(props) {
   // function can(capability) {
   //   return loginData.user.capabilities?.includes(capability) && loginData.token;
   // }
-
+  useEffect(() => {
+    console.log(loginData);
+  }, [loginData]);
   function logout() {
     console.log("loged out ");
     setLoginState(false, null, {});
@@ -38,8 +39,7 @@ function LoginProvider(props) {
         // can,
         logout,
         loginDispatch,
-        // signup,
-        // updateData,
+
         loginData,
         loginDispatch,
       }}

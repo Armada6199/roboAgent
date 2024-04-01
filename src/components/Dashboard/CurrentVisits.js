@@ -1,14 +1,15 @@
+import { useContext } from "react";
 import ReactApexChart from "react-apexcharts";
-import { styled, useTheme } from "@material-ui/styles";
+import { themeContext } from "src/hooks/Context/ThemeContext";
 import DashCard from "./DashCard";
 import DashCardHeader from "./DashCardHeader";
-import { Box } from "@mui/system";
+import { styled } from "@mui/material";
 
-const DivStyle = styled(Box)(({ theme }) => ({
-  paddingTop: theme.spacing(1),
+const DivStyle = styled("div")(({ theme }) => ({
+  paddingTop: theme.spacing(),
   "& .apexcharts-legend": {
     borderTop: `1px solid ${theme.palette.gray.light}`,
-    padding: `${theme.spacing(2.5)}px ${theme.spacing(1)}px`,
+    padding: `${theme.spacing(2.5)}px ${theme.spacing()}px`,
   },
   "& .apexcharts-tooltip": {
     backgroundColor: theme.palette.common.white,
@@ -18,20 +19,19 @@ const DivStyle = styled(Box)(({ theme }) => ({
     paddingTop: 2,
   },
 }));
-
 const SERIES_DATA = [4344, 5435, 1443, 4443];
 
 const CurrentVisits = () => {
-  const theme = useTheme();
-
+  const { themeStyles } = useContext(themeContext);
+  console.log(themeStyles);
   const chartOptions = {
     labels: ["Employee Transfeer", "Work Permits", "Visas", "User Managments"],
-    stroke: { colors: [theme.palette.background.paper] },
+    stroke: { colors: [themeStyles.palette.background.paper] },
     colors: [
-      theme.palette.success.main,
-      theme.palette.info.main,
-      theme.palette.warning.light,
-      theme.palette.error.main,
+      themeStyles.palette.success.main,
+      themeStyles.palette.info.main,
+      themeStyles.palette.warning.light,
+      themeStyles.palette.error.main,
     ],
     legend: {
       position: "bottom",

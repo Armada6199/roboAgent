@@ -1,5 +1,4 @@
-import { Grid, Typography } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { Grid, styled } from "@mui/material";
 import { Helmet } from "react-helmet";
 import ChartCurrentSubject from "src/components/Dashboard/ChartCurrentSubject";
 import ChartSiteVisits from "src/components/Dashboard/ChartSiteVisits";

@@ -10,7 +10,7 @@ import {
   TablePagination,
   CircularProgress,
 } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 import TableToolbar from "./TableToolbar";
 import UserTableHead from "./UserTableHead";
 import UserMore from "./UserMore";

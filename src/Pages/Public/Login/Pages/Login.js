@@ -1,5 +1,5 @@
 import { Container, Typography } from "@material-ui/core";
-import { Box, styled } from "@mui/system";
+import { Box } from "@mui/system";
 import { Helmet } from "react-helmet";
 import FormLogin from "src/components/AuthPages/FormLogin";
 import LeftPanel from "src/components/AuthPages/LeftPanel";
@@ -7,6 +7,7 @@ import LeftPanel from "src/components/AuthPages/LeftPanel";
 // img
 import LoginPhoto from "src/assets/Images/image_processing20210907-13511-1juj33d.gif";
 import { ContainerBoxStyle } from "src/styles/styles";
+import { styled } from "@mui/material";
 
 // styles
 
@@ -16,14 +17,14 @@ const RightPanelStyle = styled(Box)(({ theme }) => ({
 
   "& .account_switch": {
     textAlign: "right",
-    paddingRight: theme.spacing,
-    marginBottom: theme.spacing,
+    paddingRight: theme.spacing(),
+    marginBottom: theme.spacing(),
     "& .MuiLink-underlineNone	": {
       color: theme.palette.green.darker,
       fontWeight: 500,
     },
     [theme.breakpoints.down("sm")]: {
-      paddingRight: theme.spacing,
+      paddingRight: theme.spacing(),
     },
   },
 

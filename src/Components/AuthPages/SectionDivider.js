@@ -1,5 +1,5 @@
 import { Typography } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 import { Box } from "@mui/system";
 
 const SectionDividerStyle = styled(Box)(({ theme }) => ({

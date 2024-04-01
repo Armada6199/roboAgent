@@ -7,7 +7,7 @@ import {
   Radio,
   RadioGroup,
 } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 import { Rating } from "@mui/material";
 import DrawerContentCard from "./DrawerContentCard";
 import { RiCheckboxBlankCircleFill, RiCheckLine } from "react-icons/ri";

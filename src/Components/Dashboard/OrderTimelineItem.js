@@ -1,4 +1,3 @@
-import { Typography } from "@material-ui/core";
 import {
   TimelineConnector,
   TimelineContent,
@@ -6,7 +5,7 @@ import {
   TimelineItem,
   TimelineSeparator,
 } from "@material-ui/lab";
-import { styled } from "@material-ui/styles";
+import { Typography, styled } from "@mui/material";
 
 const OrderTimelineItem = ({ type, title, time, isLast }) => {
   const TimelineDotStyle = styled(TimelineDot)(({ theme }) => ({

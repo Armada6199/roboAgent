@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useEffect, useReducer } from "react";
+import { loginReducer } from "./reducers/loginReducer";
 
 function getStorageValue(key, defaultValue) {
   const saved = localStorage.getItem(key);
@@ -7,9 +8,9 @@ function getStorageValue(key, defaultValue) {
 }
 
 export const useLocalStorage = (key, defaultValue) => {
-  const [value, setValue] = useState(() => {
-    return getStorageValue(key, defaultValue);
-  });
+  const [value, setValue] = useReducer(loginReducer, () =>
+    getStorageValue(key, defaultValue)
+  );
 
   useEffect(() => {
     // storing input name

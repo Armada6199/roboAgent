@@ -1,5 +1,5 @@
 import { Badge, Button } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 import { HiShoppingCart } from "react-icons/hi";
 
 // style

@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 import { Services } from "../Schema/ServicesSchema";
 import ServicesListItem from "./utils/ServicesListItem";
 // grid style

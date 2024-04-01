@@ -1,6 +1,6 @@
 import { Suspense, useContext, useState } from "react";
 
-import { AppBar, Box, IconButton, styled, Toolbar } from "@material-ui/core";
+import { AppBar, Box, IconButton, Toolbar } from "@material-ui/core";
 
 import { drawerWidth } from "./DashboardLayout";
 
@@ -15,6 +15,7 @@ import UserMenu from "src/components/MainHeader/UserMenu";
 import DarkModeSelector from "../MainHeader/DarkModeSelector";
 import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 import Loader from "../Loader";
+import { styled } from "@mui/material";
 
 const AppBarStyle = styled(AppBar)(({ theme }) => ({
   boxShadow: "none",
@@ -67,7 +68,6 @@ const MainHeader = (props) => {
   const handleOpenUserMenu = (e) => setShowUserMenu(e.currentTarget);
   const handleCloseUserMenu = () => setShowUserMenu(null);
   const { loginData } = useContext(LoginContext);
-
   if (!!loginData.userInfo.email) {
     return (
       <Suspense fallback={<Loader />}>

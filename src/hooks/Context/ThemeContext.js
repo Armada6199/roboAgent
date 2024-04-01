@@ -12,7 +12,9 @@ const ThemeContextProvider = ({ children }) => {
   }, [currentTheme]);
 
   return (
-    <themeContext.Provider value={{ currentTheme, setCurrentTheme }}>
+    <themeContext.Provider
+      value={{ currentTheme, setCurrentTheme, themeStyles }}
+    >
       {console.log(themeStyles)}
       <ThemeProvider theme={themeStyles}>{children}</ThemeProvider>;
     </themeContext.Provider>

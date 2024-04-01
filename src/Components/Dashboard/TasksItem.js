@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { styled } from "@material-ui/styles";
-import { Checkbox, FormControlLabel } from "@mui/material";
+import { Checkbox, FormControlLabel, styled } from "@mui/material";
 
 const TasksItem = ({ id, status, label, mission, checkOptions }) => {
   const [checked, setChecked] = useState(status);

@@ -1,5 +1,5 @@
 import { Container, Link, Typography } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 import { Box } from "@mui/system";
 import { Helmet } from "react-helmet";
 import FormRegister from "src/components/AuthPages/FormRegister";

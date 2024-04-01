@@ -1,12 +1,13 @@
 import { Typography } from "@material-ui/core";
-import { Box, styled } from "@mui/system";
+import { styled } from "@mui/material";
+import { Box } from "@mui/system";
 
 // styles
 const LeftPaneStyle = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  padding: `${theme.spacing}px ${theme.spacing}px`,
+  padding: `${theme.spacing()}px ${theme.spacing()}px`,
   borderRadius: theme.spacing,
   boxShadow:
     "rgb(145 158 171 / 24%) 0px 0px 2px 0px, rgb(145 158 171 / 24%) 0px 16px 32px -4px",

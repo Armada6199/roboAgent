@@ -5,7 +5,7 @@ import {
   Tooltip,
   Typography,
 } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 import { RiDeleteBinFill, RiFilter3Fill } from "react-icons/ri";
 
 const TableToolbar = ({ numSelected }) => {

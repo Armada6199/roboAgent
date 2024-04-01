@@ -1,5 +1,5 @@
 import { StopSharp } from "@material-ui/icons";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 
 const Arrow = styled(StopSharp)(({ theme }) => ({
   top: `-${theme.spacing(2)}px`,

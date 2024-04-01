@@ -1,18 +1,19 @@
-import { Box, styled, Toolbar } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import { Box, Toolbar } from "@material-ui/core";
 import React, { useContext, useState } from "react";
-import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 import { Outlet } from "react-router";
 import ShowAlert from "src/components/ShowAlert";
+import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 import MainHeader from "./MainHeader";
 import SideDrawer from "./SideDrawer";
+import { styled } from "@mui/material";
 
-const usestyles = makeStyles((theme) => ({
-  drawerPaper: {
-    width: drawerWidth,
-    display: "grid",
-    gridTemplateRows: "auto auto 1fr auto",
-  },
+export const drawerWidth = 240; // You'll need to define this value
+
+const DrawerPaper = styled("div")(({ theme }) => ({
+  width: drawerWidth,
+  display: "grid",
+  gridTemplateRows: "auto auto 1fr auto",
+  // Add any other styles you need here
 }));
 
 const MainStyle = styled("main")(({ theme }) => ({
@@ -26,7 +27,7 @@ const DashboardLayout = (props) => {
   const { loginData } = useContext(LoginContext);
   const { window } = props;
   const [toggleMenu, setToggleMenu] = useState(false);
-  const classes = usestyles();
+  // const classes = usestyles();
 
   // toggle drawer
   const handleToggleDrawer = () => setToggleMenu(!toggleMenu);
@@ -49,7 +50,7 @@ const DashboardLayout = (props) => {
               container={container}
               toggleMenu={toggleMenu}
               onClose={handleToggleClose}
-              drawerPaper={classes.drawerPaper}
+              drawerPaper={<DrawerPaper />}
             />
           </>
         ) : (
@@ -70,5 +71,3 @@ const DashboardLayout = (props) => {
 };
 
 export default DashboardLayout;
-
-export const drawerWidth = 240;

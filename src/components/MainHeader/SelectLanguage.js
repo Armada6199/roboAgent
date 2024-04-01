@@ -1,7 +1,7 @@
 import { IconButton, ListItemText, Menu, MenuItem } from "@material-ui/core";
+import { styled } from "@mui/material";
 
 // images
-import { styled } from "@mui/system";
 import { changeLanguage } from "i18next";
 import { useTranslation } from "react-i18next";
 import AR_Flag from "src/assets/Images/ic_flag_ar.svg";
@@ -37,15 +37,15 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
     backgroundColor: theme.palette.green.light,
   },
   "& .MuiListItemText-primary": {
-    marginLeft: theme.spacing,
-    fontSize: theme.spacing,
+    marginLeft: theme.spacing(),
+    fontSize: theme.spacing(),
   },
 }));
 
 const IconButtonStyle = styled(IconButton)(({ theme }) => ({
   padding: "12px 9px",
   "& img": {
-    width: theme.spacing,
+    width: theme.spacing(),
   },
 }));
 

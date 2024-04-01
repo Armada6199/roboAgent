@@ -1,11 +1,10 @@
-import { styled } from "@material-ui/styles";
+import { Box, styled } from "@mui/material";
 import DashCard from "./DashCard";
 import DashCardHeader from "./DashCardHeader";
-import { Box } from "@mui/system";
 import ReactApexChart from "react-apexcharts";
 
 const DivStyle = styled(Box)(({ theme }) => ({
-  paddingTop: theme.spacing(1),
+  paddingTop: theme.spacing,
   "& .apexcharts-legend": {
     borderTop: `1px solid ${theme.palette.gray.light}`,
     padding: `20px 4px 4px 4px`,

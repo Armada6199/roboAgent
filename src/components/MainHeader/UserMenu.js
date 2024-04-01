@@ -5,58 +5,82 @@ import {
   Divider,
   IconButton,
   Link,
-  Menu,
   MenuItem,
   Typography,
 } from "@material-ui/core";
-import { makeStyles, styled, withStyles } from "@material-ui/styles";
 
 // icons & images
-import userAvatar from "src/assets/Images/GreenQiwa.jpg";
-import { RiHome4Fill, RiUserFill, RiSettings3Fill } from "react-icons/ri";
-import { LoginContext } from "src/hooks/Context/LoginInfoContext";
+import { styled } from "@mui/material";
+import Menu from "@mui/material/Menu";
 import { useContext } from "react";
+import { RiHome4Fill, RiSettings3Fill, RiUserFill } from "react-icons/ri";
+import userAvatar from "src/assets/Images/GreenQiwa.jpg";
+import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 
 // styles
-const usestyles = makeStyles((theme) => ({
-  grayMain: {
-    color: theme.palette.gray.main,
-  },
-  grayDark: {
-    color: theme.palette.gray.dark,
-  },
-  listHeader: {
-    color: theme.palette.gray.main,
-    margin: "8px 0",
-    paddingLeft: theme.spacing(2),
-    letterSpacing: 1,
-    fontSize: theme.spacing(2),
-    fontWeight: 600,
-  },
+// const usestyles = makeStyles((theme) => ({
+//   grayMain: {
+//     color: theme.palette.gray.main,
+//   },
+//   grayDark: {
+//     color: theme.palette.gray.dark,
+//   },
+//   listHeader: {
+//     color: theme.palette.gray.main,
+//     margin: "8px 0",
+//     paddingLeft: theme.spacing(2),
+//     letterSpacing: 1,
+//     fontSize: theme.spacing(2),
+//     fontWeight: 600,
+//   },
+// }));
+
+// const StyledMenu = withStyles((theme) => ({
+//   paper: {
+//     maxWidth: 225,
+//     width: "90%",
+//     boxShadow: `0 2px 10px -5px ${theme.palette.green.darker}`,
+//   },
+// }))((props) => (
+//   <Menu
+//     elevation={0}
+//     getContentAnchorEl={null}
+//     anchorOrigin={{
+//       vertical: "bottom",
+//       horizontal: "right",
+//     }}
+//     transformOrigin={{
+//       vertical: "top",
+//       horizontal: "right",
+//     }}
+//     {...props}
+//   />
+// ));
+
+const GrayMainText = styled("div")(({ theme }) => ({
+  color: theme.palette.gray.main,
 }));
 
-const StyledMenu = withStyles((theme) => ({
-  paper: {
+const GrayDarkText = styled("div")(({ theme }) => ({
+  color: theme.palette.gray.dark,
+}));
+
+const ListHeader = styled("div")(({ theme }) => ({
+  color: theme.palette.gray.main,
+  margin: "8px 0",
+  paddingLeft: theme.spacing(2),
+  letterSpacing: 1,
+  fontSize: theme.spacing(2),
+  fontWeight: 600,
+}));
+
+const StyledMenu = styled(Menu)(({ theme }) => ({
+  "& .MuiPaper-root": {
     maxWidth: 225,
     width: "90%",
     boxShadow: `0 2px 10px -5px ${theme.palette.green.darker}`,
   },
-}))((props) => (
-  <Menu
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "right",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "right",
-    }}
-    {...props}
-  />
-));
-
+}));
 const BoxStyle = styled(Box)(({ theme }) => ({
   padding: "10px 16px",
 }));
@@ -110,7 +134,6 @@ const links = [
 ];
 
 const UserMenu = (props) => {
-  const classes = usestyles();
   const { loginData } = useContext(LoginContext);
   console.log("LoginInfo", loginData);
   return (
@@ -139,13 +162,9 @@ const UserMenu = (props) => {
               ? loginData.userInfo.userName
               : "" + loginData.userInfo.email.split("@")[0]}
           </Typography>
-          <Typography
-            variant="body2"
-            component="p"
-            className={classes.grayMain}
-          >
+          <GrayMainText variant="body2" component="p">
             {loginData.userInfo.email}
-          </Typography>
+          </GrayMainText>
         </BoxStyle>
 
         <Divider />

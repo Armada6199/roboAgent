@@ -1,6 +1,5 @@
 import { Button, Typography } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
-import { Box } from "@mui/system";
+import { Box, styled } from "@mui/material";
 import { BiPlus } from "react-icons/bi";
 
 // style

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { InputAdornment, MenuItem, TextField } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 import { Autocomplete } from "@mui/material";
 import { Box } from "@mui/system";
 import { FiSearch } from "react-icons/fi";

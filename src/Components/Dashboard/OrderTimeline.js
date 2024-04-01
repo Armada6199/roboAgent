@@ -1,8 +1,8 @@
 import { Timeline } from "@material-ui/lab";
-import { styled } from "@material-ui/styles";
 import DashCard from "./DashCard";
 import DashCardHeader from "./DashCardHeader";
 import OrderTimelineItem from "./OrderTimelineItem";
+import { styled } from "@mui/material";
 
 const TimelineStyle = styled(Timeline)(({ theme }) => ({
   paddingLeft: theme.spacing(6),

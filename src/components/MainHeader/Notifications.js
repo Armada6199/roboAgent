@@ -8,55 +8,41 @@ import {
   MenuItem,
   Typography,
 } from "@material-ui/core";
-import { makeStyles, styled, withStyles } from "@material-ui/styles";
+import { styled } from "@mui/material";
 
 // icons
-import { HiBell, HiClock } from "react-icons/hi";
-import { FaUser, FaTruck } from "react-icons/fa";
 import { BsFillChatDotsFill } from "react-icons/bs";
-import { IoMailOpenSharp } from "react-icons/io5";
+import { FaTruck, FaUser } from "react-icons/fa";
 import { FiBox } from "react-icons/fi";
-
+import { HiBell, HiClock } from "react-icons/hi";
+import { IoMailOpenSharp } from "react-icons/io5";
 // styles
-const usestyles = makeStyles((theme) => ({
-  grayMain: {
-    color: theme.palette.gray.main,
-  },
-  grayDark: {
-    color: theme.palette.gray.dark,
-  },
-  listHeader: {
-    color: theme.palette.gray.main,
-    margin: "8px 0",
-    paddingLeft: theme.spacing(2),
-    letterSpacing: 1,
-    fontSize: theme.spacing(2),
-    fontWeight: 600,
-  },
+
+const GrayMainStyle = styled("div")(({ theme }) => ({
+  color: theme.palette.gray.main,
 }));
 
-const StyledMenu = withStyles((theme) => ({
-  paper: {
-    minWidth: 250,
-    maxWidth: 400,
+const GrayDarkStyle = styled("div")(({ theme }) => ({
+  color: theme.palette.gray.dark,
+}));
+
+const ListHeaderStyle = styled("div")(({ theme }) => ({
+  color: theme.palette.gray.main,
+  margin: "8px 0",
+  paddingLeft: theme.spacing(2),
+  letterSpacing: 1,
+  fontSize: theme.spacing(2),
+  fontWeight: 600,
+}));
+
+const StyledMenu = styled(Menu)(({ theme }) => ({
+  "& .MuiPaper-root": {
+    minWidth: "250px",
+    maxWidth: "400px",
     width: "90%",
     boxShadow: `0 2px 10px -5px ${theme.palette.green.darker}`,
   },
-}))((props) => (
-  <Menu
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "right",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "right",
-    }}
-    {...props}
-  />
-));
+}));
 
 const BadgeStyle = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -173,8 +159,6 @@ const unSeenNotifications = notificationList.filter(
 const totalUnseenNotifications = unSeenNotifications.length;
 
 const Notifications = (props) => {
-  const classes = usestyles();
-
   return (
     <>
       <IconButton
@@ -199,25 +183,31 @@ const Notifications = (props) => {
           <Typography variant="h6" component="h3">
             Notifications
           </Typography>
-          <Typography
+          <GrayMainStyle variant="body2" component="p">
+            You have {totalUnseenNotifications} unread messages
+          </GrayMainStyle>
+          {/* <Typography
             variant="body2"
             component="p"
             className={classes.grayMain}
           >
             You have {totalUnseenNotifications} unread messages
-          </Typography>
+          </Typography> */}
         </BoxStyle>
 
         <Divider />
 
         {/* Unseen Notifications */}
-        <Typography
+        <ListHeaderStyle variant="button" component="h4">
+          NEW
+        </ListHeaderStyle>
+        {/* <Typography
           variant="button"
           component="h4"
           className={classes.listHeader}
         >
           NEW
-        </Typography>
+        </Typography> */}
 
         {unSeenNotifications.map((el) => (
           <MenuItemUnseenStyle key={el.id}>
@@ -226,7 +216,8 @@ const Notifications = (props) => {
             <Box>
               <Typography variant="body2" component="p">
                 <strong>{el.mainText}</strong>{" "}
-                <span className={classes.grayMain}>{el.subText}</span>
+                <GrayMainStyle component={"span"}>{el.subText}</GrayMainStyle>
+                {/* <span className={classes.grayMain}>{el.subText}</span> */}
               </Typography>
 
               <MenuItemTimeStampStyle variant="caption" component="p">
@@ -238,13 +229,16 @@ const Notifications = (props) => {
         ))}
 
         {/* Seen Notifications */}
-        <Typography
+        <GrayMainStyle variant="button" component="h4">
+          BEFORE THAT
+        </GrayMainStyle>
+        {/* <Typography
           variant="button"
           component="h4"
-          className={classes.listHeader}
+          className={classes.ListHeaderStyle}
         >
           BEFORE THAT
-        </Typography>
+        </Typography> */}
 
         {seenNotifications.map((el) => (
           <MenuItemSeenStyle key={el.id}>
@@ -253,7 +247,8 @@ const Notifications = (props) => {
             <Box>
               <Typography variant="body2" component="p">
                 <strong>{el.mainText}</strong>{" "}
-                <span className={classes.grayMain}>{el.subText}</span>
+                <GrayMainStyle component={"span"}>{el.subText}</GrayMainStyle>
+                {/* <span className={classes.grayMain}>{el.subText}</span> */}
               </Typography>
 
               <MenuItemTimeStampStyle variant="caption" component="p">

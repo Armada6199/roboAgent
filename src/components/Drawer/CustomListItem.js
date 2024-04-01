@@ -1,12 +1,17 @@
 import { NavLink } from "react-router-dom";
-import { styled, ListItem, ListItemIcon, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import {
+  ListItem,
+  ListItemIcon,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
+import { styled } from "@mui/material";
 
 const usestyles = makeStyles((theme) => ({
   activeClass: {
-    color: `${theme.palette.green.darker} !important`,
-    backgroundColor: theme.palette.green.lighter,
-    borderRight: `3px solid ${theme.palette.green.darker}`,
+    color: `rgb(0, 123, 85) !important`,
+    backgroundColor: "rgba(0, 171, 85, 0.08)",
+    borderRight: `3px solid rgb(0, 123, 85)`,
     "& .MuiTypography-subtitle1": {
       fontWeight: 600,
     },

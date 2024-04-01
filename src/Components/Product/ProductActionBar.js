@@ -5,7 +5,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { BiFilter } from "react-icons/bi";

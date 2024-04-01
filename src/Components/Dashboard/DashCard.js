@@ -1,5 +1,5 @@
 import { Card } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 
 const CardStyle = styled(Card)(({ theme }) => ({
   borderRadius: theme.spacing(1.5),

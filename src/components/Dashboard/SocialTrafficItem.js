@@ -1,13 +1,11 @@
-import { styled } from "@material-ui/styles";
-import { Box } from "@mui/system";
-import { Typography } from "@material-ui/core";
+import { Box, Typography, styled } from "@mui/material";
 
 const SocialTrafficItem = ({ icon, amount, title }) => {
   const BoxItemStyle = styled(Box)(({ theme }) => ({
     border: `1px solid ${theme.palette.gray.light}`,
     borderRadius: 8,
     minHeight: 150,
-    padding: theme.spacing(1),
+    padding: theme.spacing,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",

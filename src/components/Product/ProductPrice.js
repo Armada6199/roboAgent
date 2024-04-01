@@ -1,5 +1,5 @@
 import { Typography } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 
 // style
 const TextStyle = styled(Typography)(({ theme }) => ({

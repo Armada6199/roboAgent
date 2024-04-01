@@ -1,5 +1,5 @@
 import { Card, Link, Typography } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 import { Box } from "@mui/system";
 import { Link as RouteLink } from "react-router-dom";
 import ProductColorPreview from "./ProductColorPreview";

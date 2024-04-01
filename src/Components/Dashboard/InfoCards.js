@@ -1,6 +1,5 @@
-import { Box, styled } from "@material-ui/core";
-
 // etc
+import { Box, styled } from "@mui/material";
 import InfoCard from "./InfoCard";
 import {
   AiFillAndroid,
@@ -24,7 +23,12 @@ const items = [
     count: "1.5k",
     title: "Automation Handeled Tickets",
   },
-  { id: "maroon", icon: <AiFillBug />, count: "234", title: "Total active Issues" },
+  {
+    id: "maroon",
+    icon: <AiFillBug />,
+    count: "234",
+    title: "Total active Issues",
+  },
 ];
 
 const ContainerStyle = styled(Box)(({ theme }) => ({

@@ -1,5 +1,5 @@
 import { Button, IconButton, Toolbar, Typography } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 import { Box } from "@mui/system";
 import { GrFormClose } from "react-icons/gr";
 import { MdClearAll } from "react-icons/md";

@@ -7,7 +7,7 @@ import {
   Menu,
   MenuItem,
 } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 
 // icons
 import { MoreVert } from "@mui/icons-material";

@@ -1,5 +1,5 @@
 import { FormGroup } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 import { Services } from "../Schema/ServicesSchema";
 
 import { Box, Button, Container, TextField, Typography } from "@mui/material";

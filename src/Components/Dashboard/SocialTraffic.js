@@ -1,5 +1,3 @@
-import { styled } from "@material-ui/styles";
-import { Box } from "@mui/system";
 import DashCard from "./DashCard";
 import DashCardHeader from "./DashCardHeader";
 import SocialTrafficItem from "./SocialTrafficItem";
@@ -11,6 +9,7 @@ import {
   RiLinkedinFill,
   RiTwitterFill,
 } from "react-icons/ri";
+import { Box, styled } from "@mui/material";
 
 const BoxContainerStyle = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3),

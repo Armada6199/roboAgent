@@ -1,5 +1,5 @@
 import { Container, Typography } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material";
 import { Helmet } from "react-helmet";
 
 // components

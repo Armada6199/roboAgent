@@ -1,8 +1,8 @@
 import { FormGroup } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
 import DashCard from "./DashCard";
 import DashCardHeader from "./DashCardHeader";
 import TasksItem from "./TasksItem";
+import { styled } from "@mui/material";
 
 // style
 const FormGroupStyle = styled(FormGroup)(({ theme }) => ({
