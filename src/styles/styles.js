@@ -52,7 +52,7 @@ const FormStyle = styled("form")(({ theme }) => ({
     color: theme.palette.common.white,
     fontWeight: 600,
     textTransform: "capitalize",
-    padding: theme.spacing(1.25),
+    padding: theme.spacing(2),
     boxShadow: `rgb(0 171 85 / 24%) 0px 8px 16px 0px`,
     "&:hover": {
       backgroundColor: theme.palette.success.dark,

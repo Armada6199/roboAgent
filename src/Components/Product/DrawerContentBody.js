@@ -20,7 +20,7 @@ const ButtonStyle = styled(Button)(({ theme }) => ({
 
   "& .upText": {
     marginLeft: theme.spacing(1),
-    marginTop: theme.spacing(0.25),
+    marginTop: theme.spacing(1),
     textTransform: "capitalize",
   },
 

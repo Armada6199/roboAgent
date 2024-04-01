@@ -5,7 +5,7 @@ import { Box, styled } from "@mui/material";
 const SectionHeaderStyle = styled(Typography)(({ theme }) => ({
   fontSize: 18,
   fontWeight: 500,
-  marginTop: theme.spacing(2.25),
+  marginTop: theme.spacing(2),
   marginBottom: theme.spacing(1),
 }));
 

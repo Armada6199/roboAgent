@@ -22,7 +22,7 @@ const BoxStyle = styled(Box)(({ theme }) => ({
     color: theme.palette.common.white,
     fontWeight: 600,
     textTransform: "capitalize",
-    padding: `${theme.spacing(0.75)}px ${theme.spacing(2)}px`,
+    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     boxShadow: `rgb(0 171 85 / 24%) 0px 8px 16px 0px`,
     "&:hover": {
       backgroundColor: theme.palette.success.dark,
@@ -32,7 +32,7 @@ const BoxStyle = styled(Box)(({ theme }) => ({
 
   // text after the + icon
   "& .text": {
-    marginLeft: theme.spacing(0.5),
+    marginLeft: theme.spacing(1),
   },
 }));
 
