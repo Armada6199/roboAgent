@@ -32,7 +32,7 @@ const BoxStyle = styled(Box)(({ theme }) => ({
 
   // text after the + icon
   "& .text": {
-    marginLeft: theme.spacing(0.5),
+    marginLeft: theme.spacing(1),
   },
 }));
 
