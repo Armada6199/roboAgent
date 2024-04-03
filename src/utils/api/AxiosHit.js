@@ -1,13 +1,17 @@
 import axios from "axios";
 import { HitHandle } from "../HitHandiling";
 
-axios.defaults.baseURL = "http://localhost:9000/api/";
-if (localStorage.getItem("authorization")) {
-  axios.defaults.headers.common["authorization"] =
-    localStorage.getItem("authorization");
+axios.defaults.baseURL = "http://localhost:3000";
+// axios.defaults.baseURL = "http://192.168.4.202:9000/api/";
+
+if (localStorage.getItem("userInfo")) {
+  console.log(JSON.parse(localStorage.getItem("userInfo")).token);
+  axios.defaults.headers.common["authorization"] = JSON.parse(
+    localStorage.getItem("userInfo")
+  ).token;
 }
 
-export default function AxiosHit(config) {
+export default async function AxiosHit(config) {
   function handleSuccess(result) {
     return HitHandle(result);
   }
@@ -20,6 +24,6 @@ export default function AxiosHit(config) {
     axios.defaults.baseURL = config.baseURL;
   }
   console.log("config ===> ", config);
-  let result = axios(config).then(handleSuccess).catch(handleFailure);
+  let result = await axios(config).then(handleSuccess).catch(handleFailure);
   return result;
 }

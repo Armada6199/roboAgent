@@ -28,13 +28,13 @@ const RightPanelStyle = styled(Box)(({ theme }) => ({
   "& .account_switch": {
     textAlign: "right",
     paddingRight: theme.spacing(3),
-    marginBottom: theme.spacing(8),
+    marginBottom: theme.spacing(7),
     "& .MuiLink-underlineNone	": {
       color: theme.palette.green.darker,
       fontWeight: 500,
     },
     [theme.breakpoints.down("sm")]: {
-      paddingRight: theme.spacing(1.5),
+      paddingRight: theme.spacing(2),
     },
   },
 

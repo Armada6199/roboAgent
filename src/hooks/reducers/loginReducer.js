@@ -10,12 +10,11 @@ export let initialState = {
 export function loginReducer(state, action) {
   switch (action.type) {
     case "ON_LOGIN": {
-      console.log("called".repeat(20));
       return {
         ...state,
         isLoggedIn: true,
         userInfo: action.payload.userInfo,
-        authorization: action.payload.authorization,
+        token: action.payload.authorization,
       };
     }
     case "ON_SIGNOUT":

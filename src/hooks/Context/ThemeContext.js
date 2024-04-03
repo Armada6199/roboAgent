@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@mui/material";
 import { createContext, useEffect, useState } from "react";
-import { darkTheme, lightTheme } from "src/theme";
+import { darkTheme, lightTheme } from "src/styles/theme";
 
 export const themeContext = createContext();
 const ThemeContextProvider = ({ children }) => {

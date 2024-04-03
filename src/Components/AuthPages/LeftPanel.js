@@ -7,8 +7,8 @@ const LeftPaneStyle = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  padding: `${theme.spacing()}px ${theme.spacing()}px`,
-  borderRadius: theme.spacing,
+  padding: `${theme.spacing(1)}px ${theme.spacing(1)}px`,
+  borderRadius: theme.spacing(1),
   boxShadow:
     "rgb(145 158 171 / 24%) 0px 0px 2px 0px, rgb(145 158 171 / 24%) 0px 16px 32px -4px",
 

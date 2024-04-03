@@ -8,7 +8,8 @@ function getStorageValue(key, defaultValue) {
 }
 
 export const useLocalStorage = (key, defaultValue) => {
-  const [value, setValue] = useReducer(loginReducer, () =>
+  const [value, setValue] = useReducer(
+    loginReducer,
     getStorageValue(key, defaultValue)
   );
 

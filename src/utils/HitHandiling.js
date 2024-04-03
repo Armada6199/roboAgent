@@ -1,6 +1,8 @@
 export function HitHandle(result) {
   console.log("result ===> ", result);
   const code = result.data.result;
+  console.log(result);
+
   switch (code.toString()) {
     case "0":
       return {

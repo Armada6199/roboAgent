@@ -67,7 +67,7 @@ const GetMoreStyle = styled(Box)(({ theme }) => ({
     position: "absolute",
     top: 0,
     left: "50%",
-    width: theme.spacing(13),
+    width: theme.spacing(4),
     width: 120,
     transform: "translate(-40%, -40%)",
     transition: "all 0.3s ease-in",

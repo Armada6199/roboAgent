@@ -6,10 +6,10 @@ import DashCardHeader from "./DashCardHeader";
 import { styled } from "@mui/material";
 
 const DivStyle = styled("div")(({ theme }) => ({
-  paddingTop: theme.spacing(),
+  paddingTop: theme.spacing(1),
   "& .apexcharts-legend": {
     borderTop: `1px solid ${theme.palette.gray.light}`,
-    padding: `${theme.spacing(3)}px ${theme.spacing()}px`,
+    padding: `${theme.spacing(3)}px ${theme.spacing(3)}px`,
   },
   "& .apexcharts-tooltip": {
     backgroundColor: theme.palette.common.white,

@@ -1,21 +1,20 @@
-import { useState } from "react";
-import { userData } from "src/utils/api/userApi";
 import {
-  TableContainer,
+  Checkbox,
+  CircularProgress,
   Table,
   TableBody,
-  TableRow,
   TableCell,
-  Checkbox,
+  TableContainer,
   TablePagination,
-  CircularProgress,
+  TableRow,
 } from "@material-ui/core";
-import { styled } from "@mui/material";
-import TableToolbar from "./TableToolbar";
-import UserTableHead from "./UserTableHead";
-import UserMore from "./UserMore";
+import { Box, styled } from "@mui/material";
+import { useState } from "react";
 import AxiosHit from "src/utils/api/AxiosHit";
-import { Box } from "@mui/material";
+import { userData } from "src/utils/api/userApi";
+import TableToolbar from "./TableToolbar";
+import UserMore from "./UserMore";
+import UserTableHead from "./UserTableHead";
 
 // style
 const TableStyle = styled(Table)(({ theme }) => ({
@@ -95,6 +94,7 @@ const UserTable = () => {
       url: "/users/getallusers",
     });
     console.log("called");
+    console.log(hitResult);
     console.log("hitResult.data.users ===> ", hitResult?.data?.users);
     return hitResult?.data?.users;
     // HandelRegularHit({ hitResult, setAlertInfo, loginUpdate, values })

@@ -13,6 +13,7 @@ import { styled } from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdModeEdit } from "react-icons/md";
+import EditAuthDialog from "./dialogs/EditAuthDialog";
 
 // style
 const MenuStyle = styled(Menu)(({ theme }) => ({
@@ -32,7 +33,7 @@ const MenuStyle = styled(Menu)(({ theme }) => ({
 const UserMore = () => {
   const ref = useRef(null);
   const [showMenu, setShowMenu] = useState(false);
-
+  const [showEditRoles, setShowEditRoles] = useState(false);
   return (
     <>
       {/* Button */}
@@ -68,7 +69,7 @@ const UserMore = () => {
         <MenuItem
           component={RouterLink}
           to="#"
-          onClick={() => setShowMenu(false)}
+          onClick={() => setShowEditRoles(true)}
         >
           <ListItemIcon>
             <MdModeEdit />
@@ -79,6 +80,12 @@ const UserMore = () => {
             primaryTypographyProps={{ variant: "body2" }}
           />
         </MenuItem>
+        {showEditRoles && (
+          <EditAuthDialog
+            setShowEditRoles={setShowEditRoles}
+            showEditRoles={showEditRoles}
+          />
+        )}
       </MenuStyle>
     </>
   );
