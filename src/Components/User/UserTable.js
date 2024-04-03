@@ -15,6 +15,7 @@ import { userData } from "src/utils/api/userApi";
 import TableToolbar from "./TableToolbar";
 import UserMore from "./UserMore";
 import UserTableHead from "./UserTableHead";
+import EditAuthDialog from "./dialogs/EditAuthDialog";
 
 // style
 const TableStyle = styled(Table)(({ theme }) => ({
@@ -248,7 +249,10 @@ const UserTable = () => {
                     </TableRow>
                   );
                 })}
-
+              <EditAuthDialog
+              // setShowEditRoles={setShowEditRoles}
+              // showEditRoles={showEditRoles}
+              />
               {/* empty rows can be added below */}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>

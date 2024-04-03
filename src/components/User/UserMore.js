@@ -65,7 +65,6 @@ const UserMore = () => {
             primaryTypographyProps={{ variant: "body2" }}
           />
         </MenuItem>
-
         <MenuItem
           component={RouterLink}
           to="#"
@@ -80,12 +79,12 @@ const UserMore = () => {
             primaryTypographyProps={{ variant: "body2" }}
           />
         </MenuItem>
-        {showEditRoles && (
-          <EditAuthDialog
-            setShowEditRoles={setShowEditRoles}
-            showEditRoles={showEditRoles}
-          />
-        )}
+        (
+        <EditAuthDialog
+          setShowEditRoles={setShowEditRoles}
+          showEditRoles={showEditRoles}
+        />
+        )
       </MenuStyle>
     </>
   );
