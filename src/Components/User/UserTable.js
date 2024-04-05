@@ -242,17 +242,13 @@ const UserTable = () => {
                       {Object.values(user).map((u) => (
                         <TableCell>{user.company}</TableCell>
                       ))}
-
                       <TableCell align="right">
-                        <UserMore />
+                        <UserMore userId={user.userId} />
                       </TableCell>
                     </TableRow>
                   );
                 })}
-              <EditAuthDialog
-              // setShowEditRoles={setShowEditRoles}
-              // showEditRoles={showEditRoles}
-              />
+
               {/* empty rows can be added below */}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>

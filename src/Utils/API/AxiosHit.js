@@ -1,7 +1,7 @@
 import axios from "axios";
 import { HitHandle } from "../HitHandiling";
 
-axios.defaults.baseURL = "http://localhost:9000/api/";
+axios.defaults.baseURL = "http://localhost:3000/api/";
 // axios.defaults.baseURL = "http://192.168.4.202:9000/api/";
 
 if (localStorage.getItem("userInfo")) {

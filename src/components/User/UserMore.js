@@ -30,7 +30,7 @@ const MenuStyle = styled(Menu)(({ theme }) => ({
   },
 }));
 
-const UserMore = () => {
+const UserMore = ({ userId }) => {
   const ref = useRef(null);
   const [showMenu, setShowMenu] = useState(false);
   const [showEditRoles, setShowEditRoles] = useState(false);
@@ -81,6 +81,7 @@ const UserMore = () => {
         </MenuItem>
         (
         <EditAuthDialog
+          userId={userId}
           setShowEditRoles={setShowEditRoles}
           showEditRoles={showEditRoles}
         />

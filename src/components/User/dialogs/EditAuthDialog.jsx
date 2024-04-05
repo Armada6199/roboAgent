@@ -1,50 +1,61 @@
-import { CheckBox } from "@mui/icons-material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import {
   Button,
-  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Grid,
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import FormStyle from "src/styles/styles";
 import AxiosHit from "src/utils/api/AxiosHit";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-function EditAuthDialog({ setShowEditRoles, showEditRoles }) {
+function EditAuthDialog({ setShowEditRoles, showEditRoles, userId }) {
   const [authorities, setAutherities] = useState([]);
-  let job_positions = [
-    "Software Engineer",
-    "Data Scientist",
-    "Marketing Manager",
-    "Sales Representative",
-    "Human Resources Coordinator",
-    "Financial Analyst",
-    "Graphic Designer",
-    "Customer Support Specialist",
-    "Project Manager",
-    "Product Manager",
-  ];
+  console.log(userId);
+  const [newAuthorities, setNewAutherties] = useState(authorities);
   useEffect(() => {
     const getAuthorities = async () => {
       let hitResult = await AxiosHit({
         method: "get",
         url: "/user-auth",
       });
-      console.log(hitResult.data.user.authorities);
-      setAutherities(hitResult.data.user.authorities);
-      return hitResult.user.authorities;
+      console.log(hitResult.data.authorities);
+      setAutherities(hitResult.data.authorities);
+      return hitResult.authorities;
     };
     getAuthorities();
   }, []);
+  function changeUserAuths(id) {
+    if (newAuthorities.find((e) => e == id)) {
+      console.log("found");
+      const newFiltered = authorities.filter((e) => e.authId !== id);
+      setNewAutherties(newFiltered);
+    } else {
+      setNewAutherties((prev) => [...prev, id]);
+    }
+  }
+  async function handleSubmitUserAuths() {
+    try {
+      let hitResult = await AxiosHit({
+        method: "put",
+        url: "/user-auth",
+        data: {
+          services: newAuthorities,
+          userId: userId,
+        },
+      });
+      console.log(hitResult);
+    } catch (error) {
+      console.error();
+    }
+  }
   return (
     <Dialog
       fullWidth
-      open={true}
+      open={showEditRoles}
+      disablePortal
       onClose={() => {
         setShowEditRoles(false);
       }}
@@ -61,43 +72,41 @@ function EditAuthDialog({ setShowEditRoles, showEditRoles }) {
           Edit User Authorities
         </Typography>
       </DialogTitle>
-      <DialogContent sx={{ paddingX: 1, paddingY: 0 }}>
-        {/* {authorities.map((auth) => (
-          <Grid container item>
-            <Grid item>
-              <DialogContentText fontWeight={"bold"} fontSize={18}>
-                {auth.name}
-              </DialogContentText>
-            </Grid>
-            <Grid item xs={4}></Grid>
-          </Grid>
-        ))} */}
-        <Grid container>
-          {job_positions.map((auth) => (
-            <Grid container item xs={6} alignItems={"flex-start"} gap={2}>
-              <Grid item>
-                <Typography variant="h6">{auth}</Typography>
+      <DialogContent sx={{}}>
+        <Grid container spacing={4}>
+          {authorities.map((auth) => (
+            <Grid container item alignItems={"center"} xs={6}>
+              <Grid item xs={12} md={8}>
+                <Typography variant="h6">{auth.name}</Typography>
               </Grid>
               <Grid container item xs={4} alignItems={"center"}>
-                <Grid item>
-                  <RemoveCircleIcon />
+                <Grid item xs={12}>
+                  <AddCircleIcon
+                    sx={{ cursor: "pointer", color: "primary.main" }}
+                    onClick={() => changeUserAuths(auth.authId)}
+                  />
                 </Grid>
-                <Grid item>
-                  <AddCircleIcon />
+                <Grid item xs={12}>
+                  <RemoveCircleIcon sx={{ cursor: "pointer", color: "red" }} />
                 </Grid>
               </Grid>
             </Grid>
           ))}
         </Grid>
-
-        <DialogContentText fontWeight={"bold"}></DialogContentText>
       </DialogContent>
       <DialogActions sx={{ paddingTop: 0 }}>
-        <FormStyle sx={{ width: "100%" }}>
-          <Button fullWidth variant="contained">
-            Submit
-          </Button>
-        </FormStyle>
+        <Grid container>
+          {newAuthorities.map((auth) => {
+            <Grid item>
+              <Button color="black">
+                {authorities.find((e) => e.authId == auth)}
+              </Button>
+            </Grid>;
+          })}
+        </Grid>
+        <Button onClick={handleSubmitUserAuths} fullWidth variant="contained">
+          Submit
+        </Button>
       </DialogActions>
     </Dialog>
   );
