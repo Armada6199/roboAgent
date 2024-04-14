@@ -2,6 +2,9 @@ import { createTheme } from "@mui/material/styles";
 
 // custom theme
 const lightTheme = createTheme({
+  typography: {
+    fontFamily: `"DM Sans", "Roboto", "Arial", sans-serif`,
+  },
   palette: {
     primary: {
       main: "rgb(0, 82, 73)",
@@ -45,9 +48,11 @@ const lightTheme = createTheme({
       },
     },
   },
-  spacing: [0, 4, 5, 8, 13, 16, 32, 64],
 });
 const darkTheme = createTheme({
+  typography: {
+    fontFamily: `"DM Sans", "Roboto", "Arial", sans-serif`,
+  },
   palette: {
     primary: {
       main: "#556cd6",
@@ -91,6 +96,5 @@ const darkTheme = createTheme({
       },
     },
   },
-  spacing: [0, 4, 5, 8, 13, 16, 32, 64],
 });
 export { lightTheme, darkTheme };

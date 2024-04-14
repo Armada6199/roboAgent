@@ -2,6 +2,8 @@ import ReactDOM from "react-dom";
 
 import { BrowserRouter } from "react-router-dom/dist";
 import App from "./App";
+import "./i18n";
+import "./index.css";
 console.log(process.env);
 console.log(process.env.NODE_ENV);
 

@@ -68,7 +68,8 @@ const MainHeader = (props) => {
   const handleOpenUserMenu = (e) => setShowUserMenu(e.currentTarget);
   const handleCloseUserMenu = () => setShowUserMenu(null);
   const { loginData } = useContext(LoginContext);
-  if (!!loginData.userInfo.email) {
+  console.log(loginData.isLoggedIn);
+  if (loginData.isLoggedIn) {
     return (
       <AppBarStyle position="fixed">
         <ToolbarStyle>
@@ -91,13 +92,11 @@ const MainHeader = (props) => {
           {/* Right side's items */}
           <ContainerStyle>
             {/* Language selector */}
-            <Suspense fallback={<Loader />}>
-              <LanguageSelector
-                anchorEl={showLang}
-                onOpen={handleOpenLang}
-                onClose={handleCloseLang}
-              />
-            </Suspense>
+            <LanguageSelector
+              anchorEl={showLang}
+              onOpen={handleOpenLang}
+              onClose={handleCloseLang}
+            />
             {/* Notification */}
 
             <Notifications
@@ -135,13 +134,11 @@ const MainHeader = (props) => {
           <ContainerStyle>
             {/* Language selector */}
             <DarkModeSelector />
-            <Suspense fallback={<Loader />}>
-              <LanguageSelector
-                anchorEl={showLang}
-                onOpen={handleOpenLang}
-                onClose={handleCloseLang}
-              />
-            </Suspense>
+            <LanguageSelector
+              anchorEl={showLang}
+              onOpen={handleOpenLang}
+              onClose={handleCloseLang}
+            />
           </ContainerStyle>
         </ToolbarStyle>
       </AppBarStyle>

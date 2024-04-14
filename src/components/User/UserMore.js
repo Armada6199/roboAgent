@@ -13,7 +13,7 @@ import { styled } from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdModeEdit } from "react-icons/md";
-import EditAuthDialog from "./dialogs/EditAuthDialog";
+import EditAuthDialog from "./dialogs/UserServices";
 
 // style
 const MenuStyle = styled(Menu)(({ theme }) => ({

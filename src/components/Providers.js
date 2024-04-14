@@ -9,9 +9,9 @@ function Providers({ children }) {
     <LoginProvider>
       <ThemeContextProvider>
         <CssBaseline />
-        <I18nextProvider i18n={i18next}>
-          <AlertProvider>{children}</AlertProvider>
-        </I18nextProvider>
+        {/* <I18nextProvider i18n={i18next}> */}
+        <AlertProvider>{children}</AlertProvider>
+        {/* </I18nextProvider> */}
       </ThemeContextProvider>
     </LoginProvider>
   );

@@ -2,8 +2,7 @@ import { IconButton, ListItemText, Menu, MenuItem } from "@material-ui/core";
 import { styled } from "@mui/material";
 
 // images
-import i18next, { changeLanguage } from "i18next";
-import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 import AR_Flag from "src/assets/Images/ic_flag_ar.svg";
 import EN_Flag from "src/assets/Images/ic_flag_en.svg";
 // import DE_Flag from "~/Core/Images/ic_flag_de.svg";
@@ -38,14 +37,14 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
   },
   "& .MuiListItemText-primary": {
     marginLeft: theme.spacing(1),
-    fontSize: theme.spacing(1),
+    fontSize: theme.spacing(2),
   },
 }));
 
 const IconButtonStyle = styled(IconButton)(({ theme }) => ({
   padding: "12px 9px",
   "& img": {
-    width: theme.spacing(1),
+    width: 28,
   },
 }));
 
@@ -53,11 +52,11 @@ const IconButtonStyle = styled(IconButton)(({ theme }) => ({
 const languages = [
   { src: <img src={AR_Flag} alt="Arabic" />, alt: "Arabic" },
   { src: <img src={EN_Flag} alt="English" />, alt: "English" },
-  // { src: <img src={DE_Flag} alt="German" />},
-  // { src: <img src={FR_Flag} alt="French" />},
 ];
 
 const LanguageSelector = (props) => {
+  console.log(i18next.language);
+
   return (
     <>
       <IconButtonStyle
@@ -65,17 +64,7 @@ const LanguageSelector = (props) => {
         aria-haspopup="true"
         onClick={props.onOpen}
       >
-        {!!i18next.language ? (
-          <>
-            {
-              languages.filter((l) => {
-                return l.alt === i18next.language;
-              })[0].src
-            }
-          </>
-        ) : (
-          <>{languages[0].src}</>
-        )}
+        {i18next.language == "en" ? languages[1].src : <>{languages[0].src}</>}
       </IconButtonStyle>
 
       <StyledMenu
@@ -90,9 +79,8 @@ const LanguageSelector = (props) => {
             key={el.alt}
             value={el.alt}
             onClick={(e) => {
-              console.log("click");
-              console.log(el.alt);
-              changeLanguage(e);
+              console.log(i18next.language);
+              // i18next.changeLanguage("en");
               props.onClose(e);
             }}
           >
