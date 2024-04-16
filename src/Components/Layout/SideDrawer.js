@@ -61,7 +61,8 @@ const GetMoreStyle = styled(Box)(({ theme }) => ({
   padding: "60px 12px 14px 12px",
   borderRadius: theme.spacing(2),
   textAlign: "center",
-  position: "relative",
+  position: "absolute",
+  bottom: 0,
 
   "& img": {
     position: "absolute",
@@ -120,7 +121,7 @@ const afterLogin = [
     id: "L2",
     path: "/dash/product",
     icon: <RiShoppingBag3Fill />,
-    title: "Product",
+    title: "Manual",
   },
   {
     id: "L3",

@@ -14,11 +14,14 @@ import {
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import FormStyle from "src/styles/styles";
+import { handleRestPassword } from "src/utils/api/auth/otp";
 
 function OTPDialog({
   isNewPasswordOpen,
   setIsNewPasswordOpen,
   setIsSnackbarOpen,
+  email,
+  setSnackbarText,
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -37,9 +40,8 @@ function OTPDialog({
     formState: { errors },
   } = useForm();
   //change to an api folder later
-  async function handleChangePassword(data) {
+  async function closeNewPassDialog() {
     try {
-      console.log("test");
       setIsSnackbarOpen(true);
       setIsNewPasswordOpen(false);
     } catch (error) {
@@ -93,14 +95,14 @@ function OTPDialog({
             {...register("password", {
               required: true,
               pattern: {
-                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+                value: /^(?=.*[A-Z])(?=.*\d).+$/,
                 message:
-                  "Password must contain one at least capital letter one small and one number ",
+                  "Password must contain at least one capital letter one small and one number",
               },
-              minLength: {
-                value: 8,
-                message: "Password must be at least 8 characters",
-              },
+              // minLength: {
+              //   value: 8,
+              //   message: "Password must be at least 8 characters",
+              // },
             })}
           />
         </FormStyle>
@@ -151,7 +153,14 @@ function OTPDialog({
           <Button
             fullWidth
             variant="contained"
-            onClick={handleSubmit(handleChangePassword)}
+            onClick={handleSubmit((data) =>
+              handleRestPassword(
+                email,
+                data.password,
+                closeNewPassDialog,
+                setSnackbarText
+              )
+            )}
           >
             Change Password
           </Button>

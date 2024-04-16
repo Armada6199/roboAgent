@@ -1,60 +1,26 @@
-import { Button, Grid, Modal } from "@mui/material";
+import { Button, Grid, Modal, Typography } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import { useEffect, useState } from "react";
-import AxiosHit from "src/utils/api/AxiosHit";
-import UserServices from "./dialogs/UserServices";
-import DraggableTest from "./dialogs/DraggableTest";
 import { glassMorphisimStyle } from "src/styles/styles";
-function reshapeUserData(usersArr = []) {
-  const newUsersArr = [];
-  for (let user of usersArr) {
-    let newUserArr = [];
-    for (let key of Object.keys(user)) {
-      // if (key == "services" || key == "users") break;
-      newUserArr.push(user[key]);
-    }
-    newUsersArr.push(newUserArr);
-  }
-  return newUsersArr;
-}
+import { handleFetchUserData } from "src/utils/users/api/users";
+import DraggableTest from "./dialogs/DraggableTest";
+import "./usersTable.css";
+import { handleSubmitUserAuths } from "src/utils/dnd/events";
+import { Box } from "@mui/system";
 
 function UserTable() {
   const [isOpenServiceDialog, setIsOpenServiceDialog] = useState(false);
   const [tableData, setTableData] = useState({});
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({ userId: null });
   const handleOpenServiceDialog = (userData) => {
-    setUserData(userData);
+    setUserData({ userId: tableData.userId, userData });
     setIsOpenServiceDialog(true);
   };
   const handleCloseServiceDialog = () => {
     setIsOpenServiceDialog(false);
   };
-  /// MOVE TO AN EXTERNAL API FOLDER ONCE FINISHED WORKING
-  async function handleFetchUserData(setTableData) {
-    try {
-      const response = await AxiosHit({
-        url: "users/getallusers?size=10",
-        method: "get",
-      });
-      const newUsersDataReshaped = reshapeUserData(response?.data?.users);
-      console.log(newUsersDataReshaped);
-      setTableData({
-        usersData: newUsersDataReshaped,
-      });
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
 
   const columns = [
-    {
-      name: "userID",
-      label: "User ID",
-
-      options: {
-        filter: true,
-      },
-    },
     {
       name: "FirstName",
       label: "First Name",
@@ -104,14 +70,14 @@ function UserTable() {
       },
     },
     {
-      name: "Users",
-      label: "Users",
+      name: "service",
+      label: "Service",
       options: {
         filter: true,
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <Grid container item alignItems={"center"}>
-              <Button fullWidth>View All</Button>
+              <Typography variant="body1">Visas</Typography>
             </Grid>
           );
         },
@@ -127,9 +93,10 @@ function UserTable() {
             <Grid container item alignItems={"center"}>
               <Button
                 fullWidth
+                variant="contained"
                 onClick={() => handleOpenServiceDialog(tableMeta.rowData)}
               >
-                View All
+                View all
               </Button>
             </Grid>
           );
@@ -145,7 +112,7 @@ function UserTable() {
     selectableRowsHeader: false,
   };
   return (
-    <Grid container item gap={4} alignItems={"flex-start"}>
+    <Grid container item gap={4}>
       <Grid container item>
         <MUIDataTable
           title={"Users"}
@@ -154,35 +121,69 @@ function UserTable() {
           options={options}
         />
       </Grid>
-      {/* {isOpenServiceDialog && (
-        <UserServices
-          userData={userData}
-          handleCloseServiceDialog={handleCloseServiceDialog}
-          isOpenServiceDialog={isOpenServiceDialog}
-        />
-      )} */}
+
       <Modal
         open={isOpenServiceDialog}
+        onClose={handleCloseServiceDialog}
         sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
-        onClose={handleCloseServiceDialog}
       >
         <Grid
           container
           item
           xs={12}
           md={6}
-          p={4}
-          sx={{ ...glassMorphisimStyle }}
+          sx={{
+            ...glassMorphisimStyle,
+            maxHeight: "90vh",
+            overflow: "scroll",
+          }}
         >
-          <DraggableTest
-            userData={userData}
-            handleCloseServiceDialog={handleCloseServiceDialog}
-            isOpenServiceDialog={isOpenServiceDialog}
-          />
+          <Grid container item p={4}>
+            {console.log(userData)}
+            {userData.userData && (
+              <DraggableTest
+                activeServices={userData.userData[6]}
+                userId={userData.userId}
+                handleCloseServiceDialog={handleCloseServiceDialog}
+                isOpenServiceDialog={isOpenServiceDialog}
+              />
+            )}
+          </Grid>
+          <Box
+            position={"sticky"}
+            bgcolor={"#f6f6f6"}
+            height={65}
+            width={"100%"}
+            bottom={0}
+            display={"flex"}
+            px={4}
+            alignItems={"center"}
+          >
+            <Grid container item justifyContent={"space-between"} gap={4}>
+              <Grid item xs={12} md={4}>
+                <Button
+                  fullWidth
+                  onClick={() => handleSubmitUserAuths()}
+                  variant="contained"
+                >
+                  Cancel
+                </Button>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Button
+                  fullWidth
+                  onClick={() => handleSubmitUserAuths(containers, userId)}
+                  variant="contained"
+                >
+                  Submit
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
         </Grid>
       </Modal>
     </Grid>

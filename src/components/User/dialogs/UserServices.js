@@ -10,27 +10,21 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import AxiosHit from "src/utils/api/AxiosHit";
+import {
+  handleFetchAuthorities,
+  handleSubmitUserAuths,
+} from "src/utils/users/api/users";
 import servicesIcons from "../../../constants/servicesIcons";
 function UserServices({
   handleCloseServiceDialog,
   isOpenServiceDialog,
   userData,
 }) {
-  const [authorities, setAutherities] = useState([]);
+  const [authorities, setAuthorities] = useState([]);
   const [newAuthorities, setNewAutherties] = useState(userData[8]);
   const [isEditModeOn, setIsEditModeOn] = useState(false);
   useEffect(() => {
-    const getAuthorities = async () => {
-      let hitResult = await AxiosHit({
-        method: "get",
-        url: "/user-auth",
-      });
-      console.log(hitResult.data.services);
-      setAutherities(hitResult.data.services);
-      return hitResult.services;
-    };
-    getAuthorities();
+    handleFetchAuthorities(setAuthorities);
   }, []);
   function changeUserAuths(auth) {
     const foundService = newAuthorities.find((e) => e.authId == auth.authId);
@@ -51,21 +45,7 @@ function UserServices({
 
     setIsEditModeOn(false);
   };
-  async function handleSubmitUserAuths() {
-    try {
-      let hitResult = await AxiosHit({
-        method: "put",
-        url: "/user-auth",
-        data: {
-          services: newAuthorities,
-          userId: userData[0],
-        },
-      });
-      console.log(hitResult);
-    } catch (error) {
-      console.error();
-    }
-  }
+
   return (
     <Dialog
       fullWidth
@@ -151,7 +131,7 @@ function UserServices({
             <Grid item>
               <Button
                 onClick={() =>
-                  isEditModeOn ? handleSubmitUserAuths() : setIsEditModeOn(true)
+                  handleSubmitUserAuths(userData[0], newAuthorities)
                 }
                 fullWidth
                 variant="contained"

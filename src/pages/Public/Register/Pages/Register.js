@@ -8,6 +8,8 @@ import LeftPanel from "src/components/AuthPages/LeftPanel";
 // img
 import RegisterPhoto from "src/assets/Images/auth/register.png";
 import { TopPaneStyle } from "src/styles/styles";
+import { useState } from "react";
+import FinalRegister from "src/components/AuthPages/FinalRegister";
 
 // styles
 const ContainerBoxStyle = styled(Box)(({ theme }) => ({
@@ -70,7 +72,9 @@ const RightPanelStyle = styled(Box)(({ theme }) => ({
 
 const Register = () => {
   const preventDefault = (e) => e.preventDefault();
-
+  const [steps, setSteps] = useState(0);
+  const handleNext = () => setSteps((prev) => prev + 1);
+  const handleBack = () => setSteps((prev) => prev - 1);
   return (
     <>
       {/* Helmet */}
@@ -104,7 +108,7 @@ const Register = () => {
             </Link>
           </Typography> */}
 
-          <Container className="form_Container" maxWidth="sm">
+          <Container className="form_Container" maxWidth="md">
             {/* Buttons */}
             {/* <AuthButtonGroup /> */}
 
@@ -112,8 +116,8 @@ const Register = () => {
             {/* <SectionDivider /> */}
 
             {/* The Actual Form 👇 */}
-            <FormRegister />
-
+            {steps == 0 && <FormRegister handleNext={handleNext} />}
+            {steps == 1 && <FinalRegister />}
             {/* Terms */}
             <Typography paragraph color="textSecondary" className="terms">
               By registering, I agree to RoboAgent{" "}

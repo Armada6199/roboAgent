@@ -18,5 +18,5 @@ export default {
   10: <Person2Icon sx={{ color: "primary.main" }} />,
   11: <Person2Icon sx={{ color: "primary.main" }} />,
   12: <Person2Icon sx={{ color: "primary.main" }} />,
-  12: <Person2Icon sx={{ color: "primary.main" }} />,
+  13: <Person2Icon sx={{ color: "primary.main" }} />,
 };

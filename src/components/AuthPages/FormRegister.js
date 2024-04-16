@@ -10,7 +10,7 @@ import { useUpdateAlert } from "src/hooks/Context/AlertContext";
 import FormStyle from "src/styles/styles";
 import AxiosHit from "src/utils/api/AxiosHit";
 import { HandelRegularHit } from "src/utils/HitHandiling";
-const FormRegister = () => {
+const FormRegister = ({ handleNext }) => {
   const [passwordsInfo, setPasswordsInfo] = useState({
     togglePassword: false,
     valuePass: "",
@@ -44,22 +44,11 @@ const FormRegister = () => {
       data: data,
     });
     // hitResult = {...hitResult,redirectTo:"/"}
+    handleNext();
     HandelRegularHit({ hitResult: hitResult, setAlertInfo, values: data });
   };
   return (
     <FormStyle component="form" onSubmit={handleSubmit(onSubmit)}>
-      {/* Names box */}
-      {/* <TextField
-        variant="outlined"
-        fullWidth
-        type="text"
-        label="user name"
-        {...register("userName", {
-          required: true
-        })}
-        error={errors.userName ? true : false}
-        helperText={errors.userName && "Enter the UserName"}
-      /> */}
       <Box
         sx={{
           display: "grid",

@@ -28,11 +28,13 @@ import AxiosHit from "src/utils/api/AxiosHit";
 import NewPassDialog from "./dialogs/NewPassDialog";
 import OTPDialog from "./dialogs/OTPDialog";
 import { LoginContext } from "src/hooks/Context/LoginInfoContext";
+import { handleVerifyEmail } from "src/utils/api/auth/otp";
 const FormLogin = () => {
   const [showPassword, setShowPassord] = useState(false);
   const [remember, setRemember] = useState(true);
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
+  const [snackBarText, setSnackbarText] = useState("");
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const { loginDispatch } = useContext(LoginContext);
   const [isNewPasswordOpen, setIsNewPasswordOpen] = useState(false);
@@ -56,6 +58,7 @@ const FormLogin = () => {
   const {
     register: emailRegister,
     handleSubmit: emailHandleSubmit,
+    getValues,
     formState: { errors: emailErrors },
   } = useForm();
 
@@ -130,7 +133,14 @@ const FormLogin = () => {
             <Button
               fullWidth
               variant="contained"
-              onClick={emailHandleSubmit(sendOtp)}
+              onClick={emailHandleSubmit((data) =>
+                handleVerifyEmail(
+                  data.email,
+                  sendOtp,
+                  setSnackbarText,
+                  setIsSnackbarOpen
+                )
+              )}
             >
               Next
             </Button>
@@ -143,6 +153,9 @@ const FormLogin = () => {
           setIsNewPasswordOpen={setIsNewPasswordOpen}
           setOpen2={setOpen2}
           open2={open2}
+          email={getValues("email")}
+          setSnackbarText={setSnackbarText}
+          setIsSnackbarOpen={setIsSnackbarOpen}
         />
       )}
       {isNewPasswordOpen && (
@@ -150,6 +163,8 @@ const FormLogin = () => {
           isNewPasswordOpen={isNewPasswordOpen}
           setIsNewPasswordOpen={setIsNewPasswordOpen}
           setIsSnackbarOpen={setIsSnackbarOpen}
+          setSnackbarText={setSnackbarText}
+          email={getValues("email")}
         />
       )}
       <FormStyle component="form" onSubmit={handleSubmit(onSubmit)}>
@@ -236,7 +251,7 @@ const FormLogin = () => {
             variant="filled"
             sx={{ width: "100%" }}
           >
-            Your Password has been changed successfully
+            {snackBarText}
           </Alert>
         </Snackbar>
       </FormStyle>

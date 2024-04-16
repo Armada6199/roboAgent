@@ -17,46 +17,6 @@ import { RiHome4Fill, RiSettings3Fill, RiUserFill } from "react-icons/ri";
 import userAvatar from "src/assets/Images/GreenQiwa.jpg";
 import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 
-// styles
-// const usestyles = makeStyles((theme) => ({
-//   grayMain: {
-//     color: theme.palette.gray.main,
-//   },
-//   grayDark: {
-//     color: theme.palette.gray.dark,
-//   },
-//   listHeader: {
-//     color: theme.palette.gray.main,
-//     margin: "8px 0",
-//     paddingLeft: theme.spacing(2),
-//     letterSpacing: 1,
-//     fontSize: theme.spacing(2),
-//     fontWeight: 600,
-//   },
-// }));
-
-// const StyledMenu = withStyles((theme) => ({
-//   paper: {
-//     maxWidth: 225,
-//     width: "90%",
-//     boxShadow: `0 2px 10px -5px ${theme.palette.green.darker}`,
-//   },
-// }))((props) => (
-//   <Menu
-//     elevation={0}
-//     getContentAnchorEl={null}
-//     anchorOrigin={{
-//       vertical: "bottom",
-//       horizontal: "right",
-//     }}
-//     transformOrigin={{
-//       vertical: "top",
-//       horizontal: "right",
-//     }}
-//     {...props}
-//   />
-// ));
-
 const GrayMainText = styled("div")(({ theme }) => ({
   color: theme.palette.gray.main,
 }));
@@ -128,9 +88,24 @@ const MenuItemStyle = styled(MenuItem)(({ theme }) => ({
 
 // List of links
 const links = [
-  { id: "l1", path: "/home", title: "Home", icon: <RiHome4Fill /> },
-  { id: "l2", path: "/profile", title: "Profile", icon: <RiUserFill /> },
-  { id: "l3", path: "/settings", title: "Settings", icon: <RiSettings3Fill /> },
+  {
+    id: "l1",
+    path: "/home",
+    title: "Home",
+    icon: <RiHome4Fill />,
+  },
+  {
+    id: "l2",
+    path: "/profile",
+    title: "Profile",
+    icon: <RiUserFill />,
+  },
+  {
+    id: "l3",
+    path: "/settings",
+    title: "Settings",
+    icon: <RiSettings3Fill st />,
+  },
 ];
 
 const UserMenu = (props) => {

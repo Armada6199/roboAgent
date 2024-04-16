@@ -1,4 +1,6 @@
 import {
+  Box,
+  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -6,30 +8,33 @@ import {
   DialogTitle,
   TextField,
   Typography,
-  Box,
-  Button,
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import FormStyle from "src/styles/styles";
-function OTPDialog({ setOpen2, open2, sendEmail, setIsNewPasswordOpen }) {
+import { handleVerifyOTP } from "src/utils/api/auth/otp";
+function OTPDialog({
+  setOpen2,
+  open2,
+  sendEmail,
+  setIsNewPasswordOpen,
+  email,
+  setIsSnackbarOpen,
+  setSnackbarText,
+}) {
   const {
     register: otpRegister,
     handleSubmit: otpHandleSubmit,
     formState: { errors: otpErrors },
     setError,
   } = useForm();
+  console.log(email);
   const [counter, setCounter] = useState(60);
   const Ref = useRef(null);
 
-  const checkOtp = (data) => {
-    if (data.otp !== "0000") {
-      setError("otp", { message: "OTP is not valid " });
-    } else {
-      setOpen2(false);
-
-      setIsNewPasswordOpen(true);
-    }
+  const openNewPass = (data) => {
+    setOpen2(false);
+    setIsNewPasswordOpen(true);
   };
   useEffect(() => {
     const timer =
@@ -107,7 +112,15 @@ function OTPDialog({ setOpen2, open2, sendEmail, setIsNewPasswordOpen }) {
           <Button
             fullWidth
             variant="contained"
-            onClick={otpHandleSubmit(checkOtp)}
+            onClick={otpHandleSubmit((data) =>
+              handleVerifyOTP(
+                email,
+                data.otp,
+                openNewPass,
+                setIsSnackbarOpen,
+                setSnackbarText
+              )
+            )}
           >
             Submit
           </Button>

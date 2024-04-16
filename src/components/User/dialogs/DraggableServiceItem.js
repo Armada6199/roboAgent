@@ -30,7 +30,7 @@ const DraggableServiceItem = ({ service }) => {
       }}
     >
       <Grid item>{servicesIcons[service.authId]}</Grid>
-      <Grid item>
+      <Grid item xs={8}>
         <Typography variant="body1" fontWeight={600}>
           {service.name}
         </Typography>

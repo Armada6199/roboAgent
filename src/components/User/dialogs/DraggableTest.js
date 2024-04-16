@@ -8,270 +8,60 @@ import {
 } from "@dnd-kit/core";
 import {
   SortableContext,
-  arrayMove,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import { Button, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import AxiosHit from "src/utils/api/AxiosHit";
+import {
+  handleDragEnd,
+  handleDragMove,
+  handleDragStart,
+  handleSubmitUserAuths,
+} from "src/utils/dnd/events";
+import {
+  handleFetchAuthorities,
+  handleSetContainerService,
+} from "src/utils/users/api/users";
 import DraggableServiceItem from "./DraggableServiceItem";
 import ServiceContainer from "./ServiceContainer";
-function handleFilterServices(activeServices, allServices) {
-  const filteredArray2 = allServices.filter(
-    (service) =>
-      !activeServices.some(
-        (activeService) => activeService.authId === service.authId
-      )
-  );
-  return filteredArray2;
-}
-function DraggableTest({ handleCloseServiceDialog, userData }) {
+import { Box } from "@mui/system";
+import { glassMorphisimStyle } from "src/styles/styles";
+
+function DraggableTest({ handleCloseServiceDialog, activeServices, userId }) {
   const [activeId, setActiveId] = useState(null);
   const [currentContainerId, setCurrentContainerId] = useState(null);
   const [containerName, steContainerName] = useState(null);
   const [serviceName, setServiceName] = useState("");
-  const [authorities, setAutherities] = useState([]);
+  const [authorities, setAuthorities] = useState([]);
   const [containers, setContainers] = useState([
     {
-      id: 2,
+      id: 1,
       title: "All Services",
-      services: authorities,
+      services: [],
     },
     {
-      id: 1,
+      id: 0,
       title: "Active Services",
-      services: userData[8],
+      services: activeServices,
     },
   ]);
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
-  function findValueOfservices(authId) {
-    return containers.find((container) =>
-      container.services.find((service) => service.authId == authId)
-    );
-  }
-  function handleDragStart(event) {
-    const { active } = event;
-    const { id } = active;
-    setActiveId(id);
-  }
-  const handleDragMove = (event) => {
-    const { active, over } = event;
-
-    // Handle services Sorting
-    if (active && over && active.id !== over.id) {
-      // Find the active container and over container
-      const activeContainer = findValueOfservices(active.id);
-      const overContainer = findValueOfservices(over.id);
-
-      // If the active or over container is not found, return
-      if (!activeContainer || !overContainer) return;
-
-      // Find the index of the active and over container
-      const activeContainerIndex = containers.findIndex(
-        (container) => container.id === activeContainer.id
-      );
-      const overContainerIndex = containers.findIndex(
-        (container) => container.id === overContainer.id
-      );
-
-      // Find the index of the active and over service
-      const activeserviceIndex = activeContainer.services.findIndex(
-        (service) => service.authId === active.id
-      );
-      const overserviceIndex = overContainer.services.findIndex(
-        (service) => service.authId === over.id
-      );
-      // In the same container
-      if (activeContainerIndex === overContainerIndex) {
-        let newservices = [...containers];
-        newservices[activeContainerIndex].services = arrayMove(
-          newservices[activeContainerIndex].services,
-          activeserviceIndex,
-          overserviceIndex
-        );
-
-        setContainers(newservices);
-      } else {
-        // In different containers
-        let newservices = [...containers];
-        const [removedservice] = newservices[
-          activeContainerIndex
-        ].services.splice(activeserviceIndex, 1);
-        newservices[overContainerIndex].services.splice(
-          overserviceIndex,
-          0,
-          removedservice
-        );
-        setContainers(newservices);
-      }
-    }
-
-    // Handling service Drop Into a Container
-    if (active && over && active.id !== over.id) {
-      // Find the active and over container
-      const activeContainer = findValueOfservices(active.id);
-      const overContainer = findValueOfservices(over.id);
-
-      // If the active or over container is not found, return
-      if (!activeContainer || !overContainer) return;
-
-      // Find the index of the active and over container
-      const activeContainerIndex = containers.findIndex(
-        (container) => container.id === activeContainer.id
-      );
-      const overContainerIndex = containers.findIndex(
-        (container) => container.id === overContainer.id
-      );
-
-      // Find the index of the active and over service
-      const activeserviceIndex = activeContainer.services.findIndex(
-        (service) => service.authId === active.id
-      );
-
-      // Remove the active service from the active container and add it to the over container
-      let newservices = [...containers];
-      const [removedservice] = newservices[
-        activeContainerIndex
-      ].services.splice(activeserviceIndex, 1);
-      newservices[overContainerIndex].services.push(removedservice);
-      setContainers(newservices);
-    }
-  };
-  async function handleSubmitUserAuths() {
-    try {
-      let hitResult = await AxiosHit({
-        method: "put",
-        url: "/user-auth",
-        data: {
-          services: containers[1].services,
-          userId: userData[0],
-        },
-      });
-      console.log(hitResult);
-    } catch (error) {
-      console.error();
-    }
-  }
-  ///service drop to another container
-
-  function handleDragEnd(event) {
-    const { active, over } = event;
-
-    // Handling Container Sorting
-    if (active && over && active.id !== over.id) {
-      // Find the index of the active and over container
-      const activeContainerIndex = containers.findIndex(
-        (container) => container.id === active.id
-      );
-      const overContainerIndex = containers.findIndex(
-        (container) => container.id === over.id
-      );
-      // Swap the active and over container
-      let newservices = [...containers];
-      newservices = arrayMove(
-        newservices,
-        activeContainerIndex,
-        overContainerIndex
-      );
-      setContainers(newservices);
-    }
-
-    // Handling service Sorting
-    if (active && over && active.id !== over.id) {
-      // Find the active and over container
-      const activeContainer = findValueOfservices(active.id);
-      const overContainer = findValueOfservices(over.id);
-
-      // If the active or over container is not found, return
-      if (!activeContainer || !overContainer) return;
-      // Find the index of the active and over container
-      const activeContainerIndex = containers.findIndex(
-        (container) => container.id === activeContainer.id
-      );
-      const overContainerIndex = containers.findIndex(
-        (container) => container.id === overContainer.id
-      );
-      // Find the index of the active and over service
-      const activeserviceIndex = activeContainer.services.findIndex(
-        (service) => service.authId === active.id
-      );
-      const overserviceIndex = overContainer.services.findIndex(
-        (service) => service.authId === over.id
-      );
-
-      // In the same container
-      if (activeContainerIndex === overContainerIndex) {
-        let newservices = [...containers];
-        newservices[activeContainerIndex].services = arrayMove(
-          newservices[activeContainerIndex].services,
-          activeserviceIndex,
-          overserviceIndex
-        );
-        setContainers(newservices);
-      } else {
-        // In different containers
-        let newservices = [...containers];
-        const [removedservice] = newservices[
-          activeContainerIndex
-        ].services.splice(activeserviceIndex, 1);
-        newservices[overContainerIndex].services.splice(
-          overserviceIndex,
-          0,
-          removedservice
-        );
-        setContainers(newservices);
-      }
-    }
-    // Handling service dropping into Container
-    if (active && over && active.id !== over.id) {
-      // Find the active and over container
-      const activeContainer = findValueOfservices(active.id);
-      const overContainer = findValueOfservices(over.id);
-
-      // If the active or over container is not found, return
-      if (!activeContainer || !overContainer) return;
-      // Find the index of the active and over container
-      const activeContainerIndex = containers.findIndex(
-        (container) => container.id === activeContainer.id
-      );
-      const overContainerIndex = containers.findIndex(
-        (container) => container.id === overContainer.id
-      );
-      // Find the index of the active and over service
-      const activeserviceIndex = activeContainer.services.findIndex(
-        (service) => service.authId === active.id
-      );
-
-      let newservices = [...containers];
-      const [removedservice] = newservices[
-        activeContainerIndex
-      ].services.splice(activeserviceIndex, 1);
-      newservices[overContainerIndex].services.push(removedservice);
-      setContainers(newservices);
-    }
-    setActiveId(null);
-  }
 
   useEffect(() => {
-    const getAuthorities = async () => {
-      let hitResult = await AxiosHit({
-        method: "get",
-        url: "/user-auth",
-      });
-      const newServices = handleFilterServices(
-        userData[8],
-        hitResult.data.services
+    const get = async () => {
+      const auth = await handleFetchAuthorities(setAuthorities);
+      console.log(auth);
+      handleSetContainerService(
+        activeServices,
+        auth,
+        containers,
+        setContainers
       );
-      const newContainer = containers;
-      newContainer[0].services = newServices;
-      setContainers(newContainer);
-      setAutherities(hitResult.data.services);
-      return hitResult.services;
     };
-    getAuthorities();
+    get();
   }, []);
 
   return (
@@ -291,9 +81,13 @@ function DraggableTest({ handleCloseServiceDialog, userData }) {
         <DndContext
           sensors={sensors}
           collisionDetection={closestCorners}
-          onDragStart={handleDragStart}
-          onDragMove={handleDragMove}
-          onDragEnd={handleDragEnd}
+          onDragStart={(e) => handleDragStart(e, setActiveId)}
+          onDragMove={(e) =>
+            handleDragMove(e, containers, setContainers, setActiveId)
+          }
+          onDragEnd={(e) =>
+            handleDragEnd(e, containers, setContainers, setActiveId)
+          }
         >
           {containers.map((container) => (
             <ServiceContainer
@@ -318,13 +112,6 @@ function DraggableTest({ handleCloseServiceDialog, userData }) {
             </ServiceContainer>
           ))}
         </DndContext>
-      </Grid>
-      <Grid container item justifyContent={"flex-end"}>
-        <Grid item xs={12} md={4}>
-          <Button fullWidth onClick={handleSubmitUserAuths} variant="contained">
-            Submit
-          </Button>
-        </Grid>
       </Grid>
     </Grid>
   );

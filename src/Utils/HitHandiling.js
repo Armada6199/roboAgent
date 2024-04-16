@@ -2,7 +2,6 @@ export function HitHandle(result) {
   console.log("result ===> ", result);
   const code = result.data.result;
   console.log(result);
-
   switch (code.toString()) {
     case "0":
       return {
@@ -30,6 +29,7 @@ export function HitHandle(result) {
         result: "error",
         description: result.data.resultDescription,
       };
+    //
     case "106" || "107" || "108" || "109":
       return {
         success: false,
