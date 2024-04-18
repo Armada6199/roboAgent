@@ -36,14 +36,16 @@ export const handleFetchAuthorities = async (
   }
 };
 export function handleSetContainerService(
-  activeServices,
+  activeAuthorites,
   services,
   containers,
   setContainers
 ) {
-  const newServices = handleFilterServices(activeServices, services);
+  const newServices = handleFilterServices(activeAuthorites, services);
   const newContainer = Object.create(containers);
-  newContainer[0].services = newServices;
+  console.log(newServices);
+  newContainer[0].authorities = newServices;
+  newContainer[1].authorities = activeAuthorites;
   setContainers(newContainer);
 }
 export async function handleFetchUserData(setTableData) {
@@ -55,7 +57,6 @@ export async function handleFetchUserData(setTableData) {
     const newUsersDataReshaped = reshapeUserData(response?.data?.users);
     setTableData({
       usersData: newUsersDataReshaped,
-      userId: response.data.user.userId,
     });
   } catch (error) {
     throw new Error(error);

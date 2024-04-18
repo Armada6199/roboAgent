@@ -1,18 +1,14 @@
 import axios from "axios";
 import { HitHandle } from "../HitHandiling";
 
-axios.defaults.baseURL = "http://localhost:9000/api";
+axios.defaults.baseURL = "http://localhost:3000/api";
 // axios.defaults.baseURL = "http://192.168.4.202:9000/api/";
 
 if (localStorage.getItem("userInfo")) {
   console.log(JSON.parse(localStorage.getItem("userInfo")).token);
-  if (JSON.parse(localStorage.getItem("userInfo")).token) {
-    axios.defaults.headers.common["authorization"] = JSON.parse(
-      localStorage.getItem("userInfo")
-    ).token;
-  } else {
-    axios.defaults.headers.common["authorization"] = null;
-  }
+  axios.defaults.headers.common["authorization"] = JSON.parse(
+    localStorage.getItem("userInfo")
+  ).token;
 }
 export default async function AxiosHit(config) {
   function handleSuccess(result) {

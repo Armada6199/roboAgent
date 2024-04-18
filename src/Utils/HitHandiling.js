@@ -1,9 +1,13 @@
+import cookie from "react-cookies";
+
 export function HitHandle(result) {
   console.log("result ===> ", result);
   const code = result.data.result;
   console.log(result);
   switch (code.toString()) {
     case "0":
+      console.log("success");
+      cookie.save("userInfo", { ...result.data.user, isLoggedIn: true });
       return {
         success: true,
         result: "success",

@@ -10,59 +10,30 @@ import {
   SortableContext,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
-import { Button, Grid, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Grid, Typography } from "@mui/material";
+import { useState } from "react";
 import {
   handleDragEnd,
   handleDragMove,
   handleDragStart,
-  handleSubmitUserAuths,
 } from "src/utils/dnd/events";
-import {
-  handleFetchAuthorities,
-  handleSetContainerService,
-} from "src/utils/users/api/users";
 import DraggableServiceItem from "./DraggableServiceItem";
 import ServiceContainer from "./ServiceContainer";
-import { Box } from "@mui/system";
-import { glassMorphisimStyle } from "src/styles/styles";
 
-function DraggableTest({ handleCloseServiceDialog, activeServices, userId }) {
+function DraggableTest({
+  handleCloseServiceDialog,
+  containers,
+  setContainers,
+}) {
   const [activeId, setActiveId] = useState(null);
   const [currentContainerId, setCurrentContainerId] = useState(null);
   const [containerName, steContainerName] = useState(null);
   const [serviceName, setServiceName] = useState("");
-  const [authorities, setAuthorities] = useState([]);
-  const [containers, setContainers] = useState([
-    {
-      id: 1,
-      title: "All Services",
-      services: [],
-    },
-    {
-      id: 0,
-      title: "Active Services",
-      services: activeServices,
-    },
-  ]);
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
-
-  useEffect(() => {
-    const get = async () => {
-      const auth = await handleFetchAuthorities(setAuthorities);
-      console.log(auth);
-      handleSetContainerService(
-        activeServices,
-        auth,
-        containers,
-        setContainers
-      );
-    };
-    get();
-  }, []);
+  console.log(containers);
 
   return (
     <Grid
@@ -77,6 +48,7 @@ function DraggableTest({ handleCloseServiceDialog, activeServices, userId }) {
           Edit User Services
         </Typography>
       </Grid>
+
       <Grid container item flexWrap={"nowrap"} gap={4}>
         <DndContext
           sensors={sensors}
@@ -89,7 +61,7 @@ function DraggableTest({ handleCloseServiceDialog, activeServices, userId }) {
             handleDragEnd(e, containers, setContainers, setActiveId)
           }
         >
-          {containers.map((container) => (
+          {containers?.map((container) => (
             <ServiceContainer
               id={container.id}
               title={container.title}
@@ -98,13 +70,17 @@ function DraggableTest({ handleCloseServiceDialog, activeServices, userId }) {
               onAddService={() => {}}
             >
               <SortableContext
-                items={container.services.map((services) => services.authId)}
+                items={container.authorities.map(
+                  (authority) => authority.authId
+                )}
               >
-                <Grid container item gap={4}>
-                  {container.services.map((service) => (
+                {console.log(container)}
+                <Grid container item gap={8}>
+                  {container.authorities.map((authority) => (
                     <DraggableServiceItem
-                      key={service.authId}
-                      service={service}
+                      key={authority.authId}
+                      authority={authority}
+                      index={container.id}
                     />
                   ))}
                 </Grid>

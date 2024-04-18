@@ -2,7 +2,7 @@ export let initialState = {
   isLoggedIn: false,
   //   user: { capabilities: [] },
   token: "",
-  userInfo: {},
+  userInfo: { role: "" },
   error: null,
   authorization: [],
 };
@@ -13,11 +13,11 @@ export function loginReducer(state, action) {
       return {
         ...state,
         isLoggedIn: true,
-        userInfo: action.payload.userInfo,
-        token: action.payload.authorization,
+        ...action.payload.userInfo,
       };
     }
-    case "ON_SIGNOUT":
+    case "ON_LOGOUT":
+      console.log("logged out");
       return {
         ...initialState,
       };

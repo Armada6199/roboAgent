@@ -1,25 +1,49 @@
 import { Button, Grid, Modal, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import MUIDataTable from "mui-datatables";
 import { useEffect, useState } from "react";
 import { glassMorphisimStyle } from "src/styles/styles";
-import { handleFetchUserData } from "src/utils/users/api/users";
+import { handleSubmitUserAuths } from "src/utils/dnd/events";
+import {
+  handleFetchAuthorities,
+  handleFetchUserData,
+  handleSetContainerService,
+} from "src/utils/users/api/users";
 import DraggableTest from "./dialogs/DraggableTest";
 import "./usersTable.css";
-import { handleSubmitUserAuths } from "src/utils/dnd/events";
-import { Box } from "@mui/system";
 
 function UserTable() {
   const [isOpenServiceDialog, setIsOpenServiceDialog] = useState(false);
   const [tableData, setTableData] = useState({});
+  const [authorities, setAuthorities] = useState([]);
   const [userData, setUserData] = useState({ userId: null });
-  const handleOpenServiceDialog = (userData) => {
-    setUserData({ userId: tableData.userId, userData });
+  const handleOpenServiceDialog = (activeAuthorites, userId) => {
+    console.log(activeAuthorites);
+    handleSetContainerService(
+      activeAuthorites,
+      authorities,
+      containers,
+      setContainers
+    );
+    setUserData({ userId: userId, userData });
     setIsOpenServiceDialog(true);
   };
   const handleCloseServiceDialog = () => {
     setIsOpenServiceDialog(false);
   };
 
+  const [containers, setContainers] = useState([
+    {
+      id: 1,
+      title: "All Services",
+      authorities: [],
+    },
+    {
+      id: 0,
+      title: "Active Services",
+      authorities: [],
+    },
+  ]);
   const columns = [
     {
       name: "FirstName",
@@ -94,7 +118,12 @@ function UserTable() {
               <Button
                 fullWidth
                 variant="contained"
-                onClick={() => handleOpenServiceDialog(tableMeta.rowData)}
+                onClick={() =>
+                  handleOpenServiceDialog(
+                    tableMeta.rowData[6],
+                    tableMeta.rowData[tableMeta.rowData.length - 1]
+                  )
+                }
               >
                 View all
               </Button>
@@ -106,6 +135,11 @@ function UserTable() {
   ];
   useEffect(() => {
     handleFetchUserData(setTableData);
+    const get = async () => {
+      const auth = await handleFetchAuthorities(setAuthorities);
+      setAuthorities(auth);
+    };
+    get();
   }, []);
   const options = {
     filterType: "checkbox",
@@ -129,6 +163,7 @@ function UserTable() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          minHeight: "90vh",
         }}
       >
         <Grid
@@ -138,23 +173,30 @@ function UserTable() {
           md={6}
           sx={{
             ...glassMorphisimStyle,
-            maxHeight: "90vh",
-            overflow: "scroll",
+            minHeight: "90vh",
           }}
         >
-          <Grid container item p={4}>
-            {console.log(userData)}
+          <Grid
+            container
+            item
+            p={4}
+            sx={{
+              overflowX: "hidden",
+              overflowY: "scroll",
+              maxHeight: "calc(90vh - 65px)",
+            }}
+          >
             {userData.userData && (
               <DraggableTest
-                activeServices={userData.userData[6]}
-                userId={userData.userId}
                 handleCloseServiceDialog={handleCloseServiceDialog}
                 isOpenServiceDialog={isOpenServiceDialog}
+                containers={containers}
+                setContainers={setContainers}
               />
             )}
           </Grid>
           <Box
-            position={"sticky"}
+            position={"fixed"}
             bgcolor={"#f6f6f6"}
             height={65}
             width={"100%"}
@@ -162,21 +204,23 @@ function UserTable() {
             display={"flex"}
             px={4}
             alignItems={"center"}
+            sx={{
+              borderBottomRightRadius: "10px",
+              borderBottomLeftRadius: "10px",
+            }}
           >
             <Grid container item justifyContent={"space-between"} gap={4}>
               <Grid item xs={12} md={4}>
-                <Button
-                  fullWidth
-                  onClick={() => handleSubmitUserAuths()}
-                  variant="contained"
-                >
+                <Button fullWidth variant="contained">
                   Cancel
                 </Button>
               </Grid>
               <Grid item xs={12} md={4}>
                 <Button
                   fullWidth
-                  onClick={() => handleSubmitUserAuths(containers, userId)}
+                  onClick={() =>
+                    handleSubmitUserAuths(containers, userData.userId)
+                  }
                   variant="contained"
                 >
                   Submit

@@ -25,6 +25,7 @@ import CustomListItem from "src/components/Drawer/CustomListItem";
 import { drawerWidth } from "src/components/Layout/DashboardLayout";
 import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 import { styled } from "@mui/material";
+import AuthWrapper from "../AuthWrapper/AuthWrapper";
 const NavDrawerStyle = styled("nav")(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {
     width: drawerWidth,
@@ -115,21 +116,36 @@ const afterLogin = [
     path: "/dash/dashboard",
     icon: <ImPieChart />,
     title: "Dashboard",
+    allowedRoles: ["Admin", "Leader"],
   },
-  { id: "L1", path: "/dash/user", icon: <FaUserFriends />, title: "User" },
+  {
+    id: "L1",
+    path: "/dash/user",
+    icon: <FaUserFriends />,
+    title: "User",
+    allowedRoles: ["Admin", "Leader"],
+  },
   {
     id: "L2",
     path: "/dash/product",
     icon: <RiShoppingBag3Fill />,
     title: "Manual",
+    allowedRoles: ["Admin", "Leader", "Member"],
   },
   {
     id: "L3",
     path: "/dash/services",
     icon: <RiServerFill />,
     title: "Services",
+    allowedRoles: ["Admin", "Leader", "Member"],
   },
-  { id: "L4", path: "/dash/register", icon: <FaUserPlus />, title: "Register" },
+  {
+    id: "L4",
+    path: "/dash/register",
+    icon: <FaUserPlus />,
+    title: "Register",
+    allowedRoles: ["Admin", "Leader"],
+  },
   // { id: "L3", path: "/blog", icon: <RiClipboardFill />, title: "Blog" },
   // { id: "L6", path: "/404", icon: <GiHazardSign />, title: "Not Found" },
 ];
@@ -153,36 +169,29 @@ const SideDrawer = (props) => {
         <Avatar src={userAvatar} alt="User Image" />
 
         <Typography variant="subtitle1" component="h3">
-          {loginData.isLoggedIn
-            ? !!loginData.userInfo.userName
-              ? loginData.userInfo.userName
-              : "" + loginData.userInfo.email?.split("@")[0]
-            : "Guest"}
+          {loginData.firstName}
         </Typography>
       </UserCardStyle>
 
       {/* List of links */}
       <ListStyle>
         {links.map((el) => (
-          <CustomListItem
-            key={el.id}
-            path={el.path}
-            icon={el.icon}
-            title={el.title}
-            onClick={props.onClose}
-          />
+          <AuthWrapper roles={el.allowedRoles}>
+            <CustomListItem
+              key={el.id}
+              path={el.path}
+              icon={el.icon}
+              title={el.title}
+              onClick={props.onClose}
+            />
+          </AuthWrapper>
         ))}
       </ListStyle>
 
       {/* get more card */}
       <GetMoreStyle>
         <img src={getMoreAvatar} alt="avatar" />
-        Welcome{" "}
-        {loginData.isLoggedIn
-          ? !!loginData.userInfo.userName
-            ? loginData.userInfo.firstName
-            : "" + loginData.userInfo.email?.split("@")[0]
-          : "Guest"}
+        Welcome {loginData.firstName + " "} {loginData.lastName}
       </GetMoreStyle>
     </>
   );

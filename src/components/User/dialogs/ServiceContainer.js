@@ -11,7 +11,7 @@ function ServiceContainer({ id, children, title, onAddService, index }) {
       minHeight={"200px"}
       height={"100%"}
       alignItems={"flex-start"}
-      sx={{ ...glassMorphisimStyle }}
+      sx={{ ...glassMorphisimStyle, zIndex: 0 }}
     >
       <Grid
         container

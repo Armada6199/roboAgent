@@ -21,19 +21,6 @@ const GrayMainText = styled("div")(({ theme }) => ({
   color: theme.palette.gray.main,
 }));
 
-const GrayDarkText = styled("div")(({ theme }) => ({
-  color: theme.palette.gray.dark,
-}));
-
-const ListHeader = styled("div")(({ theme }) => ({
-  color: theme.palette.gray.main,
-  margin: "8px 0",
-  paddingLeft: theme.spacing(2),
-  letterSpacing: 1,
-  fontSize: theme.spacing(2),
-  fontWeight: 600,
-}));
-
 const StyledMenu = styled(Menu)(({ theme }) => ({
   "& .MuiPaper-root": {
     maxWidth: 225,
@@ -109,7 +96,7 @@ const links = [
 ];
 
 const UserMenu = (props) => {
-  const { loginData } = useContext(LoginContext);
+  const { loginData, logout } = useContext(LoginContext);
   console.log("LoginInfo", loginData);
   return (
     <>
@@ -133,12 +120,10 @@ const UserMenu = (props) => {
         {/* Header */}
         <BoxStyle>
           <Typography variant="h6" component="h3">
-            {!!loginData.userInfo.userName
-              ? loginData.userInfo.userName
-              : "" + loginData.userInfo.email.split("@")[0]}
+            {loginData.firstName ? loginData.firstName : ""}
           </Typography>
           <GrayMainText variant="body2" component="p">
-            {loginData.userInfo.email}
+            {loginData.email}
           </GrayMainText>
         </BoxStyle>
 
@@ -156,13 +141,7 @@ const UserMenu = (props) => {
 
         {/* Footer */}
         <BoxStyle>
-          <LinkStyle
-            href="/"
-            underline="none"
-            onClick={() => {
-              localStorage.clear();
-            }}
-          >
+          <LinkStyle href="/" underline="none" onClick={() => logout()}>
             Logout
           </LinkStyle>
         </BoxStyle>

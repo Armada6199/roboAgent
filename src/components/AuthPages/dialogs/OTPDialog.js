@@ -13,15 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import FormStyle from "src/styles/styles";
 import { handleVerifyOTP } from "src/utils/api/auth/otp";
-function OTPDialog({
-  setOpen2,
-  open2,
-  sendEmail,
-  setIsNewPasswordOpen,
-  email,
-  setIsSnackbarOpen,
-  setSnackbarText,
-}) {
+function OTPDialog({ sendEmail, email, steps, handleNext, setSnackbarData }) {
   const {
     register: otpRegister,
     handleSubmit: otpHandleSubmit,
@@ -32,10 +24,6 @@ function OTPDialog({
   const [counter, setCounter] = useState(60);
   const Ref = useRef(null);
 
-  const openNewPass = (data) => {
-    setOpen2(false);
-    setIsNewPasswordOpen(true);
-  };
   useEffect(() => {
     const timer =
       counter > 0 && setInterval(() => setCounter((prev) => prev - 1), 1000);
@@ -44,11 +32,11 @@ function OTPDialog({
   return (
     <Dialog
       fullWidth={true}
-      open={open2}
-      onClose={() => {
-        setOpen2(false);
-        setCounter(60);
-      }}
+      open={steps === 1}
+      // onClose={() => {
+      //   setOpen2(false);
+      //   setCounter(60);
+      // }}
       sx={{
         textAlign: "center",
         "& .MuiPaper-root": {
@@ -113,13 +101,7 @@ function OTPDialog({
             fullWidth
             variant="contained"
             onClick={otpHandleSubmit((data) =>
-              handleVerifyOTP(
-                email,
-                data.otp,
-                openNewPass,
-                setIsSnackbarOpen,
-                setSnackbarText
-              )
+              handleVerifyOTP(email, data.otp, handleNext, setSnackbarData)
             )}
           >
             Submit

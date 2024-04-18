@@ -16,13 +16,7 @@ import { useForm } from "react-hook-form";
 import FormStyle from "src/styles/styles";
 import { handleRestPassword } from "src/utils/api/auth/otp";
 
-function OTPDialog({
-  isNewPasswordOpen,
-  setIsNewPasswordOpen,
-  setIsSnackbarOpen,
-  email,
-  setSnackbarText,
-}) {
+function OTPDialog({ handleNext, email, steps, setSnackbarData }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const handleClickShowPassword = () => {
@@ -40,21 +34,21 @@ function OTPDialog({
     formState: { errors },
   } = useForm();
   //change to an api folder later
-  async function closeNewPassDialog() {
-    try {
-      setIsSnackbarOpen(true);
-      setIsNewPasswordOpen(false);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // async function closeNewPassDialog() {
+  //   try {
+  //     setIsSnackbarOpen(true);
+  //     setIsNewPasswordOpen(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
   return (
     <Dialog
       fullWidth={true}
-      open={isNewPasswordOpen}
-      onClose={() => {
-        setIsNewPasswordOpen(false);
-      }}
+      open={steps === 1}
+      // onClose={() => {
+      //   setIsNewPasswordOpen(false);
+      // }}
       sx={{
         textAlign: "center",
         "& .MuiPaper-root": {
@@ -157,8 +151,8 @@ function OTPDialog({
               handleRestPassword(
                 email,
                 data.password,
-                closeNewPassDialog,
-                setSnackbarText
+                handleNext,
+                setSnackbarData
               )
             )}
           >

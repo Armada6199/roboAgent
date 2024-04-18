@@ -3,7 +3,7 @@ import { CSS } from "@dnd-kit/utilities";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { Grid, Typography } from "@mui/material";
 import servicesIcons from "src/constants/servicesIcons";
-const DraggableServiceItem = ({ service }) => {
+const DraggableServiceItem = ({ authority, index }) => {
   const {
     attributes,
     listeners,
@@ -11,7 +11,7 @@ const DraggableServiceItem = ({ service }) => {
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: service.authId });
+  } = useSortable({ id: authority.authId });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -25,18 +25,31 @@ const DraggableServiceItem = ({ service }) => {
       gap={2}
       {...attributes}
       {...listeners}
+      alignItems={"center"}
+      p={2}
       sx={{
         opacity: isDragging ? "50%" : "100%",
+        boxShadow: "0px 2px 12px 1px rgba(0,0,0,0.22)",
+        borderRadius: 10,
+        bgcolor: isDragging
+          ? index == 1
+            ? "blue.main"
+            : "primary.main"
+          : "inherit",
+        zIndex: 99,
+        color: isDragging ? "white" : index == 1 ? "blue.main" : "primary.main",
       }}
     >
-      <Grid item>{servicesIcons[service.authId]}</Grid>
+      <Grid item color={"inherit"}>
+        {servicesIcons[authority.authId]}
+      </Grid>
       <Grid item xs={8}>
         <Typography variant="body1" fontWeight={600}>
-          {service.name}
+          {authority.name}
         </Typography>
       </Grid>
       <Grid item>
-        <ArrowCircleRightIcon sx={{ color: "primary.main" }} />
+        <ArrowCircleRightIcon sx={{ color: "inherit" }} />
       </Grid>
     </Grid>
   );

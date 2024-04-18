@@ -1,42 +1,40 @@
 import AxiosHit from "../AxiosHit";
 
-export async function handleVerifyEmail(
-  email,
-  sendOtp,
-  setSnackbarText,
-  setIsSnackbarOpen
-) {
+export async function handleVerifyEmail(email, handleNext, setSnackbarData) {
   console.log(email);
   try {
     const response = await AxiosHit({
       method: "post",
       url: `/forgot-password/verify-mail/${email}`,
     });
-    console.log(response);
     if (response.success) {
-      setSnackbarText("An Email Has been sent to you with the OTP");
-      sendOtp();
+      handleNext();
+      setSnackbarData({
+        status: "success",
+        title: "An email has been sent to you with the OTP",
+        open: true,
+      });
     } else {
-      console.log(response);
-      setSnackbarText(response.resultDescription);
+      setSnackbarData({
+        status: "warning",
+        title: "Something Went Wrong please Try Again",
+        open: true,
+      });
     }
-    setIsSnackbarOpen(true);
 
     // if (response.success) {
     // } else {
     // }
   } catch (error) {
-    console.log(error);
+    setSnackbarData({
+      status: "error",
+      title: error,
+      open: true,
+    });
     throw new Error(error);
   }
 }
-export async function handleVerifyOTP(
-  email,
-  otp,
-  openNewPass,
-  setIsSnackbarOpen,
-  setSnackbarText
-) {
+export async function handleVerifyOTP(email, otp, handleNext, setSnackbarData) {
   try {
     const response = await AxiosHit({
       method: "post",
@@ -47,10 +45,13 @@ export async function handleVerifyOTP(
       },
     });
     if (response.success) {
-      openNewPass();
+      handleNext();
     } else {
-      setSnackbarText("Something Went wrong please try again");
-      setIsSnackbarOpen(true);
+      setSnackbarData({
+        status: "error",
+        title: "Something Went Wrong please Try Again",
+        open: true,
+      });
     }
     console.log(response);
   } catch (error) {

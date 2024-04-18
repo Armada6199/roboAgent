@@ -1,21 +1,23 @@
 import { useEffect, useReducer } from "react";
+import cookie from "react-cookies";
 import { loginReducer } from "./reducers/loginReducer";
 
-function getStorageValue(key, defaultValue) {
-  const saved = localStorage.getItem(key);
-  const initial = JSON.parse(saved);
-  return initial || defaultValue;
+function cookieValue(key, defaultValue) {
+  const qs = new URLSearchParams(window.location.search);
+  const cookieToken = cookie.load(key);
+  const userInfo = qs.get(key) || cookieToken || defaultValue;
+  return userInfo;
 }
 
-export const useLocalStorage = (key, defaultValue) => {
+export const useCookie = (key, defaultValue) => {
   const [value, setValue] = useReducer(
     loginReducer,
-    getStorageValue(key, defaultValue)
+    cookieValue(key, defaultValue)
   );
 
   useEffect(() => {
     // storing input name
-    localStorage.setItem(key, JSON.stringify(value));
+    cookie.save(key, value);
   }, [key, value]);
 
   return [value, setValue];

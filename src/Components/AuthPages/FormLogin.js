@@ -6,35 +6,29 @@ import {
   InputAdornment,
   Link,
 } from "@material-ui/core";
-import {
-  Alert,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Snackbar,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import { useUpdateAlert } from "src/hooks/Context/AlertContext";
+import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 import FormStyle from "src/styles/styles";
 import { HandelRegularHit } from "src/utils/HitHandiling";
 import AxiosHit from "src/utils/api/AxiosHit";
+import CustomToast from "../toast/CustomToast";
+import EmailDialog from "./dialogs/EmailDialog";
 import NewPassDialog from "./dialogs/NewPassDialog";
 import OTPDialog from "./dialogs/OTPDialog";
-import { LoginContext } from "src/hooks/Context/LoginInfoContext";
-import { handleVerifyEmail } from "src/utils/api/auth/otp";
 const FormLogin = () => {
   const [showPassword, setShowPassord] = useState(false);
   const [remember, setRemember] = useState(true);
-  const [open, setOpen] = useState(false);
-  const [open2, setOpen2] = useState(false);
-  const [snackBarText, setSnackbarText] = useState("");
+  const [steps, setSteps] = useState(-1);
+  const [snackbarData, setSnackbarData] = useState({
+    status: "",
+    text: "",
+    open: false,
+  });
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const { loginDispatch } = useContext(LoginContext);
   const [isNewPasswordOpen, setIsNewPasswordOpen] = useState(false);
@@ -42,12 +36,15 @@ const FormLogin = () => {
   const handleTogglePassword = () => setShowPassord(!showPassword);
   const handleToggleRemember = () => setRemember(!remember);
   const setAlertInfo = useUpdateAlert();
-
+  const handleNext = () => {
+    setSteps((prev) => prev + 1);
+  };
   // hook form
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm({
     defaultValues: {
       email: "",
@@ -55,12 +52,6 @@ const FormLogin = () => {
       rememberUser: true,
     },
   });
-  const {
-    register: emailRegister,
-    handleSubmit: emailHandleSubmit,
-    getValues,
-    formState: { errors: emailErrors },
-  } = useForm();
 
   // form submit
   const onSubmit = async (values) => {
@@ -78,93 +69,35 @@ const FormLogin = () => {
   };
 
   // for reset
-  const sendEmail = () => {};
-  const sendOtp = () => {
-    sendEmail();
-    setOpen(false);
-    setOpen2(true);
-  };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-
-    setIsSnackbarOpen(false);
+    setSnackbarData((prev) => ({ ...prev, open: false }));
   };
   return (
     <>
-      <Dialog
-        fullWidth={true}
-        open={open}
-        onClose={() => {
-          setOpen(false);
-        }}
-        sx={{
-          textAlign: "center",
-          "& .MuiPaper-root": {
-            padding: 1.5,
-          },
-        }}
-      >
-        <DialogTitle>
-          <Typography fontSize={20} fontWeight={"bold"}>
-            Reset a Password
-          </Typography>
-        </DialogTitle>
-        <DialogContent sx={{ paddingX: 1, paddingY: 0 }}>
-          <DialogContentText fontWeight={"bold"}>
-            Please enter your email that you wish to change a password for
-          </DialogContentText>
-          <FormStyle sx={{ width: "100%" }}>
-            <TextField
-              fullWidth
-              {...emailRegister("email", { required: "Email is Required" })}
-            />
-          </FormStyle>
-          {emailErrors?.email?.message && (
-            <Typography color={"red"} marginTop={2}>
-              {emailErrors?.email?.message}
-            </Typography>
-          )}
-        </DialogContent>
-        <DialogActions sx={{ paddingTop: 0 }}>
-          <FormStyle sx={{ width: "100%" }}>
-            <Button
-              fullWidth
-              variant="contained"
-              onClick={emailHandleSubmit((data) =>
-                handleVerifyEmail(
-                  data.email,
-                  sendOtp,
-                  setSnackbarText,
-                  setIsSnackbarOpen
-                )
-              )}
-            >
-              Next
-            </Button>
-          </FormStyle>
-        </DialogActions>
-      </Dialog>
-      {open2 && (
+      <EmailDialog
+        handleNext={handleNext}
+        steps={steps}
+        setSnackbarData={setSnackbarData}
+      />
+      {console.log(steps)}
+      {steps === 1 && (
         <OTPDialog
-          sendEmail={sendEmail}
-          setIsNewPasswordOpen={setIsNewPasswordOpen}
-          setOpen2={setOpen2}
-          open2={open2}
+          handleNext={handleNext}
+          setSnackbarData={setSnackbarData}
           email={getValues("email")}
-          setSnackbarText={setSnackbarText}
-          setIsSnackbarOpen={setIsSnackbarOpen}
+          steps={steps}
         />
       )}
-      {isNewPasswordOpen && (
+      {steps == 2 && (
         <NewPassDialog
-          isNewPasswordOpen={isNewPasswordOpen}
-          setIsNewPasswordOpen={setIsNewPasswordOpen}
-          setIsSnackbarOpen={setIsSnackbarOpen}
-          setSnackbarText={setSnackbarText}
+          setSnackbarData={setSnackbarData}
           email={getValues("email")}
+          handleNext={handleNext}
+          steps={steps}
         />
       )}
       <FormStyle component="form" onSubmit={handleSubmit(onSubmit)}>
@@ -225,13 +158,7 @@ const FormLogin = () => {
             {...register("rememberUser")}
           />
 
-          <Link
-            onClick={() => {
-              setOpen(true);
-            }}
-            href="#"
-            underline="always"
-          >
+          <Link onClick={() => setSteps(0)} href="#" underline="always">
             Forgot password?
           </Link>
         </Box>
@@ -239,21 +166,7 @@ const FormLogin = () => {
         <Button type="submit" variant="contained" disableElevation>
           Login
         </Button>
-        <Snackbar
-          open={isSnackbarOpen}
-          autoHideDuration={6000}
-          onClose={handleClose}
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        >
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            variant="filled"
-            sx={{ width: "100%" }}
-          >
-            {snackBarText}
-          </Alert>
-        </Snackbar>
+        <CustomToast snackbarData={snackbarData} handleClose={handleClose} />
       </FormStyle>
     </>
   );
