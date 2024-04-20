@@ -29,10 +29,7 @@ const FormLogin = () => {
     text: "",
     open: false,
   });
-  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
-  const { loginDispatch } = useContext(LoginContext);
-  const [isNewPasswordOpen, setIsNewPasswordOpen] = useState(false);
-
+  const { login } = useContext(LoginContext);
   const handleTogglePassword = () => setShowPassord(!showPassword);
   const handleToggleRemember = () => setRemember(!remember);
   const setAlertInfo = useUpdateAlert();
@@ -54,19 +51,6 @@ const FormLogin = () => {
   });
 
   // form submit
-  const onSubmit = async (values) => {
-    // console.table(values);
-    // alert(JSON.stringify(data));
-    let hitResult = await AxiosHit({
-      method: "post",
-      url: "users/signin",
-      data: {
-        email: values.email,
-        password: values.password,
-      },
-    });
-    HandelRegularHit({ hitResult, setAlertInfo, loginDispatch, values });
-  };
 
   // for reset
 
@@ -100,7 +84,10 @@ const FormLogin = () => {
           steps={steps}
         />
       )}
-      <FormStyle component="form" onSubmit={handleSubmit(onSubmit)}>
+      <FormStyle
+        component="form"
+        onSubmit={handleSubmit((loginData) => login(loginData, setAlertInfo))}
+      >
         {/* Email */}
         <TextField
           variant="outlined"

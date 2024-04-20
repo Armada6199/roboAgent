@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import cookie from "react-cookies";
-import { initialState } from "../reducers/loginReducer";
+import AxiosHit from "src/utils/api/AxiosHit";
+import { initialState, loginReducer } from "../reducers/loginReducer";
 import { useCookie } from "../useLocalStorage";
 import axios from "axios";
 
@@ -10,34 +11,48 @@ function LoginProvider(props) {
   // function can(capability) {
   //   return loginData.user.capabilities?.includes(capability) && loginData.token;
   // }
-
+  async function login(loginData, setAlertInfo) {
+    let hitResult = await AxiosHit({
+      method: "post",
+      url: "users/signin",
+      data: {
+        email: loginData.email,
+        password: loginData.password,
+      },
+    });
+    loginDispatch({ type: "ON_LOGIN", payload: hitResult });
+    setAlertInfo({
+      alertType: hitResult.result,
+      alertMsg: hitResult.description,
+      redirectTo: hitResult.redirectTo,
+    });
+  }
   function logout() {
-    console.log("loged out ");
     cookie.remove("userInfo");
-    // delete axios.defaults.headers.common["authorization"];
+    delete axios.defaults.headers.common["authorization"];
     loginDispatch("ON_LOGOUT");
   }
 
-  function setLoginState(loggedIn, token, user, error) {
-    cookie.save("auth", token);
-    loginDispatch({ type: "CHANGE_LOGIN_STATUS", payload: loggedIn });
-    loginDispatch({ type: "CHANGE_TOKEN", payload: token });
-    loginDispatch({ type: "CHANGE_USER", payload: user });
-    // dispatch({ type: 'CHANGE_ERROR', payload: error });
-  }
+  // function setLoginState(loggedIn, token, user, error) {
+  //   cookie.save("auth", token);
+  //   loginDispatch({ type: "CHANGE_LOGIN_STATUS", payload: loggedIn });
+  //   loginDispatch({ type: "CHANGE_TOKEN", payload: token });
+  //   loginDispatch({ type: "CHANGE_USER", payload: user });
+  //   // dispatch({ type: 'CHANGE_ERROR', payload: error });
+  // }
 
   useEffect(() => {
     const qs = new URLSearchParams(window.location.search);
     const cookieToken = cookie.load("userInfo");
     const userInfo = qs.get("userInfo") || cookieToken || initialState;
     console.log(userInfo);
-    loginDispatch;
   }, []);
 
   return (
     <LoginContext.Provider
       value={{
         // can,
+        login,
         logout,
         loginDispatch,
         loginData,

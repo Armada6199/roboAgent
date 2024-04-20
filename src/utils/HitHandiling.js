@@ -3,11 +3,8 @@ import cookie from "react-cookies";
 export function HitHandle(result) {
   console.log("result ===> ", result);
   const code = result.data.result;
-  console.log(result);
   switch (code.toString()) {
     case "0":
-      console.log("success");
-      cookie.save("userInfo", { ...result.data.user, isLoggedIn: true });
       return {
         success: true,
         result: "success",
@@ -50,35 +47,24 @@ export function HitHandle(result) {
       };
   }
 }
-export function HandelRegularHit({
-  hitResult,
-  setAlertInfo,
-  loginDispatch,
-  values,
-}) {
+export function HandelRegularHit({ hitResult, setAlertInfo, login, values }) {
   console.log("hitResult", hitResult);
-  if (!!loginDispatch) {
-    if (!hitResult.success) {
-      if (values) values.password = ""; //for sign in and sign up pages
+  // if (!!loginDispatch) {
+  //   if (!hitResult.success) {
+  //     if (values) values.password = ""; //for sign in and sign up pages
 
-      if (hitResult.clearStorage) {
-        loginDispatch("", ACTIONS.SIGN_OUT);
-      }
-    } else {
-      if (!!hitResult.data.user && !!hitResult.authorization)
-        loginDispatch({
-          type: "ON_LOGIN",
-          payload: {
-            userInfo: hitResult.data.user,
-            authorization: hitResult.authorization,
-          },
-        });
-    }
-  }
-  console.log("hitResult ===> ", hitResult);
-  setAlertInfo({
-    alertType: hitResult.result,
-    alertMsg: hitResult.description,
-    redirectTo: hitResult.redirectTo,
-  });
+  //     if (hitResult.clearStorage) {
+  //       loginDispatch("", ACTIONS.SIGN_OUT);
+  //     }
+  //   } else {
+  //     if (!!hitResult.data.user && !!hitResult.authorization)
+  //       loginDispatch({
+  //         type: "ON_LOGIN",
+  //         payload: {
+  //           userInfo: hitResult.data.user,
+  //           authorization: hitResult.authorization,
+  //         },
+  //       });
+  //   }
+  // }
 }

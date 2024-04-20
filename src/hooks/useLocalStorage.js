@@ -10,15 +10,18 @@ function cookieValue(key, defaultValue) {
 }
 
 export const useCookie = (key, defaultValue) => {
-  const [value, setValue] = useReducer(
+  const [value, dispatchLogin] = useReducer(
     loginReducer,
     cookieValue(key, defaultValue)
   );
 
   useEffect(() => {
     // storing input name
-    cookie.save(key, value);
+    // cookie.save(key, value);
+    if (cookie.load("userInfo")) {
+      dispatchLogin({ action: "ON_LOGIN", payload: cookie.load() });
+    }
   }, [key, value]);
 
-  return [value, setValue];
+  return [value, dispatchLogin];
 };

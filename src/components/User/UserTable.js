@@ -1,37 +1,54 @@
-import { Button, Grid, Modal, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Button, Grid, Modal, Popper, Typography } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import { useEffect, useState } from "react";
 import { glassMorphisimStyle } from "src/styles/styles";
-import { handleSubmitUserAuths } from "src/utils/dnd/events";
 import {
   handleFetchAuthorities,
   handleFetchUserData,
   handleSetContainerService,
 } from "src/utils/users/api/users";
-import DraggableTest from "./dialogs/DraggableTest";
+import DNDServicesModal from "./dialogs/DNDServicesModal";
+import ServiceDialog from "./dialogs/ServiceDialog";
 import "./usersTable.css";
+import RolesPopper from "./poppers/RolesPopper";
 
 function UserTable() {
-  const [isOpenServiceDialog, setIsOpenServiceDialog] = useState(false);
+  const [isOpenServicesModal, setIsOpenServicesModal] = useState(false);
   const [tableData, setTableData] = useState({});
   const [authorities, setAuthorities] = useState([]);
   const [userData, setUserData] = useState({ userId: null });
-  const handleOpenServiceDialog = (activeAuthorites, userId) => {
-    console.log(activeAuthorites);
+  const [isEditServiceDialogOpen, setIsEditServiceDialogOpen] = useState(false);
+  const [statusAnchorEl, setStatusAnchorEl] = useState(null);
+
+  const handleStatusClick = (event, rowData) => {
+    console.log(rowData);
+    setUserData(rowData);
+    setStatusAnchorEl(statusAnchorEl ? null : event.currentTarget);
+  };
+
+  const statusOpen = Boolean(statusAnchorEl);
+  const statusPopperId = statusOpen ? "simple-popper" : undefined;
+  const handleOpenServiceDialog = (userId) => {
+    setUserData({ userId: userId });
+    setIsEditServiceDialogOpen(true);
+  };
+  const handleOpenServiceModal = (activeAuthorites, userData) => {
     handleSetContainerService(
       activeAuthorites,
       authorities,
       containers,
       setContainers
     );
-    setUserData({ userId: userId, userData });
-    setIsOpenServiceDialog(true);
+    setUserData(userData);
+    setIsOpenServicesModal(true);
+  };
+  const handleCloseServicesModal = () => {
+    setIsOpenServicesModal(false);
   };
   const handleCloseServiceDialog = () => {
-    setIsOpenServiceDialog(false);
+    setIsEditServiceDialogOpen(false);
   };
-
   const [containers, setContainers] = useState([
     {
       id: 1,
@@ -45,6 +62,18 @@ function UserTable() {
     },
   ]);
   const columns = [
+    {
+      name: "FirstName",
+      label: "First Name",
+
+      options: {
+        filter: true,
+        display: "none",
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <Grid display={"none"}></Grid>;
+        },
+      },
+    },
     {
       name: "FirstName",
       label: "First Name",
@@ -83,6 +112,24 @@ function UserTable() {
 
       options: {
         filter: true,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <Grid container item alignItems={"center"} gap={1}>
+              <Grid item>
+                <Typography variant="body1" fontWeight={500}>
+                  {value}
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                sx={{ cursor: "pointer" }}
+                onClick={(event) => handleStatusClick(event, tableMeta.rowData)}
+              >
+                <MoreVertIcon sx={{ color: "primary.main" }} />
+              </Grid>
+            </Grid>
+          );
+        },
       },
     },
     {
@@ -99,9 +146,46 @@ function UserTable() {
       options: {
         filter: true,
         customBodyRender: (value, tableMeta, updateValue) => {
+          const formattedValue = value.split("_").join(" ");
           return (
-            <Grid container item alignItems={"center"}>
-              <Typography variant="body1">Visas</Typography>
+            <Grid container item alignItems={"center"} gap={1}>
+              <Grid item>
+                <Typography variant="body1" fontWeight={500}>
+                  {formattedValue}
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                sx={{ cursor: "pointer" }}
+                onClick={() =>
+                  handleOpenServiceDialog(
+                    tableMeta.rowData[tableMeta.rowData.length - 1]
+                  )
+                }
+              >
+                <MoreVertIcon sx={{ color: "primary.main" }} />
+              </Grid>
+              {/* <Popper
+                id={servicePopperid}
+                open={servicePopperOpen}
+                anchorEl={serviceanchorEl}
+              >
+                <Grid
+                  container
+                  item
+                  alignItems={"center"}
+                  gap={2}
+                  p={1}
+                  sx={{ ...glassMorphisimStyle }}
+                >
+                  <Grid item>
+                    <Typography>Edit</Typography>
+                  </Grid>
+                  <Grid item>
+                    <EditIcon sx={{ color: "primary.main" }} />
+                  </Grid>
+                </Grid>
+              </Popper> */}
             </Grid>
           );
         },
@@ -113,20 +197,35 @@ function UserTable() {
       options: {
         filter: false,
         customBodyRender: (value, tableMeta, updateValue) => {
+          console.log(tableMeta);
           return (
             <Grid container item alignItems={"center"}>
               <Button
                 fullWidth
                 variant="contained"
-                onClick={() =>
-                  handleOpenServiceDialog(
-                    tableMeta.rowData[6],
-                    tableMeta.rowData[tableMeta.rowData.length - 1]
-                  )
-                }
+                onClick={() => handleOpenServiceModal(tableMeta, rowData)}
               >
                 View all
               </Button>
+            </Grid>
+          );
+        },
+      },
+    },
+    {
+      name: "team",
+      label: "Team",
+      options: {
+        filter: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <Grid container item alignItems={"center"}>
+              <Grid item>
+                <Typography>{value}</Typography>
+              </Grid>
+              {/* <Grid item>
+                <Typography>{value}</Typography>
+              </Grid> */}
             </Grid>
           );
         },
@@ -157,8 +256,8 @@ function UserTable() {
       </Grid>
 
       <Modal
-        open={isOpenServiceDialog}
-        onClose={handleCloseServiceDialog}
+        open={isOpenServicesModal}
+        onClose={handleCloseServicesModal}
         sx={{
           display: "flex",
           alignItems: "center",
@@ -176,60 +275,30 @@ function UserTable() {
             minHeight: "90vh",
           }}
         >
-          <Grid
-            container
-            item
-            p={4}
-            sx={{
-              overflowX: "hidden",
-              overflowY: "scroll",
-              maxHeight: "calc(90vh - 65px)",
-            }}
-          >
-            {userData.userData && (
-              <DraggableTest
-                handleCloseServiceDialog={handleCloseServiceDialog}
-                isOpenServiceDialog={isOpenServiceDialog}
-                containers={containers}
-                setContainers={setContainers}
-              />
-            )}
-          </Grid>
-          <Box
-            position={"fixed"}
-            bgcolor={"#f6f6f6"}
-            height={65}
-            width={"100%"}
-            bottom={0}
-            display={"flex"}
-            px={4}
-            alignItems={"center"}
-            sx={{
-              borderBottomRightRadius: "10px",
-              borderBottomLeftRadius: "10px",
-            }}
-          >
-            <Grid container item justifyContent={"space-between"} gap={4}>
-              <Grid item xs={12} md={4}>
-                <Button fullWidth variant="contained">
-                  Cancel
-                </Button>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Button
-                  fullWidth
-                  onClick={() =>
-                    handleSubmitUserAuths(containers, userData.userId)
-                  }
-                  variant="contained"
-                >
-                  Submit
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
+          <DNDServicesModal
+            containers={containers}
+            userData={userData}
+            setContainers={setContainers}
+          />
         </Grid>
       </Modal>
+
+      {isEditServiceDialogOpen && (
+        <ServiceDialog
+          authorities={authorities}
+          activeOpenedUserId={userData.userId}
+          isEditServiceDialogOpen={isEditServiceDialogOpen}
+          handleCloseServiceDialog={handleCloseServiceDialog}
+        />
+      )}
+      <Popper
+        id={statusPopperId}
+        open={statusOpen}
+        anchorEl={statusAnchorEl}
+        sx={glassMorphisimStyle}
+      >
+        {userData && <RolesPopper userData={userData} />}
+      </Popper>
     </Grid>
   );
 }

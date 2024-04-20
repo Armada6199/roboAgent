@@ -1,28 +1,14 @@
-import {
-  Button,
-  Grid,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
-import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useUpdateAlert } from "src/hooks/Context/AlertContext";
-import FormStyle, { glassMorphisimStyle } from "src/styles/styles";
-import AxiosHit from "src/utils/api/AxiosHit";
+import FormStyle from "src/styles/styles";
 import { HandelRegularHit } from "src/utils/HitHandiling";
+import AxiosHit from "src/utils/api/AxiosHit";
 import { handleFetchAuthorities } from "src/utils/users/api/users";
+import ServicesList from "../services/ServicesList";
 const FinalRegister = ({ handleNext }) => {
-  const [passwordsInfo, setPasswordsInfo] = useState({
-    togglePassword: false,
-    valuePass: "",
-    toggleconfPassword: false,
-    valueConf: "",
-  });
   const [phoneNumber, setPhoneNumber] = useState("");
   const setAlertInfo = useUpdateAlert();
   const [selectedRole, setSelectedRole] = useState("");
@@ -99,34 +85,10 @@ const FinalRegister = ({ handleNext }) => {
         <Grid item xs={12} textAlign={"center"}>
           <Typography variant="h6">Choose User Authorities</Typography>
         </Grid>
-        <Grid container item justifyContent={"center"} gap={4}>
-          {authorities.map((auth) => {
-            return (
-              <Grid
-                item
-                xs={12}
-                md={3}
-                key={auth.authId}
-                p={2}
-                sx={{
-                  boxShadow: "-3px 7px 9px 1px rgba(0,0,0,0.15)",
-                  borderRadius: "20px",
-                  cursor: "pointer",
-                }}
-                onClick={() => handleAddUserAuth(auth.authId)}
-              >
-                <Typography
-                  variant="body1"
-                  textAlign={"center"}
-                  fontWeight={700}
-                  color={"primary.main"}
-                >
-                  {auth.name}
-                </Typography>
-              </Grid>
-            );
-          })}
-        </Grid>
+        <ServicesList
+          authorities={authorities}
+          handleAddUserAuth={handleAddUserAuth}
+        />
       </Grid>
       {/* submit */}
       <Grid item xs={12} md={8}>

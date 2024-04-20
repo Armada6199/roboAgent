@@ -20,11 +20,7 @@ import {
 import DraggableServiceItem from "./DraggableServiceItem";
 import ServiceContainer from "./ServiceContainer";
 
-function DraggableTest({
-  handleCloseServiceDialog,
-  containers,
-  setContainers,
-}) {
+function DraggableTest({ containers, setContainers }) {
   const [activeId, setActiveId] = useState(null);
   const [currentContainerId, setCurrentContainerId] = useState(null);
   const [containerName, steContainerName] = useState(null);
@@ -36,13 +32,7 @@ function DraggableTest({
   console.log(containers);
 
   return (
-    <Grid
-      container
-      item
-      onClose={() => handleCloseServiceDialog()}
-      gap={4}
-      alignItems={"flex-start"}
-    >
+    <Grid container item gap={4} alignItems={"flex-start"}>
       <Grid item>
         <Typography variant="h4" fontWeight={"bold"}>
           Edit User Services
