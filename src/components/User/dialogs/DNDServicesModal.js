@@ -1,8 +1,7 @@
-import React from "react";
-import DraggableTest from "./DraggableTest";
 import { Button, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import { handleSubmitUserAuths } from "src/utils/dnd/events";
+import DraggableTest from "./DraggableTest";
 
 function DNDServicesModal({ userData, containers, setContainers }) {
   return (
@@ -17,12 +16,7 @@ function DNDServicesModal({ userData, containers, setContainers }) {
           maxHeight: "calc(90vh - 65px)",
         }}
       >
-        {userData.userData && (
-          <DraggableTest
-            containers={containers}
-            setContainers={setContainers}
-          />
-        )}
+        <DraggableTest containers={containers} setContainers={setContainers} />
       </Grid>
       <Box
         position={"fixed"}

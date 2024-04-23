@@ -29,13 +29,14 @@ function UserTable() {
 
   const statusOpen = Boolean(statusAnchorEl);
   const statusPopperId = statusOpen ? "simple-popper" : undefined;
-  const handleOpenServiceDialog = (userId) => {
-    setUserData({ userId: userId });
+  const handleOpenServiceDialog = (tableData) => {
+    setUserData(tableData);
     setIsEditServiceDialogOpen(true);
   };
-  const handleOpenServiceModal = (activeAuthorites, userData) => {
+  const handleOpenServiceModal = (userData) => {
+    console.log(userData);
     handleSetContainerService(
-      activeAuthorites,
+      userData[8],
       authorities,
       containers,
       setContainers
@@ -114,14 +115,15 @@ function UserTable() {
         filter: true,
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
-            <Grid container item alignItems={"center"} gap={1}>
-              <Grid item>
+            <Grid container item alignItems={"center"} gap={2}>
+              <Grid item xs={8}>
                 <Typography variant="body1" fontWeight={500}>
                   {value}
                 </Typography>
               </Grid>
               <Grid
                 item
+                xs={2}
                 sx={{ cursor: "pointer" }}
                 onClick={(event) => handleStatusClick(event, tableMeta.rowData)}
               >
@@ -148,20 +150,17 @@ function UserTable() {
         customBodyRender: (value, tableMeta, updateValue) => {
           const formattedValue = value.split("_").join(" ");
           return (
-            <Grid container item alignItems={"center"} gap={1}>
-              <Grid item>
+            <Grid container item alignItems={"center"} gap={2}>
+              <Grid item xs={8}>
                 <Typography variant="body1" fontWeight={500}>
                   {formattedValue}
                 </Typography>
               </Grid>
               <Grid
                 item
+                xs={2}
                 sx={{ cursor: "pointer" }}
-                onClick={() =>
-                  handleOpenServiceDialog(
-                    tableMeta.rowData[tableMeta.rowData.length - 1]
-                  )
-                }
+                onClick={() => handleOpenServiceDialog(tableMeta.rowData)}
               >
                 <MoreVertIcon sx={{ color: "primary.main" }} />
               </Grid>
@@ -197,13 +196,13 @@ function UserTable() {
       options: {
         filter: false,
         customBodyRender: (value, tableMeta, updateValue) => {
-          console.log(tableMeta);
+          // console.log(tableMeta);
           return (
             <Grid container item alignItems={"center"}>
               <Button
                 fullWidth
                 variant="contained"
-                onClick={() => handleOpenServiceModal(tableMeta, rowData)}
+                onClick={() => handleOpenServiceModal(tableMeta.rowData)}
               >
                 View all
               </Button>
@@ -275,6 +274,7 @@ function UserTable() {
             minHeight: "90vh",
           }}
         >
+          {console.log(containers)}
           <DNDServicesModal
             containers={containers}
             userData={userData}
@@ -286,7 +286,7 @@ function UserTable() {
       {isEditServiceDialogOpen && (
         <ServiceDialog
           authorities={authorities}
-          activeOpenedUserId={userData.userId}
+          activeOpenedUserId={userData[0]}
           isEditServiceDialogOpen={isEditServiceDialogOpen}
           handleCloseServiceDialog={handleCloseServiceDialog}
         />

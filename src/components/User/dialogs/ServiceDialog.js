@@ -10,9 +10,19 @@ import {
   OutlinedInput,
   Select,
 } from "@mui/material";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import AxiosHit from "src/utils/api/AxiosHit";
-
+export async function handleFetchServiceList(setServiceList) {
+  try {
+    const hitResult = await axios.get(`/service`);
+    console.log(hitResult);
+    setServiceList(hitResult.data);
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+}
 function ServiceDialog({
   isEditServiceDialogOpen,
   handleCloseServiceDialog,
@@ -20,14 +30,15 @@ function ServiceDialog({
   activeOpenedUserId,
 }) {
   const [userNewService, setUserNewService] = useState();
+  const [serviceList, setServiceList] = useState([]);
   const handleChangeUserNewService = (serviceId) => {
     setUserNewService(serviceId.target.value);
   };
   //move to an external folder
-  console.log(activeOpenedUserId);
-  function handleSubmitUserNewService() {
+  // console.log(activeOpenedUserId);
+  async function handleSubmitUserNewService() {
     try {
-      const response = AxiosHit({
+      const response = await AxiosHit({
         method: "put",
         url: `service/${activeOpenedUserId}/service/${userNewService}`,
       });
@@ -37,6 +48,10 @@ function ServiceDialog({
       throw new Error(error);
     }
   }
+
+  useEffect(() => {
+    handleFetchServiceList(setServiceList);
+  }, []);
   return (
     <Dialog
       disableEscapeKeyDown
@@ -54,9 +69,9 @@ function ServiceDialog({
             onChange={handleChangeUserNewService}
             input={<OutlinedInput label="Service" />}
           >
-            {authorities.map((auth) => (
-              <MenuItem key={auth.authId} value={auth.authId}>
-                {auth.name}
+            {serviceList.map((service) => (
+              <MenuItem key={service.id} value={service.service}>
+                {service.service}
               </MenuItem>
             ))}
           </Select>

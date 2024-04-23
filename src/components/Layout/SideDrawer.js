@@ -22,7 +22,7 @@ import getMoreAvatar from "src/assets/Images/pom-bot.gif";
 
 import { useContext } from "react";
 import CustomListItem from "src/components/Drawer/CustomListItem";
-import { drawerWidth } from "src/components/Layout/DashboardLayout";
+import { drawerWidth } from "src/components/layout/DashboardLayout";
 import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 import { styled } from "@mui/material";
 import AuthWrapper from "../AuthWrapper/AuthWrapper";

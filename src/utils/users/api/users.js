@@ -36,16 +36,16 @@ export const handleFetchAuthorities = async (
   }
 };
 export function handleSetContainerService(
-  activeAuthorites,
+  activeServices,
   services,
   containers,
   setContainers
 ) {
-  const newServices = handleFilterServices(activeAuthorites, services);
-  const newContainer = Object.create(containers);
-  console.log(newServices);
+  const newServices = handleFilterServices(activeServices, services);
+  const newContainer = [...containers];
+  // console.log(newServices);
   newContainer[0].authorities = newServices;
-  newContainer[1].authorities = activeAuthorites;
+  newContainer[1].authorities = activeServices;
   setContainers(newContainer);
 }
 export async function handleFetchUserData(setTableData) {
@@ -58,6 +58,20 @@ export async function handleFetchUserData(setTableData) {
     setTableData({
       usersData: newUsersDataReshaped,
     });
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+export async function handleFetchServiceList(setServiceList) {
+  try {
+    let hitResult = await AxiosHit({
+      method: "get",
+      url: "/service",
+    });
+
+    setServiceList(hitResult.data.services);
+    console.log(hitResult.data.services);
+    return hitResult.data.services;
   } catch (error) {
     throw new Error(error);
   }

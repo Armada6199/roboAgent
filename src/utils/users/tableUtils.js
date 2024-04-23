@@ -18,7 +18,7 @@ export function reshapeUserData(usersArr = []) {
       //   userId = user[key];
       //   continue;
       // }
-      console.log(key);
+      // console.log(key);
       newUserArr.push(user[key]);
     }
     // newUserArr.push(userId);

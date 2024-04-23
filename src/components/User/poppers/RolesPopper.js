@@ -17,16 +17,14 @@ export async function handleChangeUserRole(userId, newRole) {
   }
 }
 function RolesPopper({ userData }) {
-  console.log(userData);
+  // console.log(userData);
   return (
     <Grid container item alignItems={"center"} gap={2} p={2}>
       {userData[4].toLowerCase() == "MEMBER".toLowerCase() ? (
         <Grid item>
           <Button
             fullWidth
-            onClick={() =>
-              handleChangeUserRole(userData[userData.length - 1], "TEAM_LEAD")
-            }
+            onClick={() => handleChangeUserRole(userData[0], "TEAM_LEAD")}
             startIcon={<UpgradeIcon />}
             variant="outlined"
           >

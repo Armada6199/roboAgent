@@ -3,7 +3,7 @@ import React from "react";
 
 function ServicesList({ authorities, handleAddUserAuth }) {
   return (
-    <Grid container item justifyContent={"center"} gap={4}>
+    <Grid container item justifyContent={"flex-start"} gap={4}>
       {authorities.map((auth) => {
         return (
           <Grid
@@ -25,7 +25,7 @@ function ServicesList({ authorities, handleAddUserAuth }) {
               fontWeight={700}
               color={"primary.main"}
             >
-              {auth.name}
+              {auth.name.split("_").join(" ")}
             </Typography>
           </Grid>
         );

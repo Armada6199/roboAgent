@@ -3,9 +3,9 @@ import React, { useContext, useState } from "react";
 import { Outlet } from "react-router";
 import ShowAlert from "src/components/ShowAlert";
 import { LoginContext } from "src/hooks/Context/LoginInfoContext";
-import MainHeader from "./MainHeader";
-import SideDrawer from "./SideDrawer";
 import { styled } from "@mui/material";
+import MainHeader from "./MainHeader/MainHeader";
+import SideDrawer from "./SideDrawer";
 
 export const drawerWidth = 240; // You'll need to define this value
 

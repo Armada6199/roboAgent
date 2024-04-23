@@ -20,12 +20,15 @@ function LoginProvider(props) {
         password: loginData.password,
       },
     });
-    loginDispatch({ type: "ON_LOGIN", payload: hitResult });
-    setAlertInfo({
-      alertType: hitResult.result,
-      alertMsg: hitResult.description,
-      redirectTo: hitResult.redirectTo,
-    });
+    console.log(hitResult);
+    // loginDispatch({ type: "ON_LOGIN", payload: hitResult });
+    // console.log(hitResult);
+    // axios.defaults.headers.common["authorization"] = hitResult.authorization;
+    // setAlertInfo({
+    //   alertType: hitResult.result,
+    //   alertMsg: hitResult.description,
+    //   redirectTo: hitResult.redirectTo,
+    // });
   }
   function logout() {
     cookie.remove("userInfo");

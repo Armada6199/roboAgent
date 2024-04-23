@@ -9,7 +9,7 @@ import "react-phone-number-input/style.css";
 import { useUpdateAlert } from "src/hooks/Context/AlertContext";
 import FormStyle from "src/styles/styles";
 import AxiosHit from "src/utils/api/AxiosHit";
-import { HandelRegularHit } from "src/utils/HitHandiling";
+// import { HandelRegularHit } from "src/utils/HitHandiling";
 const FormRegister = ({ handleNext }) => {
   const [passwordsInfo, setPasswordsInfo] = useState({
     togglePassword: false,
@@ -34,7 +34,6 @@ const FormRegister = ({ handleNext }) => {
       password: "",
     },
   });
-
   // submit
   const onSubmit = async (data) => {
     data["phoneNumber"] = phoneNumber;
@@ -45,7 +44,7 @@ const FormRegister = ({ handleNext }) => {
     });
     // hitResult = {...hitResult,redirectTo:"/"}
     handleNext();
-    HandelRegularHit({ hitResult: hitResult, setAlertInfo, values: data });
+    // HandelRegularHit({ hitResult: hitResult, setAlertInfo, values: data });
   };
   return (
     <FormStyle component="form" onSubmit={handleSubmit(onSubmit)}>

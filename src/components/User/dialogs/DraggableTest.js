@@ -51,7 +51,8 @@ function DraggableTest({ containers, setContainers }) {
             handleDragEnd(e, containers, setContainers, setActiveId)
           }
         >
-          {containers?.map((container) => (
+          {console.log(containers)}
+          {containers.map((container) => (
             <ServiceContainer
               id={container.id}
               title={container.title}

@@ -1,15 +1,15 @@
 import { Navigate } from "react-router-dom";
 
 // components
-import DashboardLayout from "src/components/Layout/DashboardLayout";
-import ServicesGetAnswer from "src/pages/Auth/Services/Page/ServicesGetAnswer";
-import ServicesList from "src/pages/Auth/Services/Page/ServicesList";
-import ErrorPage from "src/pages/Common/404";
-import Login from "src/pages/Public/Login/Pages/Login";
-import Blog from "./components/Blog/Blog";
-import Dashboard from "./components/Dashboard/Dashboard";
+import DashboardLayout from "src/components/layout/DashboardLayout";
+import ServicesGetAnswer from "src/pages/services/Page/ServicesGetAnswer";
+import ServicesList from "src/pages/services/Page/ServicesList";
+import ErrorPage from "src/pages/common/404";
+import Login from "src/pages/auth/login/Login";
+import Blog from "./pages/Blog/Blog";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import User from "./components/User/User";
-import Register from "./pages/Public/Register/Pages/Register";
+import Register from "./pages/auth/register/Register";
 import { useRoutes } from "react-router-dom/dist";
 import { useContext } from "react";
 import { LoginContext } from "./hooks/Context/LoginInfoContext";

@@ -1,0 +1,55 @@
+{
+  "roboAgentRs": {
+    "header": {
+      "responseStatus": {
+        "status": "success",
+        "code": "00000000",
+        "arabicMsg": "نجحت العمليه",
+        "englishMsg": "Operation success"
+      },
+      "serviceCode": null
+    },
+    "body": {
+      "user": {
+        "userId": 3,
+        "firstName": "ali",
+        "middleName": "ahmad",
+        "lastName": "salem",
+        "status": "pending",
+        "role": "ADMIN",
+        "email": "admin123@inspirejo.com",
+        "service": "CHANGE_OCUP",
+        "roboAuthorities": [
+          {
+            "authId": 4,
+            "name": "WP_ROLE",
+            "description": "WP Role"
+          },
+          {
+            "authId": 8,
+            "name": "VISAS",
+            "description": "Visas"
+          }
+        ],
+        "team": "L2"
+      },
+      "roboServices": null,
+      "roboAuthorities": null,
+      "users": [
+        {
+          "userId": 15,
+          "firstName": "aaa",
+          "middleName": "aa",
+          "lastName": "aaaa",
+          "status": "pending",
+          "role": "TEAM_LEAD",
+          "email": "aaaaa123@gmail.com",
+          "service": "USER_MANAG",
+          "roboAuthorities": [],
+          "team": "L2"
+        }
+      ],
+      "usersPage": null
+    }
+  }
+}
