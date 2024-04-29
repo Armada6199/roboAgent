@@ -11,7 +11,7 @@ const DraggableServiceItem = ({ authority, index }) => {
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: authority.authId });
+  } = useSortable({ id: authority.name });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -36,7 +36,7 @@ const DraggableServiceItem = ({ authority, index }) => {
             ? "blue.main"
             : "primary.main"
           : "inherit",
-        zIndex: 99,
+        zIndex: 99999999,
         color: isDragging ? "white" : index == 1 ? "blue.main" : "primary.main",
       }}
     >

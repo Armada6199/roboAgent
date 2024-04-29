@@ -10,47 +10,30 @@ import {
   OutlinedInput,
   Select,
 } from "@mui/material";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import AxiosHit from "src/utils/api/AxiosHit";
-export async function handleFetchServiceList(setServiceList) {
-  try {
-    const hitResult = await axios.get(`/service`);
-    console.log(hitResult);
-    setServiceList(hitResult.data);
-  } catch (error) {
-    console.log(error);
-    throw new Error(error);
-  }
-}
+import {
+  handleFetchServiceList,
+  handleSubmitUserNewService,
+} from "src/utils/users/api/users";
+
 function ServiceDialog({
   isEditServiceDialogOpen,
   handleCloseServiceDialog,
-  authorities,
-  activeOpenedUserId,
+  userId,
+  tableData,
+  setAlertInfo,
+  setTableData,
 }) {
   const [userNewService, setUserNewService] = useState();
   const [serviceList, setServiceList] = useState([]);
   const handleChangeUserNewService = (serviceId) => {
     setUserNewService(serviceId.target.value);
   };
-  //move to an external folder
-  // console.log(activeOpenedUserId);
-  async function handleSubmitUserNewService() {
-    try {
-      const response = await AxiosHit({
-        method: "put",
-        url: `service/${activeOpenedUserId}/service/${userNewService}`,
-      });
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-      throw new Error(error);
-    }
-  }
-
   useEffect(() => {
-    handleFetchServiceList(setServiceList);
+    handleFetchServiceList({
+      setServiceList,
+      requestAction: "SET_SERVICE_LIST",
+    });
   }, []);
   return (
     <Dialog
@@ -69,7 +52,7 @@ function ServiceDialog({
             onChange={handleChangeUserNewService}
             input={<OutlinedInput label="Service" />}
           >
-            {serviceList.map((service) => (
+            {serviceList?.map?.((service) => (
               <MenuItem key={service.id} value={service.service}>
                 {service.service}
               </MenuItem>
@@ -79,7 +62,20 @@ function ServiceDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCloseServiceDialog}>Cancel</Button>
-        <Button variant="contained" onClick={handleSubmitUserNewService}>
+        <Button
+          variant="contained"
+          onClick={() =>
+            handleSubmitUserNewService({
+              handleCloseServiceDialog,
+              userId,
+              userNewService,
+              requestAction: "SET_SUBMIT_USER_SERVICE",
+              tableData,
+              setTableData,
+              setAlertInfo,
+            })
+          }
+        >
           Submit
         </Button>
       </DialogActions>

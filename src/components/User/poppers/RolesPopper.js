@@ -1,30 +1,35 @@
 import DownloadIcon from "@mui/icons-material/Download";
 import UpgradeIcon from "@mui/icons-material/Upgrade";
 import { Button, Grid } from "@mui/material";
-import AxiosHit from "src/utils/api/AxiosHit";
-export async function handleChangeUserRole(userId, newRole) {
-  console.log(userId);
-  try {
-    const response = await AxiosHit({
-      method: "put",
-      url: `/user-roles/${userId}/roles/${newRole}`,
-    });
+import { useUpdateAlert } from "src/hooks/Context/AlertContext";
+import { hanldeSubmitUserNewRole } from "src/utils/users/api/users";
 
-    console.log(response);
-  } catch (error) {
-    console.log(error);
-    throw new Error(error);
-  }
-}
-function RolesPopper({ userData }) {
-  // console.log(userData);
+function RolesPopper({
+  userData,
+  setTableData,
+  tableData,
+  handleCloseRolePopper,
+}) {
+  const setAlertInfo = useUpdateAlert();
+
   return (
     <Grid container item alignItems={"center"} gap={2} p={2}>
-      {userData[4].toLowerCase() == "MEMBER".toLowerCase() ? (
+      {userData[5]?.toLowerCase() == "MEMBER".toLowerCase() ? (
         <Grid item>
           <Button
             fullWidth
-            onClick={() => handleChangeUserRole(userData[0], "TEAM_LEAD")}
+            onClick={() =>
+              hanldeSubmitUserNewRole({
+                userId: userData[0],
+                newRole: "TEAM_LEAD",
+                setTableData,
+                requestAction: "UPDATE_USER_ROLE",
+                tableData,
+                userData,
+                handleCloseRolePopper,
+                setAlertInfo,
+              })
+            }
             startIcon={<UpgradeIcon />}
             variant="outlined"
           >
@@ -35,7 +40,18 @@ function RolesPopper({ userData }) {
         <Grid item>
           <Button
             fullWidth
-            onClick={() => handleChangeUserRole(userData[0], "MEMBER")}
+            onClick={() =>
+              hanldeSubmitUserNewRole({
+                userId: userData[0],
+                newRole: "MEMBER",
+                setTableData,
+                requestAction: "UPDATE_USER_ROLE",
+                tableData,
+                userData,
+                handleCloseRolePopper,
+                setAlertInfo,
+              })
+            }
             startIcon={<DownloadIcon />}
             variant="outlined"
           >

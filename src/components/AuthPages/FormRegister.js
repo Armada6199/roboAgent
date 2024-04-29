@@ -8,8 +8,8 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useUpdateAlert } from "src/hooks/Context/AlertContext";
 import FormStyle from "src/styles/styles";
-import AxiosHit from "src/utils/api/AxiosHit";
-// import { HandelRegularHit } from "src/utils/HitHandiling";
+import { handleSubmitNewUser } from "src/utils/users/api/users";
+
 const FormRegister = ({ handleNext }) => {
   const [passwordsInfo, setPasswordsInfo] = useState({
     togglePassword: false,
@@ -20,7 +20,7 @@ const FormRegister = ({ handleNext }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const setAlertInfo = useUpdateAlert();
   // const loginUpdate = useUpdateLoginInfo()
-
+  const onSubmit = () => {};
   // hook form
   const {
     register,
@@ -35,19 +35,19 @@ const FormRegister = ({ handleNext }) => {
     },
   });
   // submit
-  const onSubmit = async (data) => {
-    data["phoneNumber"] = phoneNumber;
-    let hitResult = await AxiosHit({
-      method: "post",
-      url: "users/signup",
-      data: data,
-    });
-    // hitResult = {...hitResult,redirectTo:"/"}
-    handleNext();
-    // HandelRegularHit({ hitResult: hitResult, setAlertInfo, values: data });
-  };
+
   return (
-    <FormStyle component="form" onSubmit={handleSubmit(onSubmit)}>
+    <FormStyle
+      component="form"
+      onSubmit={handleSubmit((data) =>
+        handleSubmitNewUser({
+          data,
+          setAlertInfo,
+          handleNext,
+          requestAction: "REGISTER_NEW_USER",
+        })
+      )}
+    >
       <Box
         sx={{
           display: "grid",
@@ -232,7 +232,12 @@ const FormRegister = ({ handleNext }) => {
         }
       />
       {/* submit */}
-      <Button type="submit" variant="contained" disableElevation>
+      <Button
+        type="submit"
+        color="primary.main"
+        variant="contained"
+        disableElevation
+      >
         Register
       </Button>
     </FormStyle>

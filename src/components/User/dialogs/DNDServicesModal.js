@@ -41,7 +41,13 @@ function DNDServicesModal({ userData, containers, setContainers }) {
           <Grid item xs={12} md={4}>
             <Button
               fullWidth
-              onClick={() => handleSubmitUserAuths(containers, userData.userId)}
+              onClick={() =>
+                handleSubmitUserAuths({
+                  containers,
+                  userId: userData[0],
+                  containers,
+                })
+              }
               variant="contained"
             >
               Submit

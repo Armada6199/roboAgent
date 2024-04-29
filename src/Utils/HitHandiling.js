@@ -1,42 +1,42 @@
+import { generalSuccessReducer } from "src/hooks/reducers/store";
 import { handleChangePassCodeActions } from "./responseHandling/changePassResponseActions";
 import { handleEmailCodeActions } from "./responseHandling/emailResponseActions";
 import { handleGeneralErrorCodeActions } from "./responseHandling/generalErrorResponseActions";
+import { JWTFalureHitHandle } from "./responseHandling/jwtfailureResponseHandling";
 import { handleOTPCodeActions } from "./responseHandling/otpResponseActions";
 import { handleUserCodeActions } from "./responseHandling/userResponseActions";
-export function successHitHandle(result) {
-  console.log(result.data, "result");
-  const code = result.data.roboAgentRs.header.responseStatus.code;
-  const status = result.data.roboAgentRs.header.responseStatus.status;
-  // const message = result.data.roboAgentRs.header.responseStatus.englishMsg;
+
+export function successHitHandle(result, utils) {
+  const { code } = result?.data?.roboAgentRs?.header?.responseStatus;
   const { codeLetters, codeNumbers } = handleExtractCodeInfo(code, "string");
+  console.log(codeLetters);
   switch (codeLetters) {
+    case "":
+      return generalSuccessReducer(result, utils);
     case "USR":
-      return handleUserCodeActions(result, codeNumbers, status);
+      return handleUserCodeActions(result, codeNumbers, utils);
     case "OTP":
-      return handleOTPCodeActions(result, codeNumbers, status);
+      return handleOTPCodeActions(result, codeNumbers);
     case "EML":
-      return handleEmailCodeActions();
-    case "CHP":
-      return handleChangePassCodeActions();
+      return handleEmailCodeActions(result, codeNumbers);
+    case "CPW":
+      return handleChangePassCodeActions(result, codeNumbers);
+    case "JWT":
+      return JWTFalureHitHandle(result, codeNumbers);
     case "E":
-      return handleGeneralErrorCodeActions();
+      return handleGeneralErrorCodeActions(result, codeNumbers);
   }
 }
-export function JWTFalureHitHandle(result) {
-  console.log(result.data, "result");
-  const code = result.data.roboAgentRs.header.responseStatus.code;
-  const status = result.data.roboAgentRs.header.responseStatus.status;
-  const message = result.data.roboAgentRs.header.responseStatus.englishMsg;
-}
-export function handleExtractCodeInfo(code, extractType) {
+
+export function handleExtractCodeInfo(code = 0, extractType) {
   return {
     codeLetters: code
-      .split("")
-      .filter((l) => isNaN(Number.parseInt(l)))
-      .join(""),
+      ?.split("")
+      ?.filter((l) => isNaN(Number.parseInt(l)))
+      ?.join(""),
     codeNumbers: code
-      .split("")
-      .filter((l) => !isNaN(Number.parseInt(l)))
-      .join(""),
+      ?.split("")
+      ?.filter((l) => !isNaN(Number.parseInt(l)))
+      ?.join(""),
   };
 }

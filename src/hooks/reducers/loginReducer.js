@@ -1,27 +1,19 @@
-import cookie from "react-cookies";
 export let initialState = {
   isLoggedIn: false,
-  token: "",
+  token: null,
 };
 export function loginReducer(state, action) {
   switch (action.type) {
     case "ON_LOGIN": {
-      cookie.save("userInfo", {
-        ...state,
-        isLoggedIn: true,
-        ...action.payload.data.user,
-        token: action.payload.authorization,
-      });
-
       return {
         ...state,
         isLoggedIn: true,
-        ...action.payload.data.user,
-        token: action.payload.authorization,
+        ...action.payload.user,
+        token: action.payload.token,
       };
     }
     case "ON_LOGOUT":
-      console.log("logged out");
+      localStorage.removeItem("userInfo");
       return {
         ...initialState,
       };

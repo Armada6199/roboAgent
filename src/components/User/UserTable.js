@@ -5,28 +5,29 @@ import { useEffect, useState } from "react";
 import { glassMorphisimStyle } from "src/styles/styles";
 import {
   handleFetchAuthorities,
-  handleFetchUserData,
+  handleFetchAllUsers,
   handleSetContainerService,
 } from "src/utils/users/api/users";
 import DNDServicesModal from "./dialogs/DNDServicesModal";
 import ServiceDialog from "./dialogs/ServiceDialog";
 import "./usersTable.css";
 import RolesPopper from "./poppers/RolesPopper";
+import { useUpdateAlert } from "src/hooks/Context/AlertContext";
 
 function UserTable() {
   const [isOpenServicesModal, setIsOpenServicesModal] = useState(false);
-  const [tableData, setTableData] = useState({});
+  const [tableData, setTableData] = useState([]);
   const [authorities, setAuthorities] = useState([]);
   const [userData, setUserData] = useState({ userId: null });
   const [isEditServiceDialogOpen, setIsEditServiceDialogOpen] = useState(false);
   const [statusAnchorEl, setStatusAnchorEl] = useState(null);
-
+  const setAlertInfo = useUpdateAlert();
   const handleStatusClick = (event, rowData) => {
     console.log(rowData);
     setUserData(rowData);
     setStatusAnchorEl(statusAnchorEl ? null : event.currentTarget);
   };
-
+  const handleCloseRolePopper = () => setStatusAnchorEl(null);
   const statusOpen = Boolean(statusAnchorEl);
   const statusPopperId = statusOpen ? "simple-popper" : undefined;
   const handleOpenServiceDialog = (tableData) => {
@@ -164,27 +165,6 @@ function UserTable() {
               >
                 <MoreVertIcon sx={{ color: "primary.main" }} />
               </Grid>
-              {/* <Popper
-                id={servicePopperid}
-                open={servicePopperOpen}
-                anchorEl={serviceanchorEl}
-              >
-                <Grid
-                  container
-                  item
-                  alignItems={"center"}
-                  gap={2}
-                  p={1}
-                  sx={{ ...glassMorphisimStyle }}
-                >
-                  <Grid item>
-                    <Typography>Edit</Typography>
-                  </Grid>
-                  <Grid item>
-                    <EditIcon sx={{ color: "primary.main" }} />
-                  </Grid>
-                </Grid>
-              </Popper> */}
             </Grid>
           );
         },
@@ -232,12 +212,11 @@ function UserTable() {
     },
   ];
   useEffect(() => {
-    handleFetchUserData(setTableData);
-    const get = async () => {
-      const auth = await handleFetchAuthorities(setAuthorities);
-      setAuthorities(auth);
-    };
-    get();
+    handleFetchAllUsers({ setTableData, requestAction: "GET_ALL_USERS" });
+    handleFetchAuthorities({
+      setAuthorities,
+      requestAction: "GET_ALL_AUTHORITIES",
+    });
   }, []);
   const options = {
     filterType: "checkbox",
@@ -248,7 +227,7 @@ function UserTable() {
       <Grid container item>
         <MUIDataTable
           title={"Users"}
-          data={tableData.usersData}
+          data={tableData}
           columns={columns}
           options={options}
         />
@@ -286,18 +265,29 @@ function UserTable() {
       {isEditServiceDialogOpen && (
         <ServiceDialog
           authorities={authorities}
-          activeOpenedUserId={userData[0]}
+          userId={userData[0]}
           isEditServiceDialogOpen={isEditServiceDialogOpen}
           handleCloseServiceDialog={handleCloseServiceDialog}
+          tableData={tableData}
+          setTableData={setTableData}
+          setAlertInfo={setAlertInfo}
         />
       )}
+
       <Popper
         id={statusPopperId}
         open={statusOpen}
         anchorEl={statusAnchorEl}
         sx={glassMorphisimStyle}
       >
-        {userData && <RolesPopper userData={userData} />}
+        {userData && (
+          <RolesPopper
+            tableData={tableData}
+            setTableData={setTableData}
+            userData={userData}
+            handleCloseRolePopper={handleCloseRolePopper}
+          />
+        )}
       </Popper>
     </Grid>
   );

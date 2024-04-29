@@ -1,7 +1,9 @@
 import {
   DndContext,
   KeyboardSensor,
+  MouseSensor,
   PointerSensor,
+  TouchSensor,
   closestCorners,
   useSensor,
   useSensors,
@@ -13,8 +15,10 @@ import {
 import { Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import {
+  debouncedHandleDragEnd,
   handleDragEnd,
   handleDragMove,
+  handleDragMoveDebounced,
   handleDragStart,
 } from "src/utils/dnd/events";
 import DraggableServiceItem from "./DraggableServiceItem";
@@ -27,10 +31,10 @@ function DraggableTest({ containers, setContainers }) {
   const [serviceName, setServiceName] = useState("");
   const sensors = useSensors(
     useSensor(PointerSensor),
+    useSensor(MouseSensor),
+    useSensor(TouchSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
-  console.log(containers);
-
   return (
     <Grid container item gap={4} alignItems={"flex-start"}>
       <Grid item>
@@ -51,7 +55,6 @@ function DraggableTest({ containers, setContainers }) {
             handleDragEnd(e, containers, setContainers, setActiveId)
           }
         >
-          {console.log(containers)}
           {containers.map((container) => (
             <ServiceContainer
               id={container.id}
@@ -61,15 +64,12 @@ function DraggableTest({ containers, setContainers }) {
               onAddService={() => {}}
             >
               <SortableContext
-                items={container.authorities.map(
-                  (authority) => authority.authId
-                )}
+                items={container.authorities.map((authority) => authority.name)}
               >
-                {console.log(container)}
                 <Grid container item gap={8}>
                   {container.authorities.map((authority) => (
                     <DraggableServiceItem
-                      key={authority.authId}
+                      key={String(authority.authId)}
                       authority={authority}
                       index={container.id}
                     />

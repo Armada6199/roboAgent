@@ -54,7 +54,7 @@ const FormStyle = styled("form")(({ theme }) => ({
 
   // button style
   "& .MuiButton-contained": {
-    backgroundColor: theme.palette.success.main,
+    backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
     fontWeight: 600,
     textTransform: "capitalize",

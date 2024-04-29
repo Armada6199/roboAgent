@@ -7,10 +7,13 @@ import UserManagmentImg from "src/assets/Images/Services/User Managment.jpg";
 import PrivilegesImg from "src/assets/Images/Services/Privileges.jpg";
 import EmployeesTransferImg from "src/assets/Images/Services/Employees Transfer.jpg";
 import ChangeOccupationImg from "src/assets/Images/Services/Privileges(1).jpg";
-export const Services = {
-  General: {
+import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+export const Services = [
+  {
     enName: "General",
     arName: "الخدمات العامة",
+    allowedAuthorities: [],
     options: [
       {
         id: "validate",
@@ -39,11 +42,13 @@ export const Services = {
         active: true,
       },
     ],
-    backgroundImg: generalImg,
+    backgroundImg: <MiscellaneousServicesIcon />,
   },
-  Visas: {
+  {
     enName: "Visas",
     arName: "خدمة التأشيرات",
+    allowedAuthorities: ["VISAS"],
+    value: "VISAS",
     options: [
       {
         id: "CancelVisas",
@@ -78,11 +83,13 @@ export const Services = {
         active: true,
       },
     ],
-    backgroundImg: VisasImg,
+    backgroundImg: <CreditCardIcon />,
   },
-  EmpList: {
+  {
     enName: "Employee List",
     arName: "قائمة الموظفين",
+    value: "EMP_LIST",
+    allowedAuthorities: ["SUPER_VISOR"],
     options: [
       {
         id: "updateLaborer",
@@ -103,9 +110,11 @@ export const Services = {
     ],
     backgroundImg: EmployeeListImg,
   },
-  WP: {
+  {
     enName: "Work Permit",
     arName: "رخص العمل",
+    allowedAuthorities: ["WP_ROLE"],
+    value: "WORK_PERMIT",
     options: [
       {
         id: "financialExemption",
@@ -133,9 +142,11 @@ export const Services = {
     ],
     backgroundImg: WorkPermitImg,
   },
-  CM: {
+  {
     enName: "Contract Manager",
     arName: "خدمة عقود العمل",
+    allowedAuthorities: ["CM_ROLE"],
+    value: "CONTRACT_MANAG",
     options: [
       {
         id: "AbsentFromWork",
@@ -172,9 +183,11 @@ export const Services = {
     ],
     backgroundImg: ContractManagerImg,
   },
-  UM: {
+  {
     enName: "User Managment",
     arName: "خدمة ادارة المستخدمين",
+    allowedAuthorities: ["UM_ROLE"],
+    value: "USER_MANAG",
     options: [
       {
         id: "notAppearEsts",
@@ -195,9 +208,11 @@ export const Services = {
     ],
     backgroundImg: UserManagmentImg,
   },
-  PM: {
+  {
     enName: "Privileges",
     arName: "خدمة ادارة الصلاحيات",
+    allowedAuthorities: ["PM_ROLE"],
+    value: "PRIVILIAGE_MANAG",
     options: [
       {
         id: "checkPrivileges",
@@ -207,9 +222,11 @@ export const Services = {
     ],
     backgroundImg: PrivilegesImg,
   },
-  ET: {
+  {
     enName: "Employees Transfer",
     arName: "نقل الخدمات",
+    allowedAuthorities: ["ET_ROLE"],
+    value: "EMP_TRANSFER",
     options: [
       {
         id: "CheckETRequest",
@@ -238,9 +255,11 @@ export const Services = {
     ],
     backgroundImg: EmployeesTransferImg,
   },
-  CO: {
+  {
     enName: "Change Occupation",
     arName: "خدمة تغيير المهن",
+    allowedAuthorities: ["CO_ROLE"],
+    value: "CHANGE_OCUP",
     options: [
       {
         id: "CheckCORequest",
@@ -277,4 +296,5 @@ export const Services = {
     ],
     backgroundImg: ChangeOccupationImg,
   },
-};
+];
+//E_ADVISOR

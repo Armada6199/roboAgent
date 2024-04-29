@@ -7,18 +7,15 @@ import {
   Select,
   Typography,
 } from "@mui/material";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import "react-phone-number-input/style.css";
 import { useUpdateAlert } from "src/hooks/Context/AlertContext";
-import FormStyle from "src/styles/styles";
-import { handleFetchAuthorities } from "src/utils/users/api/users";
-import ServicesList from "../services/ServicesList";
-import AxiosHit from "src/utils/api/AxiosHit";
-import axios from "axios";
-import ServiceDialog, {
+import {
+  handleFetchAuthorities,
   handleFetchServiceList,
-} from "../User/dialogs/ServiceDialog";
+} from "src/utils/users/api/users";
 export async function handleFinalRegistration(
   userRole,
   userTeam,
@@ -167,7 +164,7 @@ const FinalRegister = ({ handleNext }) => {
           </Grid>
         </Grid>
         <Grid item xs={12} justifyContent={"flex-end"}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={12}>
             <Button
               fullWidth
               type="submit"

@@ -3,13 +3,12 @@ import { styled } from "@mui/material";
 
 // images
 import i18next from "i18next";
+import { useTranslation } from "react-i18next";
 import AR_Flag from "src/assets/Images/ic_flag_ar.svg";
 import EN_Flag from "src/assets/Images/ic_flag_en.svg";
-// import DE_Flag from "~/Core/Images/ic_flag_de.svg";
-// import FR_Flag from "~/Core/Images/ic_flag_fr.svg";
 
-// Menu styles
 const StyledMenu = styled(Menu)(({ theme }) => ({
+  marginTop: 35,
   paper: {
     minWidth: 175,
     boxShadow: `0 2px 10px -5px ${theme.palette.green.darker}`,
@@ -22,13 +21,12 @@ const StyledMenu = styled(Menu)(({ theme }) => ({
   getContentAnchorEl={null}
   anchorOrigin={{
     vertical: "bottom",
-    horizontal: "right",
+    horizontal: "left",
   }}
   transformOrigin={{
-    vertical: "top",
-    horizontal: "right",
+    vertical: "bottom",
+    horizontal: "left",
   }}
-  // ...other props
 />;
 
 const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
@@ -50,12 +48,14 @@ const IconButtonStyle = styled(IconButton)(({ theme }) => ({
 
 // Language list
 const languages = [
-  { src: <img src={AR_Flag} alt="Arabic" />, alt: "Arabic" },
-  { src: <img src={EN_Flag} alt="English" />, alt: "English" },
+  { src: <img src={AR_Flag} alt="Arabic" />, alt: "Arabic", lang: "ar" },
+  { src: <img src={EN_Flag} alt="English" />, alt: "English", lang: "en" },
 ];
 
 const LanguageSelector = (props) => {
-  console.log(i18next.language);
+  // console.log(i18next.language);
+
+  const { i18n } = useTranslation();
 
   return (
     <>
@@ -79,8 +79,7 @@ const LanguageSelector = (props) => {
             key={el.alt}
             value={el.alt}
             onClick={(e) => {
-              console.log(i18next.language);
-              // i18next.changeLanguage("en");
+              i18n.changeLanguage(el.lang);
               props.onClose(e);
             }}
           >

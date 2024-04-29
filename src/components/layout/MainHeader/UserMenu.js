@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 
 // icons & images
-import { styled } from "@mui/material";
+import { Button, styled } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import { useContext } from "react";
 import { RiHome4Fill, RiSettings3Fill, RiUserFill } from "react-icons/ri";
@@ -91,7 +91,7 @@ const links = [
     id: "l3",
     path: "/settings",
     title: "Settings",
-    icon: <RiSettings3Fill st />,
+    icon: <RiSettings3Fill />,
   },
 ];
 
@@ -141,9 +141,9 @@ const UserMenu = (props) => {
 
         {/* Footer */}
         <BoxStyle>
-          <LinkStyle href="/" underline="none" onClick={() => logout()}>
+          <Button variant="outlined" onClick={logout} fullWidth>
             Logout
-          </LinkStyle>
+          </Button>
         </BoxStyle>
       </StyledMenu>
     </>

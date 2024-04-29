@@ -3,6 +3,8 @@
   "header_section": {
     "signin_btn": "تسجيل دخول"
   },
+  "Forgot password?": "نسيت كلمة السر؟",
+  "Login": "تسجيل دخول",
   "login_page": {
     "header_title": "بوابة إدارة الشكاوى",
     "not_registered_label": "لا يوجد ليدك حساب ؟",

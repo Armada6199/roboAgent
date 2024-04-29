@@ -3,8 +3,10 @@
   "header_section": {
     "signin_btn": "Sign In"
   },
+  "Forgot password?": "Forgot password?",
+  "Login": "Login",
   "login_page": {
-    "header_title": "Complaints Management Portal",
+    "Complaints Management Portal": "Complaints Management Portal",
     "not_registered_label": "Not Registered ?",
     "create_user_acc_label": "Create Customer Account",
     "create_admin_acc_label": "Create Admin Account",

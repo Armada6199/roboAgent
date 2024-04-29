@@ -2,7 +2,7 @@ import AxiosHit from "src/utils/api/AxiosHit";
 import { handleFilterServices, reshapeUserData } from "../tableUtils";
 export async function handleSubmitUserAuths(userId, newAuthorities) {
   try {
-    let hitResult = await AxiosHit({
+    await AxiosHit({
       method: "put",
       url: "/user-auth",
       data: {
@@ -10,31 +10,38 @@ export async function handleSubmitUserAuths(userId, newAuthorities) {
         userId: userId,
       },
     });
-    console.log(hitResult);
   } catch (error) {
     console.error();
   }
 }
-export const handleFetchAuthorities = async (
-  setAuthorities,
-  getOnlyUserAuthorities = false
-) => {
+export const handleFetchAuthorities = async (utils) => {
   try {
-    let hitResult = await AxiosHit({
-      method: "get",
-      url: "/user-auth",
-    });
-    if (getOnlyUserAuthorities) {
-      setAuthorities(hitResult.data.user.services);
-      return;
-    }
-    setAuthorities(hitResult.data.services);
-    console.log(hitResult.data.services);
-    return hitResult.data.services;
+    await AxiosHit(
+      {
+        method: "get",
+        url: "/user-auth",
+      },
+      utils
+    );
   } catch (error) {
     throw new Error(error);
   }
 };
+export async function hanldeSubmitUserNewRole(utils) {
+  const { userId, newRole } = utils;
+  try {
+    await AxiosHit(
+      {
+        method: "put",
+        url: `/user-roles/${userId}/roles/${newRole}`,
+      },
+      utils
+    );
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+}
 export function handleSetContainerService(
   activeServices,
   services,
@@ -48,30 +55,59 @@ export function handleSetContainerService(
   newContainer[1].authorities = activeServices;
   setContainers(newContainer);
 }
-export async function handleFetchUserData(setTableData) {
+export async function handleSubmitUserNewService(utils) {
+  const { userId, userNewService } = utils;
+  console.log();
   try {
-    const response = await AxiosHit({
-      url: "users/getallusers?size=10",
-      method: "get",
-    });
-    const newUsersDataReshaped = reshapeUserData(response?.data?.users);
-    setTableData({
-      usersData: newUsersDataReshaped,
-    });
+    await AxiosHit(
+      {
+        method: "put",
+        url: `service/${userId}/service/${userNewService}`,
+      },
+      utils
+    );
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+}
+export async function handleFetchAllUsers(utils) {
+  try {
+    await AxiosHit(
+      {
+        url: "users/getallusers?size=10",
+        method: "get",
+      },
+      utils
+    );
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+}
+export async function handleFetchServiceList(utils) {
+  try {
+    await AxiosHit(
+      {
+        method: "get",
+        url: "/service",
+      },
+      utils
+    );
   } catch (error) {
     throw new Error(error);
   }
 }
-export async function handleFetchServiceList(setServiceList) {
+export async function handleSubmitNewUser(utils) {
   try {
-    let hitResult = await AxiosHit({
-      method: "get",
-      url: "/service",
-    });
-
-    setServiceList(hitResult.data.services);
-    console.log(hitResult.data.services);
-    return hitResult.data.services;
+    await AxiosHit(
+      {
+        method: "post",
+        url: "users/signup",
+        data: utils.data,
+      },
+      utils
+    );
   } catch (error) {
     throw new Error(error);
   }

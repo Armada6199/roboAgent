@@ -22,10 +22,6 @@ const GrayMainStyle = styled("div")(({ theme }) => ({
   color: theme.palette.gray.main,
 }));
 
-const GrayDarkStyle = styled("div")(({ theme }) => ({
-  color: theme.palette.gray.dark,
-}));
-
 const ListHeaderStyle = styled("div")(({ theme }) => ({
   color: theme.palette.gray.main,
   margin: "8px 0",
@@ -36,6 +32,7 @@ const ListHeaderStyle = styled("div")(({ theme }) => ({
 }));
 
 const StyledMenu = styled(Menu)(({ theme }) => ({
+  marginTop: 35,
   "& .MuiPaper-root": {
     minWidth: "250px",
     maxWidth: "400px",

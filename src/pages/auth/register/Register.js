@@ -72,7 +72,7 @@ const RightPanelStyle = styled(Box)(({ theme }) => ({
 
 const Register = () => {
   const preventDefault = (e) => e.preventDefault();
-  const [steps, setSteps] = useState(1);
+  const [steps, setSteps] = useState(0);
   const handleNext = () => setSteps((prev) => prev + 1);
   const handleBack = () => setSteps((prev) => prev - 1);
   return (

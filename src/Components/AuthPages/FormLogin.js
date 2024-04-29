@@ -20,6 +20,8 @@ import CustomToast from "../toast/CustomToast";
 import EmailDialog from "./dialogs/EmailDialog";
 import NewPassDialog from "./dialogs/NewPassDialog";
 import OTPDialog from "./dialogs/OTPDialog";
+import { t } from "i18next";
+
 const FormLogin = () => {
   const [showPassword, setShowPassord] = useState(false);
   const [remember, setRemember] = useState(true);
@@ -60,6 +62,7 @@ const FormLogin = () => {
     }
     setSnackbarData((prev) => ({ ...prev, open: false }));
   };
+
   return (
     <>
       <EmailDialog
@@ -146,12 +149,12 @@ const FormLogin = () => {
           />
 
           <Link onClick={() => setSteps(0)} href="#" underline="always">
-            Forgot password?
+            {t("Forgot password?")}
           </Link>
         </Box>
 
         <Button type="submit" variant="contained" disableElevation>
-          Login
+          {t("Login")}
         </Button>
         <CustomToast snackbarData={snackbarData} handleClose={handleClose} />
       </FormStyle>

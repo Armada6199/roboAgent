@@ -58,16 +58,15 @@ const ListStyle = styled(List)(({ theme }) => ({
 
 const GetMoreStyle = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.gray.lighter,
-  margin: "40px 12px 16px",
+  margin: "12px",
   padding: "60px 12px 14px 12px",
   borderRadius: theme.spacing(2),
   textAlign: "center",
   position: "absolute",
   bottom: 0,
-
   "& img": {
     position: "absolute",
-    top: 0,
+    bottom: 10,
     left: "50%",
     width: theme.spacing(4),
     width: 120,
@@ -116,35 +115,35 @@ const afterLogin = [
     path: "/dash/dashboard",
     icon: <ImPieChart />,
     title: "Dashboard",
-    allowedRoles: ["Admin", "Leader"],
+    allowedRoles: ["ADMIN", "LEADER", "MEMBER"],
   },
   {
     id: "L1",
     path: "/dash/user",
     icon: <FaUserFriends />,
     title: "User",
-    allowedRoles: ["Admin", "Leader"],
+    allowedRoles: ["ADMIN", "LEADER"],
   },
   {
     id: "L2",
     path: "/dash/product",
     icon: <RiShoppingBag3Fill />,
     title: "Manual",
-    allowedRoles: ["Admin", "Leader", "Member"],
+    allowedRoles: ["ADMIN", "LEADER", "MEMBER"],
   },
   {
     id: "L3",
     path: "/dash/services",
     icon: <RiServerFill />,
     title: "Services",
-    allowedRoles: ["Admin", "Leader", "Member"],
+    allowedRoles: ["ADMIN", "LEADER", "MEMBER"],
   },
   {
     id: "L4",
     path: "/dash/register",
     icon: <FaUserPlus />,
     title: "Register",
-    allowedRoles: ["Admin", "Leader"],
+    allowedRoles: ["ADMIN", "LEADER"],
   },
   // { id: "L3", path: "/blog", icon: <RiClipboardFill />, title: "Blog" },
   // { id: "L6", path: "/404", icon: <GiHazardSign />, title: "Not Found" },
@@ -191,7 +190,10 @@ const SideDrawer = (props) => {
       {/* get more card */}
       <GetMoreStyle>
         <img src={getMoreAvatar} alt="avatar" />
-        Welcome {loginData.firstName + " "} {loginData.lastName}
+        <Typography variant="body1">
+          {" "}
+          Welcome {loginData.firstName + " "} {loginData.lastName}
+        </Typography>
       </GetMoreStyle>
     </>
   );
