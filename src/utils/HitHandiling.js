@@ -16,11 +16,11 @@ export function successHitHandle(result, utils) {
     case "USR":
       return handleUserCodeActions(result, codeNumbers, utils);
     case "OTP":
-      return handleOTPCodeActions(result, codeNumbers);
+      return handleOTPCodeActions(result, codeNumbers, utils);
     case "EML":
-      return handleEmailCodeActions(result, codeNumbers);
+      return handleEmailCodeActions(result, codeNumbers, utils);
     case "CPW":
-      return handleChangePassCodeActions(result, codeNumbers);
+      return handleChangePassCodeActions(result, codeNumbers, utils);
     case "JWT":
       return JWTFalureHitHandle(result, codeNumbers);
     case "E":
@@ -28,7 +28,7 @@ export function successHitHandle(result, utils) {
   }
 }
 
-export function handleExtractCodeInfo(code = 0, extractType) {
+export function handleExtractCodeInfo(code = 0) {
   return {
     codeLetters: code
       ?.split("")

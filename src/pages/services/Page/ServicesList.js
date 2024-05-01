@@ -8,7 +8,6 @@ import ServicesListItem from "./utils/ServicesListItem";
 const GridStyle = styled(Grid)(({ theme }) => ({
   marginTop: theme.spacing(3),
 }));
-
 const ServicesList = () => {
   const { loginData } = useContext(LoginContext);
   if (loginData.role === "TEAM_LEAD" || loginData.role === "ADMIN") {
@@ -16,7 +15,7 @@ const ServicesList = () => {
       <Grid container item spacing={4}>
         {Services.map((service) => (
           <Grid key={service.value} item xs={12} sm={6} md={4} lg={3}>
-            <ServicesListItem service={service} />{" "}
+            <ServicesListItem service={service} />
           </Grid>
         ))}
       </Grid>
@@ -32,6 +31,8 @@ const ServicesList = () => {
             <Grid key={service.value} item xs={12} sm={6} md={4} lg={3}>
               <ServicesListItem key={service.value} service={service} />
             </Grid>
+          ) : service.allowedAuthorities[0] === "all" ? (
+            <ServicesListItem key={service.value} service={service} />
           ) : null;
         })}
       </Grid>

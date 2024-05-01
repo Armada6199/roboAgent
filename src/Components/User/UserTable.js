@@ -2,18 +2,32 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Button, Grid, Modal, Popper, Typography } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import { useEffect, useState } from "react";
+import { useUpdateAlert } from "src/hooks/Context/AlertContext";
 import { glassMorphisimStyle } from "src/styles/styles";
 import {
-  handleFetchAuthorities,
   handleFetchAllUsers,
-  handleSetContainerService,
+  handleFetchAuthorities,
 } from "src/utils/users/api/users";
 import DNDServicesModal from "./dialogs/DNDServicesModal";
 import ServiceDialog from "./dialogs/ServiceDialog";
-import "./usersTable.css";
 import RolesPopper from "./poppers/RolesPopper";
-import { useUpdateAlert } from "src/hooks/Context/AlertContext";
-
+import "./usersTable.css";
+export function handleFilterAuthorities(authorities, activeUserAuth) {
+  const newAuth = [];
+  authorities.map((auth) => {
+    const isActiveAuth = activeUserAuth.findIndex(
+      (active) => active.authId === auth.authId
+    );
+    if (isActiveAuth == -1) {
+      const copyObj = { ...auth, containerValue: "all_services" };
+      newAuth.push(copyObj);
+    } else {
+      const copyObj = { ...auth, containerValue: "active_services" };
+      newAuth.push(copyObj);
+    }
+  });
+  return newAuth;
+}
 function UserTable() {
   const [isOpenServicesModal, setIsOpenServicesModal] = useState(false);
   const [tableData, setTableData] = useState([]);
@@ -23,8 +37,8 @@ function UserTable() {
   const [statusAnchorEl, setStatusAnchorEl] = useState(null);
   const setAlertInfo = useUpdateAlert();
   const handleStatusClick = (event, rowData) => {
-    console.log(rowData);
     setUserData(rowData);
+
     setStatusAnchorEl(statusAnchorEl ? null : event.currentTarget);
   };
   const handleCloseRolePopper = () => setStatusAnchorEl(null);
@@ -35,13 +49,7 @@ function UserTable() {
     setIsEditServiceDialogOpen(true);
   };
   const handleOpenServiceModal = (userData) => {
-    console.log(userData);
-    handleSetContainerService(
-      userData[8],
-      authorities,
-      containers,
-      setContainers
-    );
+    setAuthorities(handleFilterAuthorities(authorities, userData[8]));
     setUserData(userData);
     setIsOpenServicesModal(true);
   };
@@ -51,18 +59,18 @@ function UserTable() {
   const handleCloseServiceDialog = () => {
     setIsEditServiceDialogOpen(false);
   };
-  const [containers, setContainers] = useState([
+  const containers = [
     {
-      id: 1,
+      id: "1",
       title: "All Services",
-      authorities: [],
+      value: "all_services",
     },
     {
-      id: 0,
+      id: "0",
       title: "Active Services",
-      authorities: [],
+      value: "active_services",
     },
-  ]);
+  ];
   const columns = [
     {
       name: "FirstName",
@@ -253,11 +261,12 @@ function UserTable() {
             minHeight: "90vh",
           }}
         >
-          {console.log(containers)}
           <DNDServicesModal
             containers={containers}
             userData={userData}
-            setContainers={setContainers}
+            authorities={authorities}
+            setAuthorities={setAuthorities}
+            handleCloseServicesModal={handleCloseServicesModal}
           />
         </Grid>
       </Modal>

@@ -1,19 +1,28 @@
-export function handleOTPCodeActions(result) {
+import i18n from "src/dictonaries/i18n";
+
+export function handleOTPCodeActions(result, code, utils) {
   const { header } = result.data.roboAgentRs;
   const { status, arabicMsg, englishMsg } = header.responseStatus;
-  console.log(code);
-  switch (code) {
-    ///success
-    case "00000":
-      return {
-        message: arabicMsg || englishMsg,
-        status: status,
-      };
-    default: {
-      return {
-        message: arabicMsg || englishMsg,
-        status: status,
-      };
+  const { handleNext, setAlertInfo } = utils;
+  const currentLang = i18n.language;
+  const currentMessageLang = currentLang === "ar" ? arabicMsg : englishMsg;
+  const getResponseShape = () => {
+    switch (code) {
+      ///success
+      case "00000":
+        return {
+          message: currentMessageLang,
+          success: status,
+        };
+      default: {
+        return {
+          message: currentMessageLang,
+          success: status,
+        };
+      }
     }
-  }
+  };
+  const { message, success } = getResponseShape();
+  if (success == "success") handleNext();
+  setAlertInfo({ alertType: success, alertMsg: message });
 }

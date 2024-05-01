@@ -13,10 +13,11 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useUpdateAlert } from "src/hooks/Context/AlertContext";
 import FormStyle from "src/styles/styles";
 import { handleRestPassword } from "src/utils/api/auth/otp";
 
-function OTPDialog({ handleNext, email, steps, setSnackbarData }) {
+function OTPDialog({ handleNext, steps, setSnackbarData, otpToken }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const handleClickShowPassword = () => {
@@ -33,22 +34,11 @@ function OTPDialog({ handleNext, email, steps, setSnackbarData }) {
     getValues,
     formState: { errors },
   } = useForm();
-  //change to an api folder later
-  // async function closeNewPassDialog() {
-  //   try {
-  //     setIsSnackbarOpen(true);
-  //     setIsNewPasswordOpen(false);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+  const setAlertInfo = useUpdateAlert();
   return (
     <Dialog
       fullWidth={true}
-      open={steps === 1}
-      // onClose={() => {
-      //   setIsNewPasswordOpen(false);
-      // }}
+      open={steps === 3}
       sx={{
         textAlign: "center",
         "& .MuiPaper-root": {
@@ -148,12 +138,12 @@ function OTPDialog({ handleNext, email, steps, setSnackbarData }) {
             fullWidth
             variant="contained"
             onClick={handleSubmit((data) =>
-              handleRestPassword(
-                email,
-                data.password,
+              handleRestPassword({
+                newPass: data.password,
                 handleNext,
-                setSnackbarData
-              )
+                setAlertInfo,
+                otpToken,
+              })
             )}
           >
             Change Password

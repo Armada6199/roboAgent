@@ -5,6 +5,7 @@ import { reshapeUserData } from "src/utils/users/tableUtils";
 export function generalSuccessReducer(result, utils) {
   const { body } = result?.data?.roboAgentRs;
   const { header } = result?.data?.roboAgentRs;
+  console.log(utils);
   const { setAlertInfo } = utils;
   const currentLang = i18n.language;
   const currentMessageLang =
@@ -45,12 +46,11 @@ export function generalSuccessReducer(result, utils) {
       break;
     }
     case "REGISTER_NEW_USER": {
-      const { handleNext, setAlertInfo } = utils;
+      const { setAlertInfo } = utils;
       setAlertInfo({
         alertType: "success",
-        alertMsg: result.data.roboAgentRs.header.responseStatus.englishMsg,
+        alertMsg: currentMessageLang,
       });
-      handleNext();
       break;
     }
     case "UPDATE_USER_ROLE": {
@@ -71,6 +71,13 @@ export function generalSuccessReducer(result, utils) {
       break;
     }
     case "UPDATE_USER_AUTHORITIES": {
+      const { handleClose, setAlertInfo } = utils;
+      console.log("updated");
+      handleClose();
+      setAlertInfo({
+        alertType: "success",
+        alertMsg: currentMessageLang,
+      });
       break;
     }
     case "UPDATE_USER_TEAM": {
@@ -91,6 +98,7 @@ export function generalSuccessReducer(result, utils) {
       break;
     }
   }
+  return result;
 }
 function updateTableData(tableData, index, newValue, userId) {
   const newTableData = [];

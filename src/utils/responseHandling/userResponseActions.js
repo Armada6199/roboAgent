@@ -25,11 +25,11 @@ export async function handleUserCodeActions(result, code, utils) {
   };
   const { message, alertStatus, success } = reshapeData();
   if (success) {
-    console.log("success");
     generalSuccessReducer(result, utils);
   }
   setAlertInfo({
     alertType: alertStatus,
     alertMsg: message,
   });
+  return result;
 }

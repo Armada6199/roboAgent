@@ -6,10 +6,16 @@ import FormRegister from "src/components/AuthPages/FormRegister";
 import LeftPanel from "src/components/AuthPages/LeftPanel";
 
 // img
-import RegisterPhoto from "src/assets/Images/auth/register.png";
-import { TopPaneStyle } from "src/styles/styles";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import RegisterPhoto from "src/assets/Images/auth/register.png";
 import FinalRegister from "src/components/AuthPages/FinalRegister";
+import CustomStepper from "src/components/AuthPages/stepper/CustomStepper";
+import {
+  handleSubmitNewUser,
+  handleSubmitUserAuths,
+} from "src/utils/users/api/users";
+import { useUpdateAlert } from "src/hooks/Context/AlertContext";
 
 // styles
 const ContainerBoxStyle = styled(Box)(({ theme }) => ({
@@ -72,9 +78,39 @@ const RightPanelStyle = styled(Box)(({ theme }) => ({
 
 const Register = () => {
   const preventDefault = (e) => e.preventDefault();
-  const [steps, setSteps] = useState(0);
-  const handleNext = () => setSteps((prev) => prev + 1);
-  const handleBack = () => setSteps((prev) => prev - 1);
+  const [activeStep, setActiveStep] = useState(0);
+  const [registeredId, setRegisteredId] = useState(null);
+  const [userData, setUserData] = useState({});
+  const setAlertInfo = useUpdateAlert();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+    },
+  });
+  const handleNext = (data) => {
+    if (activeStep == 0) {
+      setUserData((prev) => ({ ...prev, ...data }));
+      setActiveStep((prev) => prev + 1);
+    } else {
+      handleSubmitNewUser(
+        { ...userData, ...data },
+        {
+          setRegisteredId,
+          setAlertInfo,
+          requestAction: "REGISTER_NEW_USER",
+        }
+      );
+    }
+  };
+
+  const handleBack = () => setActiveStep((prev) => prev - 1);
   return (
     <>
       {/* Helmet */}
@@ -90,35 +126,26 @@ const Register = () => {
         />
 
         <RightPanelStyle>
-          <TopPaneStyle
-            item="true"
-            textAlign="center"
-            alignContent="center"
-            width="100%"
-            padding={1}
-          >
-            <Typography margin={3} variant="h3" style={{ fontWeight: "bold" }}>
-              {steps === 0
-                ? "Add main user info"
-                : "finish completing user information "}
-            </Typography>
-          </TopPaneStyle>
-          {/* <Typography paragraph className="account_switch">
-            Already have an account?{" "}
-            <Link to="/auth/login" component={RouterLink} underline="none">
-              Login
-            </Link>
-          </Typography> */}
+          <CustomStepper activeStep={activeStep} />
+
           <Container className="form_Container" maxWidth="md">
-            {/* Buttons */}
-            {/* <AuthButtonGroup /> */}
-
-            {/* Section Divider */}
-            {/* <SectionDivider /> */}
-
             {/* The Actual Form 👇 */}
-            {steps == 0 && <FormRegister handleNext={handleNext} />}
-            {steps == 1 && <FinalRegister />}
+            {activeStep == 0 && (
+              <FormRegister
+                register={register}
+                setRegisteredId={setRegisteredId}
+                handleNext={handleNext}
+                handleSubmit={handleSubmit}
+                errors={errors}
+              />
+            )}
+            {activeStep == 1 && (
+              <FinalRegister
+                registeredId={registeredId}
+                handleBack={handleBack}
+                handleNext={handleNext}
+              />
+            )}
             {/* Terms */}
             <Typography paragraph color="textSecondary" className="terms">
               By registering, I agree to RoboAgent{" "}

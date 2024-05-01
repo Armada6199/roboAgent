@@ -8,22 +8,23 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useUpdateAlert } from "src/hooks/Context/AlertContext";
 import FormStyle from "src/styles/styles";
 import { handleVerifyEmail } from "src/utils/api/auth/otp";
 
-function EmailDialog({ setSnackbarData, handleNext, steps }) {
+function EmailDialog({ setOtpToken, setSnackbarData, handleNext, steps }) {
   const {
     register: emailRegister,
     handleSubmit: emailHandleSubmit,
     formState: { errors: emailErrors },
   } = useForm();
-
+  const setAlertInfo = useUpdateAlert();
   return (
     <Dialog
       fullWidth={true}
-      open={steps == 0}
+      open={steps == 1}
       //   onClose={handleB}
       sx={{
         textAlign: "center",
@@ -59,7 +60,12 @@ function EmailDialog({ setSnackbarData, handleNext, steps }) {
             fullWidth
             variant="contained"
             onClick={emailHandleSubmit((data) =>
-              handleVerifyEmail(data.email, handleNext, setSnackbarData)
+              handleVerifyEmail({
+                email: data.email,
+                handleNext,
+                setAlertInfo,
+                setOtpToken,
+              })
             )}
           >
             Next

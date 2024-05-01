@@ -1,7 +1,7 @@
 import { Card, Link, Typography } from "@material-ui/core";
 import { styled } from "@mui/material";
 import { Box } from "@mui/system";
-import { Link as RouteLink } from "react-router-dom";
+import { Link as RouteLink, redirect } from "react-router-dom";
 import i18n from "src/dictonaries/i18n";
 
 // card style
@@ -15,18 +15,14 @@ const CardStyle = styled(Card)(({ theme }) => ({
 
 const ServicesListItem = ({ service }) => {
   const lang = i18n.language;
-  const navigateToService = () => {
-    <>
-      {localStorage.setItem("Service", service.enName)}{" "}
-      <RouteLink to="/dash/services/getAnswer" />
-    </>;
-  };
+  const navigateToService = () =>
+    redirect(`/dash/services/getAnswer/${service.enName}`);
   return (
     <CardStyle style={{ cursor: "pointer" }} onClick={navigateToService}>
       {/* Image with Label */}
       <Link
         component={RouteLink}
-        to="/dash/services/getAnswer"
+        to={`/dash/services/getAnswer/${service.enName}`}
         underline="hover"
         color="inherit"
       >
@@ -45,11 +41,7 @@ const ServicesListItem = ({ service }) => {
             }}
             component="img"
             src={service.backgroundImg}
-            alt={
-              localStorage.getItem("lang") === "English"
-                ? service.enName
-                : service.arName
-            }
+            alt={lang === "en" ? service.enName : service.arName}
           />
         </Box>
 
@@ -72,11 +64,7 @@ const ServicesListItem = ({ service }) => {
               justifyContent: "space-between",
               alignItems: "center",
             }}
-          >
-            {/* <ProductColorPreview colors={colors} limit={3} /> */}
-
-            {/* <ProductPrice price={price} priceSale={priceSale} /> */}
-          </Box>
+          ></Box>
         </Box>
       </Link>
     </CardStyle>

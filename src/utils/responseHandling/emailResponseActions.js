@@ -1,19 +1,32 @@
-export function handleEmailCodeActions(result) {
-  const { header, body } = result.data.roboAgentRs;
+import i18n from "src/dictonaries/i18n";
+
+export function handleEmailCodeActions(result, code, utils) {
+  const { header } = result.data.roboAgentRs;
   const { status, arabicMsg, englishMsg } = header.responseStatus;
-  console.log(code);
-  switch (code) {
-    ///success
-    case "00000":
-      return {
-        message: arabicMsg || englishMsg,
-        status: status,
-      };
-    default: {
-      return {
-        message: arabicMsg || englishMsg,
-        status: status,
-      };
+  const { handleNext, setAlertInfo, setOtpToken } = utils;
+  const currentLang = i18n.language;
+  const currentMessageLang = currentLang === "ar" ? arabicMsg : englishMsg;
+  const getResponseShape = () => {
+    switch (code) {
+      ///success
+      case "00000":
+        return {
+          message: currentMessageLang,
+          success: status,
+        };
+      default: {
+        return {
+          message: currentMessageLang,
+          success: status,
+        };
+      }
     }
+  };
+  const { message, success } = getResponseShape();
+  console.log(success);
+  if (success == "success") {
+    setOtpToken(result.headers["authorization"]);
+    handleNext();
   }
+  setAlertInfo({ alertType: success, alertMsg: message });
 }

@@ -9,11 +9,20 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useUpdateAlert } from "src/hooks/Context/AlertContext";
+import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 import FormStyle from "src/styles/styles";
 import { handleVerifyOTP } from "src/utils/api/auth/otp";
-function OTPDialog({ sendEmail, email, steps, handleNext, setSnackbarData }) {
+function OTPDialog({
+  sendEmail,
+  otpToken,
+  email,
+  steps,
+  handleNext,
+  setSnackbarData,
+}) {
   const {
     register: otpRegister,
     handleSubmit: otpHandleSubmit,
@@ -23,16 +32,17 @@ function OTPDialog({ sendEmail, email, steps, handleNext, setSnackbarData }) {
   console.log(email);
   const [counter, setCounter] = useState(60);
   const Ref = useRef(null);
-
+  const { loginData } = useContext(LoginContext);
   useEffect(() => {
     const timer =
       counter > 0 && setInterval(() => setCounter((prev) => prev - 1), 1000);
     return () => clearInterval(timer);
   }, [counter]);
+  const setAlertInfo = useUpdateAlert();
   return (
     <Dialog
       fullWidth={true}
-      open={steps === 1}
+      open={steps === 2}
       // onClose={() => {
       //   setOpen2(false);
       //   setCounter(60);
@@ -101,7 +111,12 @@ function OTPDialog({ sendEmail, email, steps, handleNext, setSnackbarData }) {
             fullWidth
             variant="contained"
             onClick={otpHandleSubmit((data) =>
-              handleVerifyOTP(email, data.otp, handleNext, setSnackbarData)
+              handleVerifyOTP({
+                otp: data.otp,
+                token: otpToken,
+                handleNext,
+                setAlertInfo,
+              })
             )}
           >
             Submit

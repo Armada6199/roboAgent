@@ -1,4 +1,4 @@
-export function JWTFalureHitHandle(result) {
-  // const { code } = result.data.roboAgentRs.header.responseStatus;
-  //redirect user to login page and clear the cookies
+export function JWTFalureHitHandle() {
+  window.location = "auth/login";
+  localStorage.removeItem("userInfo");
 }

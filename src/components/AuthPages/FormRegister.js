@@ -1,16 +1,20 @@
 import { Button, IconButton, InputAdornment } from "@material-ui/core";
-import { TextField } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useUpdateAlert } from "src/hooks/Context/AlertContext";
 import FormStyle from "src/styles/styles";
-import { handleSubmitNewUser } from "src/utils/users/api/users";
 
-const FormRegister = ({ handleNext }) => {
+const FormRegister = ({
+  handleNext,
+  setRegisteredId,
+  register,
+  errors,
+  handleSubmit,
+}) => {
   const [passwordsInfo, setPasswordsInfo] = useState({
     togglePassword: false,
     valuePass: "",
@@ -19,34 +23,13 @@ const FormRegister = ({ handleNext }) => {
   });
   const [phoneNumber, setPhoneNumber] = useState("");
   const setAlertInfo = useUpdateAlert();
-  // const loginUpdate = useUpdateLoginInfo()
-  const onSubmit = () => {};
-  // hook form
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-    },
-  });
+
   // submit
 
   return (
     <FormStyle
       component="form"
-      onSubmit={handleSubmit((data) =>
-        handleSubmitNewUser({
-          data,
-          setAlertInfo,
-          handleNext,
-          requestAction: "REGISTER_NEW_USER",
-        })
-      )}
+      onSubmit={handleSubmit((data) => handleNext(data))}
     >
       <Box
         sx={{
@@ -232,14 +215,17 @@ const FormRegister = ({ handleNext }) => {
         }
       />
       {/* submit */}
-      <Button
-        type="submit"
-        color="primary.main"
-        variant="contained"
-        disableElevation
-      >
-        Register
-      </Button>
+      <Grid container item xs={12} justifyContent={"flex-end"}>
+        <Button
+          fullWidth
+          type="submit"
+          color="primary.main"
+          variant="contained"
+          disableElevation
+        >
+          Next
+        </Button>
+      </Grid>
     </FormStyle>
   );
 };

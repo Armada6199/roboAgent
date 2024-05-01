@@ -1,19 +1,17 @@
-import generalImg from "src/assets/Images/Services/General.jpg";
-import VisasImg from "src/assets/Images/Services/visas(1).jpg";
-import EmployeeListImg from "src/assets/Images/Services/EmployeeList.jpeg";
-import WorkPermitImg from "src/assets/Images/Services/work-permit.jpg";
 import ContractManagerImg from "src/assets/Images/Services/ContractPicture.jpg";
-import UserManagmentImg from "src/assets/Images/Services/User Managment.jpg";
-import PrivilegesImg from "src/assets/Images/Services/Privileges.jpg";
+import EmployeeListImg from "src/assets/Images/Services/EmployeeList.jpeg";
 import EmployeesTransferImg from "src/assets/Images/Services/Employees Transfer.jpg";
+import generalImg from "src/assets/Images/Services/General.jpg";
 import ChangeOccupationImg from "src/assets/Images/Services/Privileges(1).jpg";
-import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
+import PrivilegesImg from "src/assets/Images/Services/Privileges.jpg";
+import UserManagmentImg from "src/assets/Images/Services/User Managment.jpg";
+import VisasImg from "src/assets/Images/Services/visas(1).jpg";
+import WorkPermitImg from "src/assets/Images/Services/work-permit.jpg";
 export const Services = [
   {
     enName: "General",
     arName: "الخدمات العامة",
-    allowedAuthorities: [],
+    allowedAuthorities: ["all"],
     options: [
       {
         id: "validate",
@@ -42,7 +40,7 @@ export const Services = [
         active: true,
       },
     ],
-    backgroundImg: <MiscellaneousServicesIcon />,
+    backgroundImg: generalImg,
   },
   {
     enName: "Visas",
@@ -83,7 +81,7 @@ export const Services = [
         active: true,
       },
     ],
-    backgroundImg: <CreditCardIcon />,
+    backgroundImg: VisasImg,
   },
   {
     enName: "Employee List",

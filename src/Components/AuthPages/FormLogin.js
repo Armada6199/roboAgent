@@ -8,24 +8,22 @@ import {
 } from "@material-ui/core";
 import { TextField } from "@mui/material";
 import { Box } from "@mui/system";
+import { t } from "i18next";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import { useUpdateAlert } from "src/hooks/Context/AlertContext";
 import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 import FormStyle from "src/styles/styles";
-import { HandelRegularHit } from "src/utils/HitHandiling";
-import AxiosHit from "src/utils/api/AxiosHit";
 import CustomToast from "../toast/CustomToast";
 import EmailDialog from "./dialogs/EmailDialog";
 import NewPassDialog from "./dialogs/NewPassDialog";
 import OTPDialog from "./dialogs/OTPDialog";
-import { t } from "i18next";
 
 const FormLogin = () => {
   const [showPassword, setShowPassord] = useState(false);
   const [remember, setRemember] = useState(true);
-  const [steps, setSteps] = useState(-1);
+  const [steps, setSteps] = useState(0);
   const [snackbarData, setSnackbarData] = useState({
     status: "",
     text: "",
@@ -35,6 +33,8 @@ const FormLogin = () => {
   const handleTogglePassword = () => setShowPassord(!showPassword);
   const handleToggleRemember = () => setRemember(!remember);
   const setAlertInfo = useUpdateAlert();
+  const [otpToken, setOtpToken] = useState("");
+  console.log(steps);
   const handleNext = () => {
     setSteps((prev) => prev + 1);
   };
@@ -69,24 +69,26 @@ const FormLogin = () => {
         handleNext={handleNext}
         steps={steps}
         setSnackbarData={setSnackbarData}
+        setOtpToken={setOtpToken}
       />
-      {console.log(steps)}
-      {steps === 1 && (
+      {
         <OTPDialog
           handleNext={handleNext}
           setSnackbarData={setSnackbarData}
           email={getValues("email")}
           steps={steps}
+          otpToken={otpToken}
         />
-      )}
-      {steps == 2 && (
+      }
+      {
         <NewPassDialog
           setSnackbarData={setSnackbarData}
           email={getValues("email")}
           handleNext={handleNext}
           steps={steps}
+          otpToken={otpToken}
         />
-      )}
+      }
       <FormStyle
         component="form"
         onSubmit={handleSubmit((loginData) => login(loginData, setAlertInfo))}
@@ -148,7 +150,7 @@ const FormLogin = () => {
             {...register("rememberUser")}
           />
 
-          <Link onClick={() => setSteps(0)} href="#" underline="always">
+          <Link onClick={() => setSteps(1)} href="#" underline="always">
             {t("Forgot password?")}
           </Link>
         </Box>

@@ -1,19 +1,27 @@
-export function handleGeneralErrorCodeActions(result) {
-  const { header, body } = result.data.roboAgentRs;
+import { redirect } from "react-router";
+
+export function handleGeneralErrorCodeActions(result, code, utils) {
+  const { header } = result.data.roboAgentRs;
   const { status, arabicMsg, englishMsg } = header.responseStatus;
-  console.log(code);
-  switch (code) {
-    ///success
-    case "00000":
-      return {
-        message: arabicMsg || englishMsg,
-        status: status,
-      };
-    default: {
-      return {
-        message: arabicMsg || englishMsg,
-        status: status,
-      };
+  const { setAlertInfo } = utils;
+  // redirect("/error");
+  console.log("error ");
+  const getResponseShape = () => {
+    switch (code) {
+      ///success
+      case "00000":
+        return {
+          message: arabicMsg || englishMsg,
+          success: status,
+        };
+      default: {
+        return {
+          message: arabicMsg || englishMsg,
+          success: status,
+        };
+      }
     }
-  }
+  };
+  const { message, success } = getResponseShape();
+  setAlertInfo({ alertType: success, alertMsg: message });
 }

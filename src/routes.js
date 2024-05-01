@@ -13,6 +13,7 @@ import Register from "./pages/auth/register/Register";
 import { useRoutes } from "react-router-dom/dist";
 import { useContext } from "react";
 import { LoginContext } from "./hooks/Context/LoginInfoContext";
+import SomethingWentWrongError from "./pages/common/500";
 
 const Routes = () => {
   const { loginData } = useContext(LoginContext);
@@ -34,6 +35,7 @@ const Routes = () => {
         { path: "*", element: <ErrorPage /> },
       ],
     },
+
     // auth
     {
       path: "auth",
@@ -59,11 +61,12 @@ const Routes = () => {
       children: [
         { path: "Dashboard", element: <Dashboard /> },
         { path: "user", element: <User /> },
+        { path: "error", element: <SomethingWentWrongError /> },
         {
           path: "services",
           children: [
             { path: "", element: <ServicesList /> },
-            { path: "getAnswer", element: <ServicesGetAnswer /> },
+            { path: "getAnswer/:servicename", element: <ServicesGetAnswer /> },
           ],
         },
         { path: "register", element: <Register /> },

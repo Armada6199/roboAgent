@@ -15,6 +15,7 @@ import { useUpdateAlert } from "src/hooks/Context/AlertContext";
 import {
   handleFetchAuthorities,
   handleFetchServiceList,
+  handleSubmitUserFinalRegistration,
 } from "src/utils/users/api/users";
 export async function handleFinalRegistration(
   userRole,
@@ -43,15 +44,15 @@ export async function handleFinalRegistration(
     throw new Error(error);
   }
 }
-const FinalRegister = ({ handleNext }) => {
+const FinalRegister = ({ handleBack, handleNext }) => {
   const setAlertInfo = useUpdateAlert();
   const [selectedRole, setSelectedRole] = useState("");
   const [serviceList, setServiceList] = useState([]);
   const [authorities, setAuthorities] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState("");
-  // const loginUpdate = useUpdateLoginInfo()
+  const [selectedAuthorities, setSelectedAuthorities] = useState([]);
+  const [selectedService, setSelectedService] = useState("");
   const userRoles = [
-    { value: "ADMIN", title: "Admin" },
     { value: "team_lead", title: "Team Lead" },
     { value: "member", title: "Member" },
   ];
@@ -61,31 +62,43 @@ const FinalRegister = ({ handleNext }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    // defaultValues: {
-    //   firstName: "",
-    //   lastName: "",
-    //   email: "",
-    //   password: "",
-    // },
-  });
-  // function handleAddUserAuth(authId) {
-  //   const foundAuth = userAuths.some((auth) => auth.authId !== authId);
-  //   if (foundAuth) {
-  //     const newAuths = userAuths.filter((auth) => auth.authId !== authId);
-  //     setUserAuths(newAuths);
-  //   } else {
-  //     setUserAuths((prev) => [...prev, authId]);
-  //   }
-  // }
-  useEffect(() => {
-    handleFetchAuthorities(setAuthorities);
-    handleFetchServiceList(setServiceList);
-  }, []);
-  // submit
+  } = useForm({});
 
+  useEffect(() => {
+    handleFetchAuthorities({
+      setAuthorities,
+      requestAction: "GET_ALL_AUTHORITIES",
+    });
+    handleFetchServiceList({
+      setServiceList,
+      requestAction: "SET_SERVICE_LIST",
+    });
+  }, []);
+
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    const values = typeof value === "string" ? value.split(",") : value;
+    const authArr = [];
+    values.map((value) => {
+      const newObj = { authId: value };
+      authArr.push(newObj);
+    });
+    setSelectedAuthorities(authArr);
+  };
   return (
-    <form noValidate onSubmit={handleSubmit}>
+    <form
+      noValidate
+      onSubmit={handleSubmit(() =>
+        handleNext({
+          role: selectedRole,
+          team: selectedTeam,
+          roboAuthorities: selectedAuthorities,
+          service: selectedService,
+        })
+      )}
+    >
       <Grid container item gap={4}>
         <Grid container item>
           <Grid container item gap={4} xs={12} md={6} justifyContent={"center"}>
@@ -132,9 +145,10 @@ const FinalRegister = ({ handleNext }) => {
               <FormControl fullWidth>
                 <InputLabel>Services</InputLabel>
                 <Select
-                  // value={age}
+                  value={selectedAuthorities.map((e) => e.authId)}
                   label="Services"
-                  // onChange={handleChange}
+                  multiple
+                  onChange={handleChange}
                 >
                   {authorities.map((auth) => (
                     <MenuItem value={auth.authId}>
@@ -151,20 +165,33 @@ const FinalRegister = ({ handleNext }) => {
               <FormControl fullWidth>
                 <InputLabel>Service</InputLabel>
                 <Select
-                  // value={age}
+                  value={selectedService}
                   label="Service"
-                  // onChange={handleChange}
+                  onChange={(e) => setSelectedService(e.target.value)}
                 >
                   {serviceList.map((service) => (
-                    <MenuItem value={service.id}>{service.service}</MenuItem>
+                    <MenuItem value={service.service}>
+                      {service.service}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} justifyContent={"flex-end"}>
-          <Grid item xs={12} md={12}>
+        <Grid container item xs={12} justifyContent={"flex-end"} spacing={4}>
+          <Grid item xs={12} md={6}>
+            <Button
+              fullWidth
+              variant="outlined"
+              sx={{ p: 2 }}
+              onClick={handleBack}
+              disableElevation
+            >
+              Back
+            </Button>
+          </Grid>
+          <Grid item xs={12} md={6}>
             <Button
               fullWidth
               type="submit"
@@ -172,7 +199,7 @@ const FinalRegister = ({ handleNext }) => {
               sx={{ p: 2 }}
               disableElevation
             >
-              Submit
+              Register
             </Button>
           </Grid>
         </Grid>

@@ -1,9 +1,17 @@
 import { Button, Grid } from "@mui/material";
 import { Box } from "@mui/system";
-import { handleSubmitUserAuths } from "src/utils/dnd/events";
 import DraggableTest from "./DraggableTest";
+import { handleSubmitUserAuths } from "src/utils/users/api/users";
+import { useUpdateAlert } from "src/hooks/Context/AlertContext";
 
-function DNDServicesModal({ userData, containers, setContainers }) {
+function DNDServicesModal({
+  userData,
+  containers,
+  setAuthorities,
+  handleCloseServicesModal,
+  authorities,
+}) {
+  const setAlertInfo = useUpdateAlert();
   return (
     <>
       <Grid
@@ -16,7 +24,11 @@ function DNDServicesModal({ userData, containers, setContainers }) {
           maxHeight: "calc(90vh - 65px)",
         }}
       >
-        <DraggableTest containers={containers} setContainers={setContainers} />
+        <DraggableTest
+          setAuthorities={setAuthorities}
+          containers={containers}
+          authorities={authorities}
+        />
       </Grid>
       <Box
         position={"fixed"}
@@ -34,7 +46,11 @@ function DNDServicesModal({ userData, containers, setContainers }) {
       >
         <Grid container item justifyContent={"space-between"} gap={4}>
           <Grid item xs={12} md={4}>
-            <Button fullWidth variant="contained">
+            <Button
+              onClick={handleCloseServicesModal}
+              fullWidth
+              variant="contained"
+            >
               Cancel
             </Button>
           </Grid>
@@ -43,9 +59,13 @@ function DNDServicesModal({ userData, containers, setContainers }) {
               fullWidth
               onClick={() =>
                 handleSubmitUserAuths({
-                  containers,
+                  roboAuthorities: authorities.filter(
+                    (auth) => auth.containerValue == "active_services"
+                  ),
+                  requestAction: "UPDATE_USER_AUTHORITIES",
+                  setAlertInfo,
                   userId: userData[0],
-                  containers,
+                  handleClose: handleCloseServicesModal,
                 })
               }
               variant="contained"

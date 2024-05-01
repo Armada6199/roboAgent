@@ -1,39 +1,24 @@
 import {
   DndContext,
-  KeyboardSensor,
-  MouseSensor,
   PointerSensor,
-  TouchSensor,
   closestCorners,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import {
-  SortableContext,
-  sortableKeyboardCoordinates,
-} from "@dnd-kit/sortable";
 import { Grid, Typography } from "@mui/material";
 import { useState } from "react";
-import {
-  debouncedHandleDragEnd,
-  handleDragEnd,
-  handleDragMove,
-  handleDragMoveDebounced,
-  handleDragStart,
-} from "src/utils/dnd/events";
-import DraggableServiceItem from "./DraggableServiceItem";
+import { onDragEnd, onDragOver, onDragStart } from "src/utils/dnd/events"; // Import drag event handlers
 import ServiceContainer from "./ServiceContainer";
 
-function DraggableTest({ containers, setContainers }) {
-  const [activeId, setActiveId] = useState(null);
-  const [currentContainerId, setCurrentContainerId] = useState(null);
-  const [containerName, steContainerName] = useState(null);
-  const [serviceName, setServiceName] = useState("");
+function DraggableTest({ containers, setAuthorities, authorities }) {
+  const [activeContainer, setActiveContainer] = useState(null);
+  const [activeAuthority, setActiveAuthority] = useState(null);
   const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(MouseSensor),
-    useSensor(TouchSensor),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 10,
+      },
+    })
   );
   return (
     <Grid container item gap={4} alignItems={"flex-start"}>
@@ -47,12 +32,10 @@ function DraggableTest({ containers, setContainers }) {
         <DndContext
           sensors={sensors}
           collisionDetection={closestCorners}
-          onDragStart={(e) => handleDragStart(e, setActiveId)}
-          onDragMove={(e) =>
-            handleDragMove(e, containers, setContainers, setActiveId)
-          }
+          onDragStart={(e) => onDragStart(e, setActiveAuthority)}
+          onDragOver={(e) => onDragOver(e, setAuthorities, authorities)}
           onDragEnd={(e) =>
-            handleDragEnd(e, containers, setContainers, setActiveId)
+            onDragEnd(e, setActiveContainer, setActiveAuthority)
           }
         >
           {containers.map((container) => (
@@ -61,22 +44,11 @@ function DraggableTest({ containers, setContainers }) {
               title={container.title}
               key={container.id}
               index={container.id}
-              onAddService={() => {}}
-            >
-              <SortableContext
-                items={container.authorities.map((authority) => authority.name)}
-              >
-                <Grid container item gap={8}>
-                  {container.authorities.map((authority) => (
-                    <DraggableServiceItem
-                      key={String(authority.authId)}
-                      authority={authority}
-                      index={container.id}
-                    />
-                  ))}
-                </Grid>
-              </SortableContext>
-            </ServiceContainer>
+              container={container}
+              authorities={authorities.filter(
+                (auth) => auth.containerValue === container.value
+              )}
+            />
           ))}
         </DndContext>
       </Grid>
