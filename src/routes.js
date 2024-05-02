@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 
 // components
 import DashboardLayout from "src/components/layout/DashboardLayout";
@@ -14,10 +14,24 @@ import { useRoutes } from "react-router-dom/dist";
 import { useContext } from "react";
 import { LoginContext } from "./hooks/Context/LoginInfoContext";
 import SomethingWentWrongError from "./pages/common/500";
-
+const allowed = {
+  usersTable: {
+    allowedRoles: ["ADMIN", "TEAM_LEAD"],
+  },
+  dashboard: {
+    allowedRoles: ["ADMIN", "TEAM_LEAD", "MEMBER"],
+  },
+  register: {
+    allowedRoles: ["ADMIN"],
+  },
+  services: {
+    allowedRoles: ["ADMIN", "TEAM_LEAD", "MEMBER"],
+  },
+};
 const Routes = () => {
   const { loginData } = useContext(LoginContext);
   console.log(loginData.isLoggedIn);
+  const navigate = useNavigate();
   const pageRouts = [
     {
       // default
@@ -60,7 +74,14 @@ const Routes = () => {
       ),
       children: [
         { path: "Dashboard", element: <Dashboard /> },
-        { path: "user", element: <User /> },
+        {
+          path: "user",
+          element: allowed.usersTable.allowedRoles.includes(loginData.role) ? (
+            <User />
+          ) : (
+            <Navigate to="/dash/dashboard" />
+          ),
+        },
         { path: "error", element: <SomethingWentWrongError /> },
         {
           path: "services",
@@ -69,7 +90,14 @@ const Routes = () => {
             { path: "getAnswer/:servicename", element: <ServicesGetAnswer /> },
           ],
         },
-        { path: "register", element: <Register /> },
+        {
+          path: "register",
+          element: allowed.register.allowedRoles.includes(loginData.role) ? (
+            <Register />
+          ) : (
+            <Navigate to="/dash/dashboard" />
+          ),
+        },
         { path: "blog", element: <Blog /> },
         { path: "*", element: <ErrorPage /> },
       ],
