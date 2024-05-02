@@ -4,7 +4,7 @@ import { Button, Grid, TextField, Typography } from "@mui/material";
 import i18next from "i18next";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { redirect, useParams } from "react-router";
+import { redirect, useNavigate, useParams } from "react-router";
 import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 import TasksItem from "src/pages/Dashboard/TasksItem";
 import { TopPaneStyle } from "src/styles/styles";
@@ -45,6 +45,7 @@ const ServicesGetAnswer = () => {
   )[0];
   const [loading, setLoading] = useState();
   const lang = i18next.language;
+  const navigate = useNavigate();
   const [options, setOptions] = useState(() => {
     const options = {};
     currService.options.map((o) => (options[o["id"]] = false));
@@ -77,8 +78,9 @@ const ServicesGetAnswer = () => {
   if (
     (loginData.role !== "TEAM_LEAD" || loginData.role !== "ADMIN") &&
     showService
-  )
-    redirect("/dash/dashboard");
+  ) {
+    navigate("/dash/dashboard");
+  }
   return (
     <Grid container justifyContent={"center"} gap={4}>
       <Grid item xs={12} md={8} xl={6}>

@@ -89,18 +89,18 @@ const MainHeader = (props) => {
           {/* Right side's items */}
           <ContainerStyle>
             {/* Language selector */}
-            <LanguageSelector
+            {/* <LanguageSelector
               anchorEl={showLang}
               onOpen={handleOpenLang}
               onClose={handleCloseLang}
             />
             {/* Notification */}
 
-            <Notifications
+            {/* <Notifications
               anchorEl={showNotification}
               onOpen={handleOpenNotification}
               onClose={handleCloseNotification}
-            />
+            />  */}
             {/* User Avatar */}
             <UserMenu
               anchorEl={showUserMenu}
@@ -130,12 +130,12 @@ const MainHeader = (props) => {
           {/* Right side's items */}
           <ContainerStyle>
             {/* Language selector */}
-            <DarkModeSelector />
-            <LanguageSelector
+            {/* <DarkModeSelector /> */}
+            {/* <LanguageSelector
               anchorEl={showLang}
               onOpen={handleOpenLang}
               onClose={handleCloseLang}
-            />
+            /> */}
           </ContainerStyle>
         </ToolbarStyle>
       </AppBarStyle>

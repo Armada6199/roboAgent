@@ -28,7 +28,6 @@ const ServicesListItem = ({ service }) => {
       >
         <Box
           sx={{ pt: "100%", position: "relative" }}
-          bgcolor="gray"
           href="/dash/services/getAnswer"
         >
           <Box
