@@ -21,7 +21,6 @@ const DivStyle = styled("div")(({ theme }) => ({
   },
 }));
 const SERIES_DATA = [4344, 5435, 1443, 4443];
-
 const CurrentVisits = () => {
   const { themeStyles } = useContext(themeContext);
   const { t } = useTranslation();
