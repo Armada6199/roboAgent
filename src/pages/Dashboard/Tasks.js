@@ -31,6 +31,7 @@ const Tasks = () => {
             id={el.id}
             status={el.status}
             label={el.label}
+            checkOptions={() => {}}
           />
         ))}
       </FormGroupStyle>

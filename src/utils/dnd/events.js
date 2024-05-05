@@ -1,5 +1,4 @@
 import { arrayMove } from "@dnd-kit/sortable";
-import AxiosHit from "../api/AxiosHit";
 function debounce(func, delay) {
   let debounceTimer;
   return function () {
@@ -14,19 +13,6 @@ export function onDragStart(event, setActiveAuthority) {
   return;
 }
 
-export function onDragEnd(event, setActiveContainer, setActiveAuthority) {
-  setActiveContainer(null);
-  setActiveAuthority(null);
-
-  const { active, over } = event;
-  if (!over) return;
-
-  const activeId = active.id;
-  const overId = over.id;
-
-  if (activeId === overId) return;
-}
-
 export function onDragOver(event, setAuthorities) {
   const { active, over } = event;
   if (!over) return;
@@ -37,7 +23,7 @@ export function onDragOver(event, setAuthorities) {
   if (activeId === overId) return;
 
   const isActiveATask = active.data.current?.type === "authority";
-  const isOverATask = over.data.current?.type === "authority";
+  const isOverATask = over.data?.current?.type === "authority";
   // if (!isActiveATask) return;
 
   // Im dropping a Task over another Task
@@ -54,17 +40,28 @@ export function onDragOver(event, setAuthorities) {
     });
   }
   // Im dropping a Task over a container
-  const isOverContainer = over.data.current.type === "container";
-  if (isActiveATask && isOverContainer) {
+  const draggedContainer = active.data?.current?.authority?.containerValue;
+  const overContainer = over.data?.current?.authority?.containerValue;
+  if (draggedContainer !== overContainer) {
     debouncedSetAuthorities((authorities) => {
       const activeIndex = authorities.findIndex(
-        (auth) => auth.authId === activeId
+        (auth) => auth?.authId === activeId
       );
-      authorities[activeIndex].containerValue = overId;
+      authorities[activeIndex].containerValue = overContainer;
 
       return arrayMove(authorities, activeIndex, activeIndex);
     });
   }
 }
+export function onDragEnd(event, setActiveContainer, setActiveAuthority) {
+  setActiveContainer(null);
+  setActiveAuthority(null);
+  const { active, over } = event;
+  if (!over) return;
 
+  const activeId = active.id;
+  const overId = over.id;
+
+  if (activeId === overId) return;
+}
 // Usage:

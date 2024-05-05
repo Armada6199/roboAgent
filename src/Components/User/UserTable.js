@@ -259,6 +259,7 @@ function UserTable() {
           sx={{
             ...glassMorphisimStyle,
             minHeight: "90vh",
+            overflowX: "clip",
           }}
         >
           <DNDServicesModal

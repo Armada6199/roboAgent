@@ -1,12 +1,12 @@
-import ContractManagerImg from "src/assets/Images/Services/ContractPicture.jpg";
+import ContractManagerImg from "src/assets/Images/Services/contract.jpg";
 import EmployeeListImg from "src/assets/Images/Services/EmployeeList.jpeg";
 import EmployeesTransferImg from "src/assets/Images/Services/Employees Transfer.jpg";
-import generalImg from "src/assets/Images/Services/General.jpg";
-import ChangeOccupationImg from "src/assets/Images/Services/Privileges(1).jpg";
-import PrivilegesImg from "src/assets/Images/Services/Privileges.jpg";
-import UserManagmentImg from "src/assets/Images/Services/User Managment.jpg";
+import generalImg from "src/assets/Images/Services/general.jpg";
+import ChangeOccupationImg from "src/assets/Images/Services/Career-Change-30-1-1024x512.png";
+import PrivilegesImg from "src/assets/Images/Services/privligages.jpg";
+import UserManagmentImg from "src/assets/Images/Services/user_managment.webp";
 import VisasImg from "src/assets/Images/Services/visas(1).jpg";
-import WorkPermitImg from "src/assets/Images/Services/work-permit.jpg";
+import WorkPermitImg from "src/assets/Images/Services/work_permit.jpg";
 export const Services = [
   {
     enName: "General",

@@ -47,12 +47,12 @@ const DraggableServiceItem = ({ authority, index }) => {
         opacity: isDragging ? "50%" : "100%",
         boxShadow: "0px 2px 12px 1px rgba(0,0,0,0.22)",
         borderRadius: 10,
+        zIndex: 99,
         bgcolor: isDragging
           ? index == 1
             ? "blue.main"
             : "primary.main"
           : "inherit",
-        zIndex: 99999999,
         color: isDragging ? "white" : index == 1 ? "blue.main" : "primary.main",
       }}
     >
