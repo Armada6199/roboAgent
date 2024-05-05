@@ -5,11 +5,11 @@ import { handleGeneralErrorCodeActions } from "./responseHandling/generalErrorRe
 import { JWTFalureHitHandle } from "./responseHandling/jwtfailureResponseHandling";
 import { handleOTPCodeActions } from "./responseHandling/otpResponseActions";
 import { handleUserCodeActions } from "./responseHandling/userResponseActions";
+import { handleGetAnswerFailure } from "./responseHandling/handleGetAnswerFailure";
 
 export function successHitHandle(result, utils) {
   const { code } = result?.data?.roboAgentRs?.header?.responseStatus;
   const { codeLetters, codeNumbers } = handleExtractCodeInfo(code, "string");
-  console.log(codeLetters);
   switch (codeLetters) {
     case "":
       return generalSuccessReducer(result, utils);
@@ -25,9 +25,10 @@ export function successHitHandle(result, utils) {
       return JWTFalureHitHandle(result, codeNumbers);
     case "E":
       return handleGeneralErrorCodeActions(result, codeNumbers);
+    case "GAM":
+      return handleGetAnswerFailure(result, codeNumbers);
   }
 }
-
 export function handleExtractCodeInfo(code = 0) {
   return {
     codeLetters: code

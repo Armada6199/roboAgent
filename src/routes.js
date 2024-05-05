@@ -14,7 +14,8 @@ import { useRoutes } from "react-router-dom/dist";
 import { useContext } from "react";
 import { LoginContext } from "./hooks/Context/LoginInfoContext";
 import SomethingWentWrongError from "./pages/common/500";
-const allowed = {
+import { Services } from "./pages/services/Schema/ServicesSchema";
+const allowedPages = {
   usersTable: {
     allowedRoles: ["ADMIN", "TEAM_LEAD"],
   },
@@ -32,6 +33,7 @@ const Routes = () => {
   const { loginData } = useContext(LoginContext);
   console.log(loginData.isLoggedIn);
   const navigate = useNavigate();
+
   const pageRouts = [
     {
       // default
@@ -76,7 +78,9 @@ const Routes = () => {
         { path: "Dashboard", element: <Dashboard /> },
         {
           path: "user",
-          element: allowed.usersTable.allowedRoles.includes(loginData.role) ? (
+          element: allowedPages.usersTable.allowedRoles.includes(
+            loginData.role
+          ) ? (
             <User />
           ) : (
             <Navigate to="/dash/dashboard" />
@@ -92,7 +96,9 @@ const Routes = () => {
         },
         {
           path: "register",
-          element: allowed.register.allowedRoles.includes(loginData.role) ? (
+          element: allowedPages.register.allowedRoles.includes(
+            loginData.role
+          ) ? (
             <Register />
           ) : (
             <Navigate to="/dash/dashboard" />

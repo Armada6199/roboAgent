@@ -97,6 +97,11 @@ export function generalSuccessReducer(result, utils) {
       handleCloseServiceDialog();
       break;
     }
+    case "SET_ANSWER": {
+      const { setAnswer } = utils;
+      setAnswer(body.getAnswer.getAnswerResp);
+      break;
+    }
   }
   return result;
 }

@@ -4,41 +4,17 @@ import { Button, Grid, TextField, Typography } from "@mui/material";
 import i18next from "i18next";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { redirect, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 import TasksItem from "src/pages/Dashboard/TasksItem";
 import { TopPaneStyle } from "src/styles/styles";
 import { numbersOnly } from "src/utils/DefualtValidators";
-import AxiosHit from "src/utils/api/AxiosHit";
-export async function handleGetResponse(data, servicename, options) {
-  console.log(options, data);
-  let { reason, establishmentNumber, id_number } = data;
-  establishmentNumber += id_number != "" ? "-" + id_number : "";
+import { Navigate } from "react-router-dom";
+import { handleGetResponse } from "src/utils/api/answer/service";
 
-  const selectedOptions = Object.keys(options).filter((key) =>
-    options[key] ? true : false
-  );
-  try {
-    // await AxiosHit({
-    //   url: `roboAgent/get-answer?service=${servicename
-    //     .split(" ")
-    //     .join("_")
-    //     .toUpperCase()}`,
-    //     method:'post',
-    //   baseURL: "http://localhost:3000/",
-    //   data: {
-    //     establishmentNumber,
-    //     selectedOptions,
-    //     reason,
-    //   },
-    // });
-  } catch (error) {
-    console.log(error);
-    throw new Error(error);
-  }
-}
 const ServicesGetAnswer = () => {
   let { servicename } = useParams();
+  const [answer, setAnswer] = useState("");
   const { loginData } = useContext(LoginContext);
   const currService = Services.filter(
     (service) => service.enName == servicename
@@ -79,7 +55,9 @@ const ServicesGetAnswer = () => {
     (loginData.role !== "TEAM_LEAD" || loginData.role !== "ADMIN") &&
     showService
   ) {
-    navigate("/dash/dashboard");
+    console.log("no allowed");
+    <Navigate to="/dash/dashboard" replace={true} />;
+    return null;
   }
   return (
     <Grid container justifyContent={"center"} gap={4}>
@@ -96,10 +74,17 @@ const ServicesGetAnswer = () => {
           </Typography>
         </TopPaneStyle>
       </Grid>
+
       <form
         style={{ width: "100%", display: "flex", justifyContent: "center" }}
         onSubmit={handleSubmit((data) =>
-          handleGetResponse(data, servicename, options)
+          handleGetResponse({
+            requestActions: "SET_ANSWER",
+            setAnswer,
+            data,
+            servicename,
+            options,
+          })
         )}
       >
         <Grid container item xs={12} md={8} xl={6} gap={4}>
@@ -187,6 +172,7 @@ const ServicesGetAnswer = () => {
                 id="outlined-multiline-static"
                 label="Answer"
                 textAlign="right"
+                value={answer}
                 style={{ direction: "rtl" }}
                 InputProps={{
                   readOnly: true,
