@@ -3,14 +3,30 @@
   "header_section": {
     "signin_btn": "Sign In"
   },
-  "Forgot password?": "Forgot password?",
-  "Login": "Login",
-  "login_page": {
-    "Complaints Management Portal": "Complaints Management Portal",
-    "not_registered_label": "Not Registered ?",
-    "create_user_acc_label": "Create Customer Account",
-    "create_admin_acc_label": "Create Admin Account",
-    "login_btn": "Login"
+
+  "logo": "RoboAgent portal",
+  "user": {
+    "welcome": "Welcome"
+  },
+  "links": {
+    "login": "Login",
+    "dashboard": "Dashboard",
+    "user": "User",
+    "manual": "Manual",
+    "services": "Services",
+    "register": "Register"
+  },
+  "dashboard": {
+    "Total active Issues": "Total active Issues",
+    "Current Tickets": "Current Tickets",
+    "Automation Handeled Tickets": "Automation Handeled Tickets",
+    "Users Online": "Users Online",
+    "Website Visits": "Website Visits",
+    "Employee Transfeer": "Employee Transfeer",
+    "Work Permits": "Work Permits",
+    "Visas": "Visas",
+    "User Managments": "User Managments",
+    "Current Visits": "Current Visits"
   },
   "signup_page": {
     "user_reg_header_title": "User Registration Form",

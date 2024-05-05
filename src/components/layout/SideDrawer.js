@@ -26,6 +26,7 @@ import { drawerWidth } from "src/components/layout/DashboardLayout";
 import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 import { styled } from "@mui/material";
 import AuthWrapper from "../AuthWrapper/AuthWrapper";
+import { useTranslation } from "react-i18next";
 const NavDrawerStyle = styled("nav")(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {
     width: drawerWidth,
@@ -153,7 +154,7 @@ const SideDrawer = (props) => {
   const { loginData } = useContext(LoginContext);
   console.log("loginData side ---< ", loginData);
   const links = loginData.isLoggedIn ? afterLogin : beforeLogin;
-
+  const { t } = useTranslation();
   const drawerContent = (
     <>
       {/* Logo */}
@@ -180,7 +181,7 @@ const SideDrawer = (props) => {
               key={el.id}
               path={el.path}
               icon={el.icon}
-              title={el.title}
+              title={t(`links.${el.title.toLowerCase()}`)}
               onClick={props.onClose}
             />
           </AuthWrapper>
@@ -192,7 +193,7 @@ const SideDrawer = (props) => {
         <img src={getMoreAvatar} alt="avatar" />
         <Typography variant="body1">
           {" "}
-          Welcome {loginData.firstName + " "} {loginData.lastName}
+          {t("user.welcome")} {loginData.firstName + " "} {loginData.lastName}
         </Typography>
       </GetMoreStyle>
     </>

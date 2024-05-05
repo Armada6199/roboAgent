@@ -1,8 +1,8 @@
-import ContractManagerImg from "src/assets/Images/Services/contract.jpg";
+import ChangeOccupationImg from "src/assets/Images/Services/Career-Change-30-1-1024x512.png";
 import EmployeeListImg from "src/assets/Images/Services/EmployeeList.jpeg";
 import EmployeesTransferImg from "src/assets/Images/Services/Employees Transfer.jpg";
+import ContractManagerImg from "src/assets/Images/Services/contract.jpg";
 import generalImg from "src/assets/Images/Services/general.jpg";
-import ChangeOccupationImg from "src/assets/Images/Services/Career-Change-30-1-1024x512.png";
 import PrivilegesImg from "src/assets/Images/Services/privligages.jpg";
 import UserManagmentImg from "src/assets/Images/Services/user_managment.webp";
 import VisasImg from "src/assets/Images/Services/visas(1).jpg";

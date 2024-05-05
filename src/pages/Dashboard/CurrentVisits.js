@@ -4,6 +4,7 @@ import { themeContext } from "src/hooks/Context/ThemeContext";
 import DashCard from "./DashCard";
 import DashCardHeader from "./DashCardHeader";
 import { styled } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const DivStyle = styled("div")(({ theme }) => ({
   paddingTop: theme.spacing(1),
@@ -23,9 +24,14 @@ const SERIES_DATA = [4344, 5435, 1443, 4443];
 
 const CurrentVisits = () => {
   const { themeStyles } = useContext(themeContext);
-  console.log(themeStyles);
+  const { t } = useTranslation();
   const chartOptions = {
-    labels: ["Employee Transfeer", "Work Permits", "Visas", "User Managments"],
+    labels: [
+      t("dashboard.Employee Transfeer"),
+      t("dashboard.Work Permits"),
+      t("dashboard.Visas"),
+      t("dashboard.User Managments"),
+    ],
     stroke: { colors: [themeStyles.palette.background.paper] },
     colors: [
       themeStyles.palette.success.main,
@@ -47,10 +53,9 @@ const CurrentVisits = () => {
       },
     },
   };
-
   return (
     <DashCard>
-      <DashCardHeader title="Current Visits" />
+      <DashCardHeader title={t("dashboard.Current Visits")} />
 
       <DivStyle>
         <ReactApexChart

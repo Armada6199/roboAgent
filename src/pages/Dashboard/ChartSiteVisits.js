@@ -2,6 +2,7 @@ import Chart from "react-apexcharts";
 import DashCard from "./DashCard";
 import DashCardHeader from "./DashCardHeader";
 import DashCardBox from "./DashCardBox";
+import { useTranslation } from "react-i18next";
 
 // chart data series
 const SERIES = [
@@ -23,6 +24,7 @@ const SERIES = [
 ];
 
 const ChartSiteVisits = () => {
+  const { t } = useTranslation();
   const options = {
     chart: {
       id: "basic-bar",
@@ -87,7 +89,7 @@ const ChartSiteVisits = () => {
   return (
     <DashCard>
       <DashCardHeader
-        title="Website Visits"
+        title={t("dashboard.Website Visits")}
         subheader="(+43%) than last year"
       />
 

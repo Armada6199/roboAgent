@@ -7,6 +7,7 @@ import {
   AiFillWindows,
   AiFillBug,
 } from "react-icons/ai";
+import { useTranslation } from "react-i18next";
 
 // info card item list
 const items = [
@@ -39,6 +40,7 @@ const ContainerStyle = styled(Box)(({ theme }) => ({
 }));
 
 const InfoCards = () => {
+  const { t } = useTranslation();
   return (
     <ContainerStyle>
       {items.map((el) => (
@@ -47,7 +49,7 @@ const InfoCards = () => {
           colorId={el.id}
           icon={el.icon}
           amount={el.count}
-          title={el.title}
+          title={t(`dashboard.${el.title}`)}
         />
       ))}
     </ContainerStyle>

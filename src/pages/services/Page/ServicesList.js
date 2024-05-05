@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core";
 import { styled } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { LoginContext } from "src/hooks/Context/LoginInfoContext";
 import { Services } from "../Schema/ServicesSchema";
 import ServicesListItem from "./utils/ServicesListItem";

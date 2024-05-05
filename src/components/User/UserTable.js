@@ -12,6 +12,7 @@ import DNDServicesModal from "./dialogs/DNDServicesModal";
 import ServiceDialog from "./dialogs/ServiceDialog";
 import RolesPopper from "./poppers/RolesPopper";
 import "./usersTable.css";
+import { useTranslation } from "react-i18next";
 export function handleFilterAuthorities(authorities, activeUserAuth) {
   const newAuth = [];
   authorities.map((auth) => {
@@ -36,6 +37,7 @@ function UserTable() {
   const [isEditServiceDialogOpen, setIsEditServiceDialogOpen] = useState(false);
   const [statusAnchorEl, setStatusAnchorEl] = useState(null);
   const setAlertInfo = useUpdateAlert();
+  const { t } = useTranslation();
   const handleStatusClick = (event, rowData) => {
     setUserData(rowData);
 
@@ -74,7 +76,7 @@ function UserTable() {
   const columns = [
     {
       name: "FirstName",
-      label: "First Name",
+      label: "",
 
       options: {
         filter: true,
@@ -86,7 +88,7 @@ function UserTable() {
     },
     {
       name: "FirstName",
-      label: "First Name",
+      label: t("firstnameLabel"),
 
       options: {
         filter: true,
@@ -94,7 +96,7 @@ function UserTable() {
     },
     {
       name: "middleName",
-      label: "Midle Name",
+      label: t("middlenameLabel"),
 
       options: {
         filter: true,
@@ -102,7 +104,7 @@ function UserTable() {
     },
     {
       name: "last Name",
-      label: "Last Name",
+      label: t("lastnameLabel"),
 
       options: {
         filter: true,
@@ -110,7 +112,7 @@ function UserTable() {
     },
     {
       name: "status",
-      label: "Status",
+      label: t("statusLabel"),
 
       options: {
         filter: true,
@@ -118,7 +120,7 @@ function UserTable() {
     },
     {
       name: "role",
-      label: "Role",
+      label: t("roleLabel"),
 
       options: {
         filter: true,
@@ -145,7 +147,7 @@ function UserTable() {
     },
     {
       name: "email",
-      label: "Email",
+      label: t("emailLabel"),
 
       options: {
         filter: true,
@@ -153,7 +155,7 @@ function UserTable() {
     },
     {
       name: "service",
-      label: "Service",
+      label: t("serviceLabel"),
       options: {
         filter: true,
         customBodyRender: (value, tableMeta, updateValue) => {
@@ -180,7 +182,7 @@ function UserTable() {
     },
     {
       name: "services",
-      label: "Services",
+      label: t("servicesLabel"),
       options: {
         filter: false,
         customBodyRender: (value, tableMeta, updateValue) => {
@@ -201,7 +203,7 @@ function UserTable() {
     },
     {
       name: "team",
-      label: "Team",
+      label: t("teamLabel"),
       options: {
         filter: false,
         customBodyRender: (value, tableMeta, updateValue) => {

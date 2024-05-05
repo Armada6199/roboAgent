@@ -1,20 +1,41 @@
 {
   "lang": "ar",
   "header_section": {
-    "signin_btn": "تسجيل دخول"
+    "signin_btn": "تسجيل الدخول"
   },
-  "Forgot password?": "نسيت كلمة السر؟",
-  "Login": "تسجيل دخول",
+  "logo": "بوابة روبو أجنت",
+  "user": {
+    "welcome": "مرحبًا"
+  },
+  "links": {
+    "login": "تسجيل الدخول",
+    "dashboard": "لوحة القيادة",
+    "user": "المستخدم",
+    "manual": "دليل",
+    "services": "خدمات",
+    "register": "تسجيل"
+  },
+  "firstnameLabel": "الاسم الأول",
+  "middlenameLabel": "الاسم الأوسط",
+  "lastnameLabel": "الكنية",
+  "statusLabel": "الحالة",
+  "roleLabel": "الدور",
+  "emailLabel": "البريد الإلكتروني",
+  "serviceLabel": "الخدمة",
+  "servicesLabel": "الخدمات",
+  "teamLabel": "الفريق",
+  "Forgot password?": "نسيت كلمة المرور؟",
+  "Login": "تسجيل الدخول",
   "login_page": {
-    "header_title": "بوابة إدارة الشكاوى",
-    "not_registered_label": "لا يوجد ليدك حساب ؟",
-    "create_user_acc_label": "انشاء حساب لمستخدم",
-    "create_admin_acc_label": "انشاء حساب لمسؤول",
-    "login_btn": "تسجيل دخول"
+    "Complaints Management Portal": "بوابة إدارة الشكاوى",
+    "not_registered_label": "غير مسجل؟",
+    "create_user_acc_label": "إنشاء حساب عميل",
+    "create_admin_acc_label": "إنشاء حساب مشرف",
+    "login_btn": "تسجيل الدخول"
   },
   "signup_page": {
-    "user_reg_header_title": "استمارة تسجيل المستخدم",
-    "admin_reg_header_title": "استمارة تسجيل المسؤول",
-    "register_btn": "إنشاء حساب"
+    "user_reg_header_title": "نموذج تسجيل المستخدم",
+    "admin_reg_header_title": "نموذج تسجيل المسؤول",
+    "register_btn": "تسجيل"
   }
 }

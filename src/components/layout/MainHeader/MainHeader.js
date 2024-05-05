@@ -89,7 +89,7 @@ const MainHeader = (props) => {
           {/* Right side's items */}
           <ContainerStyle>
             {/* Language selector */}
-            {/* <LanguageSelector
+            <LanguageSelector
               anchorEl={showLang}
               onOpen={handleOpenLang}
               onClose={handleCloseLang}
